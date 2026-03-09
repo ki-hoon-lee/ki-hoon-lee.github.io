@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soccer Player Valuation — Ki-Hoon Lee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #252530;
+      --gold: #e8c547;
+      --tiffany: #81d8d0;
+      --text: #e8e8f0;
+      --muted: #7878a0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: rgba(10,10,15,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--tiffany); }
+
+    .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,197,71,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(232,197,71,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .project-hero-glow { position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(129,216,208,0.05) 0%, transparent 65%); pointer-events: none; }
+    .project-category { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .project-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--tiffany); }
+    .project-hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .meta-val { font-size: 0.9rem; color: var(--text); }
+
+    .project-content { max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .section-block { margin-bottom: 5rem; }
+    .block-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .block-label::before { content: '// '; color: var(--border); }
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.2; }
+    h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.8rem; color: var(--text); }
+    p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1rem; }
+    p span { color: var(--text); }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin: 3rem 0; }
+    .stat-box { background: var(--card); padding: 1.8rem; text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 2rem; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .method-box { background: var(--card); padding: 1.5rem; }
+    .method-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--tiffany); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .method-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .method-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    .iter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .iter-box { background: var(--card); padding: 1.8rem; }
+    .iter-name { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 0.8rem; }
+    .iter-stat { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--gold); margin-bottom: 0.2rem; }
+    .iter-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+    .iter-detail { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin: 0; }
+    .iter-detail span { color: var(--text); }
+
+    .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .spec-row { background: var(--card); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .spec-key { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
+    .spec-val { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--gold); }
+
+    .image-grid-1 { margin: 2rem 0; border: 1px solid var(--border); }
+    .image-full { width: 100%; display: block; }
+    .image-caption { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); padding: 0.6rem 0; text-align: center; }
+
+    .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .image-grid-2 > div { background: var(--card); }
+    .image-grid-2 img { width: 100%; display: block; }
+    .image-grid-2 .img-cap { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: var(--muted); padding: 0.5rem 0.8rem; text-align: center; }
+
+    .insight-bar { padding: 1.2rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--gold); margin: 1.5rem 0; }
+    .insight-bar p { margin: 0; color: var(--text); font-size: 0.92rem; }
+    .insight-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { padding: 0.3rem 0.8rem; background: rgba(129,216,208,0.06); border: 1px solid rgba(129,216,208,0.18); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(129,216,208,0.7); }
+
+    .partner-bar { display: flex; align-items: center; gap: 1.5rem; margin-top: 2.5rem; padding: 1.2rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--tiffany); }
+    .partner-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
+    .partner-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.04em; color: var(--text); }
+    .partner-name span { color: var(--tiffany); }
+    .partner-desc { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    .project-nav-footer { border-top: 1px solid var(--border); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .pnf-link { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .pnf-link:hover { color: var(--tiffany); }
+    .pnf-center { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 7rem 1.5rem 3rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .stats-row, .iter-grid, .method-grid, .specs-grid, .image-grid-2 { grid-template-columns: 1fr 1fr; }
+      .project-nav-footer { padding: 2rem 1.5rem; }
+      .project-meta { gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-row, .iter-grid, .method-grid, .specs-grid, .image-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Ki-Hoon Lee</a>
+    <a href="index.html#projects" class="nav-back">← Back to Projects</a>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-glow"></div>
+    <div class="project-category">Academic · Machine Learning · UC Berkeley · MECHENG 249</div>
+    <h1>Soccer Player<br>Market Valuation</h1>
+    <div class="project-meta">
+      <div class="meta-item">
+        <span class="meta-key">Course</span>
+        <span class="meta-val">MECHENG 249 — UC Berkeley</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Collaborator</span>
+        <span class="meta-val">Louis Butruille</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Dataset</span>
+        <span class="meta-val">EPL (~430 players) + FIFA24 (5,000+)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Final MAE</span>
+        <span class="meta-val">$784,237</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-content">
+
+    <!-- OVERVIEW -->
+    <div class="section-block">
+      <div class="block-label">Overview</div>
+      <h2>Pricing the Beautiful Game</h2>
+      <p>When Neymar transferred from Barcelona to PSG for a record <span>€222 million</span>, it underscored the stakes of player valuation. This project applies <span>neural networks and machine learning</span> to predict soccer players' market values from performance statistics and physical attributes — replicating, in a data-driven way, the process clubs use to price talent.</p>
+      <p>The project evolved through two distinct modelling programmes. The first targeted <span>English Premier League outfield players</span> using manually curated FIFA/Football Manager stats, iterating through feature selection, hyperparameter tuning, and regularisation. The second scaled to a <span>FIFA24 global dataset of over 5,000 players</span>, introducing Principal Component Analysis to manage 41-feature dimensionality before training a more robust network.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">5,000+</div>
+        <div class="stat-label">Players — Final Dataset</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">41→7</div>
+        <div class="stat-label">Features via PCA</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">&gt;90%</div>
+        <div class="stat-label">Variance Retained</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">0.04</div>
+        <div class="stat-label">Final Training Loss</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- PROGRAMME 1 -->
+    <div class="section-block">
+      <div class="block-label">Programme 1 — EPL Neural Network</div>
+      <h2>Building the First Model</h2>
+      <p>The initial dataset covered <span>~430 English Premier League outfield players</span> (goalkeepers excluded due to differing stat profiles). Qualitative attributes — pace, shooting, passing, dribbling, defending, physicality — were sourced from FIFA and Football Manager, which are considered reliable proxies by professional football data scientists. Categorical features (team, nationality, position, preferred foot) were ordinal-encoded into 4 club tiers and 6 nationality regions before training.</p>
+
+      <div class="method-grid">
+        <div class="method-box">
+          <div class="method-num">STEP 01</div>
+          <div class="method-title">Feature Importance Analysis</div>
+          <p class="method-desc">A Random Forest Regressor with One-Hot Encoding identified which features most influenced market value. Club tier (Team_0) and Shooting emerged as top predictors. Position and Preferred Foot showed negligible importance and were subsequently dropped.</p>
+        </div>
+        <div class="method-box">
+          <div class="method-num">STEP 02</div>
+          <div class="method-title">Network Architecture & Tuning</div>
+          <p class="method-desc">Initial 32→16→8→1 Dense network with ReLU failed to converge below a validation loss of 6.5. Switching to Leaky ReLU, reducing layer widths, and adjusting the learning rate brought the test MAE down to 10.1.</p>
+        </div>
+        <div class="method-box">
+          <div class="method-num">STEP 03</div>
+          <div class="method-title">Regularisation</div>
+          <p class="method-desc">Dropout layers (20% rate) combined with L1/L2 weight penalties were applied to combat overfitting. Combined regularisation reduced the test MAE further to 9.64, demonstrating improved generalisation across unseen players.</p>
+        </div>
+      </div>
+
+      <div class="insight-bar">
+        <div class="insight-label">Key Finding</div>
+        <p>Club tier was the single most predictive feature — players at top clubs command higher valuations both because they are better players and because club prestige directly inflates market price. English nationality was a strong secondary predictor, reflecting EPL homegrown quota rules.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- PROGRAMME 2 -->
+    <div class="section-block">
+      <div class="block-label">Programme 2 — FIFA24 Global Dataset + PCA</div>
+      <h2>Scaling Up with 5,000+ Players</h2>
+      <p>The EPL model's limited dataset size constrained generalisation. Programme 2 switched to the <span>FIFA24 Kaggle dataset</span> — over 5,000 players with 41 physical attribute columns — and discarded club and nationality features entirely. This shift prioritised <span>raw physical potential</span> over contextual prestige, making the model useful for scouting talent at lesser-known clubs.</p>
+      <p>With 41 correlated input features, direct training was computationally costly and prone to multicollinearity. <span>Principal Component Analysis (PCA)</span> reduced the feature space to just 7 principal components while preserving over 90% of dataset variance. These components served as the neural network inputs. Two separate StandardScalers were fitted — one for inputs, one for the output — so predicted values could be inverse-transformed back to real market prices.</p>
+
+      <div class="image-grid-2">
+        <div>
+          <img src="ml-corr.jpg" alt="Feature correlation matrix for FIFA24 dataset" class="image-full">
+          <div class="img-cap">Correlation matrix — 41 physical attributes reveal high inter-feature redundancy</div>
+        </div>
+        <div>
+          <img src="ml-pca.jpg" alt="PCA explained variance ratio chart" class="image-full">
+          <div class="img-cap">Explained variance ratio — 7 components capture &gt;90% of dataset variance</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- RESULTS -->
+    <div class="section-block">
+      <div class="block-label">Results</div>
+      <h2>Model Iterations & Final Performance</h2>
+      <p>Three model configurations were benchmarked across the two programmes. The base Programme 2 network (16→32→32→1, ReLU, 1000 epochs with early stopping, patience=150) achieved a training loss of 0.04. A systematic dataset error — player values below €1M missing a decimal zero — was identified and corrected mid-analysis, substantially improving scatter alignment across the full value range.</p>
+
+      <div class="iter-grid">
+        <div class="iter-box">
+          <div class="iter-name">Prog 1 — Tuned</div>
+          <div class="iter-stat">MAE 10.1</div>
+          <div class="iter-sub">Post hyperparameter tuning</div>
+          <p class="iter-detail">Architecture: <span>32→16→8→1</span>, Leaky ReLU. 80/20 train/test split, ~430 EPL players. Significant improvement over the baseline which failed to converge below val loss 6.5.</p>
+        </div>
+        <div class="iter-box">
+          <div class="iter-name">Prog 1 — Regularised</div>
+          <div class="iter-stat">MAE 9.64</div>
+          <div class="iter-sub">Dropout + L1/L2 penalties</div>
+          <p class="iter-detail">Dropout at <span>20% rate</span> per hidden layer plus L2 kernel regularisation. Training/validation loss gap narrowed across 200 epochs, confirming reduced overfitting.</p>
+        </div>
+        <div class="iter-box">
+          <div class="iter-name">Prog 2 — PCA Model</div>
+          <div class="iter-stat">$784K</div>
+          <div class="iter-sub">MAE on corrected FIFA24 dataset</div>
+          <p class="iter-detail">7 PCA components into <span>16→32→32→1</span> network. Training loss 0.04. Dropout variant tested (loss 0.102, MAE $1.27M) — performed worse, so base model was retained as final.</p>
+        </div>
+      </div>
+
+      <div class="image-grid-2">
+        <div>
+          <img src="ml-pred1.jpg" alt="Actual vs predicted — Programme 1 regularised" class="image-full">
+          <div class="img-cap">Programme 1 — Actual vs Predicted (log-log), post-regularisation</div>
+        </div>
+        <div>
+          <img src="ml-pred2.jpg" alt="Actual vs predicted — Programme 2 corrected dataset" class="image-full">
+          <div class="img-cap">Programme 2 — Actual vs Predicted (log-log), corrected FIFA24 dataset</div>
+        </div>
+      </div>
+
+      <div class="insight-bar">
+        <div class="insight-label">Dataset Error & Correction</div>
+        <p>A systematic encoding error was identified mid-analysis: player values below €1M were missing a decimal zero (e.g. €950,000 recorded as €95,000). After correction, predicted scatter aligned correctly across all 6 orders of magnitude, eliminating the anomalous gap between 10⁵ and 10⁶.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- KEY FINDINGS -->
+    <div class="section-block">
+      <div class="block-label">Key Findings</div>
+      <h2>What the Models Revealed</h2>
+
+      <div class="specs-grid">
+        <div class="spec-row">
+          <span class="spec-key">Top predictor (Programme 1)</span>
+          <span class="spec-val">Club tier (Team_0)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Second-strongest predictor</span>
+          <span class="spec-val">English nationality</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Features dropped (low importance)</span>
+          <span class="spec-val">Position + Preferred Foot</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Best EPL MAE</span>
+          <span class="spec-val">9.64 (€M)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Final MAE (FIFA24, corrected)</span>
+          <span class="spec-val">$784,237</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Dropout verdict (Prog 2)</span>
+          <span class="spec-val">Worse — MAE $1.27M vs $784K</span>
+        </div>
+      </div>
+
+      <p style="margin-top: 1.5rem;"><span>Programme 1:</span> Club prestige dominated all physical attributes as a value driver — being at a top club is both cause and consequence of high market value, making it the most predictive single feature. English nationality carried a structural premium independent of skill due to EPL homegrown quotas.</p>
+      <p><span>Programme 2:</span> When club and nationality are stripped away, physical attributes alone still predict market value with strong correlation across a 6-order-of-magnitude range. The $784K MAE is largely attributable to high-value outliers, where even small percentage errors translate to large absolute deviations.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- NOTEBOOKS -->
+    <div class="section-block">
+      <div class="block-label">Source Code</div>
+      <h2>Jupyter Notebooks</h2>
+      <p>The full model code including feature engineering, PCA pipeline, neural network architectures, regularisation experiments and prediction plots.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+        <a href="ml-code-p1.ipynb" download style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.2rem;background:rgba(232,197,71,0.08);border:1px solid rgba(232,197,71,0.3);font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;color:var(--gold);text-decoration:none;">↓ Programme 1 — EPL Neural Network (.ipynb)</a>
+        <a href="ml-code-p2.ipynb" download style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.2rem;background:rgba(232,197,71,0.08);border:1px solid rgba(232,197,71,0.3);font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;color:var(--gold);text-decoration:none;">↓ Programme 2 — FIFA24 + PCA (.ipynb)</a>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TOOLS -->
+    <div class="section-block">
+      <div class="block-label">Tools &amp; Methods</div>
+      <h2>Skills Applied</h2>
+      <div class="tags-row">
+        <span class="tag">Python</span>
+        <span class="tag">Keras / TensorFlow</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Seaborn</span>
+        <span class="tag">Neural Networks</span>
+        <span class="tag">Random Forest Regressor</span>
+        <span class="tag">Principal Component Analysis</span>
+        <span class="tag">Feature Importance Analysis</span>
+        <span class="tag">One-Hot Encoding</span>
+        <span class="tag">L1 / L2 Regularisation</span>
+        <span class="tag">Dropout Layers</span>
+        <span class="tag">Early Stopping</span>
+        <span class="tag">StandardScaler</span>
+        <span class="tag">Hyperparameter Tuning</span>
+        <span class="tag">RMSprop Optimiser</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="project-nav-footer">
+    <a href="project-uav.html" class="pnf-link">← Solar UAV</a>
+    <span class="pnf-center">Ki-Hoon Lee · 2024</span>
+    <a href="project-goale.html" class="pnf-link">GoalE →</a>
+  </div>
+
+</body>
+</html>

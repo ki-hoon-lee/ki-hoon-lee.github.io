@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Bath Heart — Ki-Hoon Lee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #252530;
+      --gold: #e8c547;
+      --tiffany: #81d8d0;
+      --text: #e8e8f0;
+      --muted: #7878a0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: rgba(10,10,15,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--tiffany); }
+
+    .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,197,71,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(232,197,71,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .project-hero-glow { position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(129,216,208,0.05) 0%, transparent 65%); pointer-events: none; }
+    .project-category { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .project-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--tiffany); }
+    .project-hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .meta-val { font-size: 0.9rem; color: var(--text); }
+
+    .project-content { max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .section-block { margin-bottom: 5rem; }
+    .block-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .block-label::before { content: '// '; color: var(--border); }
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.2; }
+    p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1rem; }
+    p span { color: var(--text); }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin: 3rem 0; }
+    .stat-box { background: var(--card); padding: 1.8rem; text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 2rem; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+    .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .image-grid-1 { margin: 2rem 0; border: 1px solid var(--border); }
+    .image-full { width: 100%; display: block; object-fit: cover; }
+    .image-caption { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); padding: 0.6rem 0; text-align: center; }
+
+    /* Requirements grid */
+    .req-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .req-box { background: var(--card); padding: 1.5rem; }
+    .req-category { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .req-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .req-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin: 0; }
+
+    /* Prototype timeline */
+    .proto-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .proto-stage { background: var(--card); padding: 1.5rem; }
+    .proto-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--tiffany); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .proto-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.4rem; color: var(--text); }
+    .proto-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { padding: 0.3rem 0.8rem; background: rgba(129,216,208,0.06); border: 1px solid rgba(129,216,208,0.18); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(129,216,208,0.7); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    .project-nav-footer { border-top: 1px solid var(--border); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .pnf-link { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .pnf-link:hover { color: var(--tiffany); }
+    .pnf-center { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 7rem 1.5rem 3rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .stats-row, .req-grid, .proto-timeline { grid-template-columns: repeat(2, 1fr); }
+      .image-grid-2 { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 2rem 1.5rem; }
+      .project-meta { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Ki-Hoon Lee</a>
+    <a class="nav-back" href="index.html#projects">← Back to Projects</a>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-glow"></div>
+    <div class="project-category">Academic · Biomedical Engineering · University of Bath</div>
+    <h1>Team Bath<br>Heart (TBH)</h1>
+    <div class="project-meta">
+      <div class="meta-item"><span class="meta-key">Years</span><span class="meta-val">2022 – 2024</span></div>
+      <div class="meta-item"><span class="meta-key">Institution</span><span class="meta-val">University of Bath</span></div>
+      <div class="meta-item"><span class="meta-key">Role</span><span class="meta-val">CAD Lead & Assembly Engineer</span></div>
+      <div class="meta-item"><span class="meta-key">Tools</span><span class="meta-val">SolidWorks · ISO 13485 · UK MDR</span></div>
+    </div>
+  </div>
+
+  <div class="project-content">
+
+    <div class="section-block">
+      <div class="block-label">Overview</div>
+      <h2>Engineering a Heart That Saves Lives</h2>
+      <p>Team Bath Heart is a long-running student engineering project with an extraordinary goal: to develop a <span>fully mechanical total artificial heart</span> suitable for implantation in real patients awaiting heart transplants. The device aims to serve as a bridge-to-transplant, keeping patients alive for up to two years while they await a donor heart.</p>
+      <p>I joined TBH as <span>CAD lead and assembly engineer</span>, taking primary responsibility for remodelling critical components, resolving tolerance errors, and refining the mechanical systems at the heart of the prototype — including the valve mechanisms, gear assembly, and pumping bag configuration.</p>
+
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">6L</div><div class="stat-label">Target flowrate at rest (L/min)</div></div>
+        <div class="stat-box"><div class="stat-num">&lt;1kg</div><div class="stat-label">Target mass of device</div></div>
+        <div class="stat-box"><div class="stat-num">35N</div><div class="stat-label">Max pumping force achieved</div></div>
+        <div class="stat-box"><div class="stat-num">2 yrs</div><div class="stat-label">Target bridge-to-transplant lifetime</div></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-block">
+      <div class="block-label">Key Requirements</div>
+      <h2>Designed to Clinical Standards</h2>
+      <p>The device must meet a rigorous set of <span>technical, clinical, manufacturing, and regulatory requirements</span> — including UK Medical Device Regulations (MDR) and ISO 13485 quality management standards. Every design decision is made with patient safety and biocompatibility at its core.</p>
+
+      <div class="req-grid">
+        <div class="req-box">
+          <div class="req-category">Technical</div>
+          <div class="req-value">&lt; 1 kg</div>
+          <p class="req-desc">Total mass of device for comfortable implantation within the human chest cavity.</p>
+        </div>
+        <div class="req-box">
+          <div class="req-category">Clinical</div>
+          <div class="req-value">6 L/min</div>
+          <p class="req-desc">Minimum cardiac output at rest. Complete seal required — no blood leakage at connection points.</p>
+        </div>
+        <div class="req-box">
+          <div class="req-category">Clinical</div>
+          <div class="req-value">&lt; 9 hrs</div>
+          <p class="req-desc">Maximum implant surgery time to minimise patient risk during transplant procedure.</p>
+        </div>
+        <div class="req-box">
+          <div class="req-category">Manufacturing</div>
+          <div class="req-value">Biocompatible</div>
+          <p class="req-desc">All materials must be safe for long-term implantation in the human body.</p>
+        </div>
+        <div class="req-box">
+          <div class="req-category">Maintenance</div>
+          <div class="req-value">2 Years</div>
+          <p class="req-desc">Minimum operational lifetime as a bridge-to-transplant, with performance monitoring via internal sensors post-surgery.</p>
+        </div>
+        <div class="req-box">
+          <div class="req-category">Conformance</div>
+          <div class="req-value">ISO 13485</div>
+          <p class="req-desc">UK MDR compliance and ISO 13485 quality management systems throughout design and manufacture.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-block">
+      <div class="block-label">My Contribution</div>
+      <h2>CAD Remodelling & Assembly Engineering</h2>
+      <p>My primary role centred on the <span>CAD remodelling of critical subsystems</span>, addressing a range of issues inherited from earlier design iterations — including unclear dimensions, geometric tolerance errors, and parts that required adaptation to accommodate design updates from other team members.</p>
+      <p>I led a systematic component-by-component review, ensuring each part was accurately dimensioned and correctly toleranced for assembly. Key areas of focus included:</p>
+      <p><span>Heart valve mechanisms</span> — refined geometry and seating surfaces to improve sealing performance and reduce backflow risk. <span>Gear assembly</span> — corrected meshing tolerances and bearing fits to ensure smooth, reliable power transmission from motor to pumping mechanism. <span>Bag configuration</span> — optimised the shape and mounting of the pumping bags to maximise stroke volume and match the 6 L/min flow target.</p>
+
+      <div class="image-grid-2">
+        <img src="tbh-1.png" alt="TBH key requirements and prototyping iterations" class="image-full">
+        <img src="tbh-2.png" alt="TBH exploded CAD assembly views" class="image-full">
+      </div>
+      <div class="image-caption">Left: Key requirements overview and prototyping iteration history · Right: Exploded CAD assembly views showing mechanical subsystems</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-block">
+      <div class="block-label">Prototyping Journey</div>
+      <h2>Four Stages of Development</h2>
+      <p>The project progressed through four major prototype iterations, each validating key aspects of the design and informing the next stage of development.</p>
+
+      <div class="proto-timeline">
+        <div class="proto-stage">
+          <div class="proto-num">STAGE 01</div>
+          <div class="proto-title">Bench-Top Proof of Concept</div>
+          <p class="proto-desc">Demonstrated that pumping is achievable through thread contraction — validating the fundamental actuation principle.</p>
+        </div>
+        <div class="proto-stage">
+          <div class="proto-num">STAGE 02</div>
+          <div class="proto-title">Initial Prototype</div>
+          <p class="proto-desc">Transition to a crankshaft-driven mechanism, proving more efficient and reliable power transmission to the pumping bags.</p>
+        </div>
+        <div class="proto-stage">
+          <div class="proto-num">STAGE 03</div>
+          <div class="proto-title">Proof of Concept Stage 2</div>
+          <p class="proto-desc">Pumping demonstrated at pressure with a maximum force of 35N — a key clinical milestone confirming the mechanism can generate sufficient cardiac output.</p>
+        </div>
+        <div class="proto-stage">
+          <div class="proto-num">STAGE 04</div>
+          <div class="proto-title">System Development Stage 2</div>
+          <p class="proto-desc">In development as a more representative system model with full enclosure and refined internal layout for implantation geometry.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-block">
+      <div class="block-label">Tools & Methods</div>
+      <h2>Skills Applied</h2>
+      <div class="tags-row">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">CAD Remodelling</span>
+        <span class="tag">GD&T</span>
+        <span class="tag">Tolerance Analysis</span>
+        <span class="tag">Biomedical Design</span>
+        <span class="tag">Mechanical Heart Valves</span>
+        <span class="tag">Gear Assembly</span>
+        <span class="tag">Prototyping</span>
+        <span class="tag">ISO 13485</span>
+        <span class="tag">UK MDR</span>
+        <span class="tag">Assembly Engineering</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="project-nav-footer">
+    <a href="project-fea.html" class="pnf-link">← FEA</a>
+    <span class="pnf-center">Ki-Hoon Lee · 2022–2024</span>
+    <a href="project-uav.html" class="pnf-link">Next: Solar UAV →</a>
+  </div>
+
+</body>
+</html>

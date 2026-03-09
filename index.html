@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ki-Hoon Lee — Mechanical Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #252530;
+      --gold: #e8c547;
+      --tiffany: #81d8d0;
+      --text: #e8e8f0;
+      --muted: #7878a0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,15,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--tiffany); }
+    .nav-cv {
+      padding: 0.45rem 1rem !important;
+      border: 1px solid var(--tiffany) !important;
+      color: var(--tiffany) !important;
+    }
+    .nav-cv:hover { background: var(--tiffany) !important; color: #0a0a0f !important; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,197,71,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,197,71,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-glow-gold {
+      position: absolute; bottom: -10%; left: -5%;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(232,197,71,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-glow-tiffany {
+      position: absolute; top: -10%; right: -5%;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(129,216,208,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-photo-wrap {
+      position: absolute;
+      top: 50%; right: 4rem;
+      transform: translateY(-50%);
+    }
+    .hero-photo-frame {
+      width: 270px; height: 270px;
+      position: relative;
+    }
+    .hero-photo-frame::before {
+      content: '';
+      position: absolute; inset: -2px;
+      background: linear-gradient(135deg, var(--gold), var(--tiffany));
+      border-radius: 4px; z-index: 0;
+    }
+    .hero-photo-frame img {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 3px;
+      display: block; filter: grayscale(10%);
+    }
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute; inset: 0; border-radius: 3px;
+      background: linear-gradient(to bottom, transparent 60%, rgba(10,10,15,0.35) 100%);
+      z-index: 2;
+    }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--tiffany);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-label::before {
+      content: ''; display: inline-block;
+      width: 2rem; height: 1px; background: var(--tiffany);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    h1 .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232,197,71,0.45);
+    }
+
+    .hero-sub {
+      font-size: 1rem; color: var(--muted);
+      max-width: 480px; margin-bottom: 2.5rem; line-height: 1.75;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--gold); color: #0a0a0f;
+      font-family: 'DM Mono', monospace; font-size: 0.78rem;
+      font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,197,71,0.25); }
+
+    .btn-tiffany {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--tiffany); color: var(--tiffany);
+      font-family: 'DM Mono', monospace; font-size: 0.78rem;
+      letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-tiffany:hover { background: var(--tiffany); color: #0a0a0f; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--border); color: var(--muted);
+      font-family: 'DM Mono', monospace; font-size: 0.78rem;
+      letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* SECTIONS */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.2em; color: var(--tiffany);
+      text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin-bottom: 3rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .about-text p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.2rem; }
+    .about-text p span { color: var(--text); }
+    .about-text em { color: var(--tiffany); font-style: normal; }
+
+    .detail-row { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .detail-row:first-child { border-top: 1px solid var(--border); }
+    .detail-key { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; min-width: 110px; padding-top: 0.1rem; }
+    .detail-val { font-size: 0.92rem; color: var(--text); }
+    .detail-val a { color: var(--tiffany); text-decoration: none; }
+    .detail-val a:hover { text-decoration: underline; }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg); }
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-date { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; padding-top: 0.2rem; line-height: 1.7; }
+    .exp-right h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.08rem; margin-bottom: 0.2rem; }
+    .exp-company { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--gold); letter-spacing: 0.08em; margin-bottom: 0.8rem; }
+    .exp-right p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
+    .exp-tag { display: inline-block; padding: 0.18rem 0.65rem; border: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.07em; color: var(--muted); margin-top: 0.8rem; margin-right: 0.4rem; }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); border-top: 1px solid var(--border); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
+    .project-card { background: var(--card); padding: 2.5rem; position: relative; overflow: hidden; transition: background 0.3s; }
+    .project-card:hover { background: #1c1c28; }
+    .project-card::before { content: attr(data-num); position: absolute; top: 1.2rem; right: 1.8rem; font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; }
+    .project-card:hover::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--tiffany)); }
+    .project-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--tiffany); margin-bottom: 0.9rem; }
+    .project-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.7rem; line-height: 1.3; }
+    .project-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.4rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .ptag { padding: 0.18rem 0.6rem; background: rgba(129,216,208,0.06); border: 1px solid rgba(129,216,208,0.18); font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; color: rgba(129,216,208,0.7); }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem 6rem; }
+    .skill-group h4 { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .skill-item { display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0; border-bottom: 1px solid rgba(37,37,48,0.6); }
+    .skill-name { font-size: 0.88rem; color: var(--text); }
+    .skill-bar { width: 100px; height: 2px; background: var(--border); position: relative; }
+    .skill-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--tiffany), var(--gold)); }
+
+    /* EDUCATION */
+    #education { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+    .edu-card { background: var(--card); padding: 2.5rem; }
+    .edu-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.8rem; }
+    .edu-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem; }
+    .edu-degree { font-size: 0.86rem; color: var(--tiffany); margin-bottom: 0.4rem; line-height: 1.5; }
+    .edu-gpa { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--gold); margin-bottom: 1rem; }
+    .edu-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); text-align: center; }
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+    .contact-inner p { color: var(--muted); margin-bottom: 2.5rem; font-size: 0.97rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .contact-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .contact-pill:hover { border-color: var(--tiffany); color: var(--tiffany); }
+
+    /* FOOTER */
+    footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* REVEAL */
+    .reveal { opacity: 1; transform: none; transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.hidden { opacity: 0; transform: translateY(20px); }
+    .reveal.hidden.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 0 1.5rem 4rem; }
+      .hero-photo-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#hero">Ki-Hoon Lee</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="Ki-Hoon_Lee_Resume.pdf" download class="nav-cv">↓ Resume</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow-gold"></div>
+    <div class="hero-glow-tiffany"></div>
+
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img src="profile.jpg" alt="Ki-Hoon Lee" />
+      </div>
+    </div>
+
+    <div class="hero-label">Mechanical Engineer · San Francisco Bay Area</div>
+    <h1>KI-HOON<br><span class="line2">LEE</span></h1>
+    <p class="hero-sub">MEng graduate from UC Berkeley specialising in electromechanical design, precision hardware, and embedded systems — from vacuum-compatible instruments to omnidirectional treadmills.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects ↓</a>
+      <a href="Ki-Hoon_Lee_Resume.pdf" download class="btn-tiffany">↓ Download Resume</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="reveal">
+      <div class="section-label">// 01 — About</div>
+      <h2>Engineer. Builder.<br>Global Citizen.</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a mechanical engineer with an MEng from <span>UC Berkeley</span> and a BEng from the <span>University of Bath</span>, currently working at <span>ZoNexus LLC</span> on ultra-high precision electromechanical systems in collaboration with <em>Lawrence Berkeley National Lab</em>.</p>
+        <p>My work spans the full product lifecycle — from first concept sketches to vacuum-compatible prototypes, tight-tolerance CNC components (&lt;0.0002"), and custom PCB-driven control systems. I thrive at the intersection of <span>mechanical design and embedded electronics</span>.</p>
+        <p>Raised across continents, shaped by military service on the Korean DMZ, and driven by a family legacy of humanitarian impact — I bring a global perspective and relentless work ethic to every engineering challenge I take on.</p>
+      </div>
+      <div class="about-details">
+        <div class="detail-row"><span class="detail-key">Location</span><span class="detail-val">San Francisco Bay Area, CA</span></div>
+        <div class="detail-row"><span class="detail-key">Current Role</span><span class="detail-val">Mechanical Design Engineer @ ZoNexus LLC</span></div>
+        <div class="detail-row"><span class="detail-key">Education</span><span class="detail-val">MEng UC Berkeley · BEng University of Bath</span></div>
+        <div class="detail-row"><span class="detail-key">Specialisms</span><span class="detail-val">Electromechanical Design · FEA · Precision Fabrication · Embedded Systems</span></div>
+        <div class="detail-row"><span class="detail-key">Languages</span><span class="detail-val">English · Korean (Fluent) · French (B2) · Chinese (HSK1)</span></div>
+        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="/cdn-cgi/l/email-protection#1d767475727273427178785d7f786f767871786433787968"><span class="__cf_email__" data-cfemail="7d161415121213221118183d1f180f161811180453181908">[email&#160;protected]</span></a></span></div>
+        <div class="detail-row"><span class="detail-key">Resume</span><span class="detail-val"><a href="Ki-Hoon_Lee_Resume.pdf" download>Download PDF ↓</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="reveal">
+      <div class="section-label">// 02 — Experience</div>
+      <h2>Where I've<br>Made an Impact</h2>
+    </div>
+    <div class="reveal">
+      <div class="exp-item">
+        <div class="exp-date">Jul 2025 – Present<br><br>Richmond, CA</div>
+        <div class="exp-right">
+          <h3>Mechanical Design Engineer</h3>
+          <div class="exp-company">ZONEXUS LLC</div>
+          <p>Owned full product lifecycle for precision mechanical subsystems from concept to production. Collaborated with Lawrence Berkeley National Lab to rapidly iterate hardware designs. Integrated electromechanical assemblies — sensor arrays, stepper motors, custom PCBs — into unified vacuum-compatible platforms. Achieved tolerances &lt;0.0002" using GD&T-compliant drawings. Established thermal management and electrical routing standards for vacuum, cryogenic, and high-thermal-load conditions.</p>
+          <span class="exp-tag">Electromechanical Systems</span><span class="exp-tag">GD&T</span><span class="exp-tag">PCB Integration</span><span class="exp-tag">DFM</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Sep 2024 – May 2025<br><br>Berkeley, CA</div>
+        <div class="exp-right">
+          <h3>Product Design Engineer — Capstone</h3>
+          <div class="exp-company">BLUE GOJI</div>
+          <p>Designed and prototyped a resistive omnidirectional treadmill for medical rehabilitation and VR. Reduced BOM by 50% through in-house CNC machining and 3D printing. Validated structural integrity and clinical safety via iterative FEA and human-subject testing to achieve target Factor of Safety margins.</p>
+          <span class="exp-tag">SolidWorks</span><span class="exp-tag">FEA</span><span class="exp-tag">CNC Machining</span><span class="exp-tag">3D Printing</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Aug – Nov 2020<br><br>Daejeon, Korea</div>
+        <div class="exp-right">
+          <h3>Reliability Engineering Intern</h3>
+          <div class="exp-company">KIMM — Korea Institute of Machinery & Materials</div>
+          <p>Executed stress-test protocols on a 6-axis robotic arm and cardan shaft hardware. Analysed 500+ hours of test data and produced design recommendations that improved component lifespan by 15%.</p>
+          <span class="exp-tag">Reliability Testing</span><span class="exp-tag">Fatigue Analysis</span><span class="exp-tag">Vibration Testing</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Jul – Sep 2023<br><br>Seoul, Korea</div>
+        <div class="exp-right">
+          <h3>GIS Software Intern</h3>
+          <div class="exp-company">KOREA SPATIAL INFORMATION & COMMUNICATIONS</div>
+          <p>Developed live-updating informational maps using QGIS for the company's public platforms, emphasising real-time accuracy and geospatial precision.</p>
+          <span class="exp-tag">QGIS</span><span class="exp-tag">Geospatial Analysis</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Jan 2021 – Jun 2022<br><br>DMZ, Korea</div>
+        <div class="exp-right">
+          <h3>Infantry Squad Leader — Sergeant</h3>
+          <div class="exp-company">REPUBLIC OF KOREA ARMY</div>
+          <p>Led and trained a squad of 8 in a high-stakes environment less than 2 km from the nearest North Korean outpost. Managed day/night patrols and combat readiness, overcoming significant language barriers to forge strong unit cohesion.</p>
+          <span class="exp-tag">Leadership</span><span class="exp-tag">Operations</span><span class="exp-tag">Team Management</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Jul – Sep 2019<br><br>Seoul, Korea</div>
+        <div class="exp-right">
+          <h3>Materials Research Intern</h3>
+          <div class="exp-company">KOREA UNIVERSITY</div>
+          <p>Used TEM to examine polymer microstructures and optimised nanoparticle dopants, achieving ~2% increase in infrared emittance for a passive cooling paint. Developed data analysis pipelines for hydrogen energy storage research.</p>
+          <span class="exp-tag">TEM Analysis</span><span class="exp-tag">Materials Science</span><span class="exp-tag">Python</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="reveal">
+      <div class="section-label">// 03 — Projects</div>
+      <h2>Selected Work</h2>
+    </div>
+    <div class="projects-grid reveal">
+      <a href="project-jar-opener.html" class="project-card" data-num="01" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">01 / ACADEMIC · UNIVERSITY OF BATH</div>
+        <h3>Jar Opening Device</h3>
+        <p>A mechanical jar opener designed to minimise torque input for individuals with arthritis. Full design lifecycle from research and Pugh's Matrix concept selection through CAD, materials assessment and eco audit.</p>
+        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Pugh's Matrix</span><span class="ptag">DFM</span><span class="ptag">Eco Audit</span><span class="ptag">Product Design</span></div>
+      </a>
+
+      <a href="project-machine-design.html" class="project-card" data-num="02" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">02 / ACADEMIC · UNIVERSITY OF BATH</div>
+        <h3>Carbon Fibre Eco-Brick Machine</h3>
+        <p>Led supply chain design for recycling shredded carbon fibre into eco-bricks. Full design lifecycle including concept generation, Pugh's Matrix, FMECA reliability analysis and gravity-driven production line.</p>
+        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FMECA</span><span class="ptag">UML</span><span class="ptag">Supply Chain</span><span class="ptag">Reliability Eng.</span></div>
+      </a>
+
+      <a href="project-fea.html" class="project-card" data-num="03" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">03 / ACADEMIC · UNIVERSITY OF BATH</div>
+        <h3>Finite Element Analysis</h3>
+        <p>Structural stress analysis of a door coat hanger using Autodesk Nastran. Shell Von Mises stress contour mapping identified peak stress concentrations of 245.1 MPa and max deformation of 3.71 mm.</p>
+        <div class="project-tags"><span class="ptag">Autodesk Nastran</span><span class="ptag">Von Mises</span><span class="ptag">Shell Elements</span><span class="ptag">Structural Analysis</span></div>
+      </a>
+
+      <a href="project-tbh.html" class="project-card" data-num="04" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">04 / ACADEMIC · UNIVERSITY OF BATH</div>
+        <h3>Team Bath Heart (TBH)</h3>
+        <p>CAD lead on a mechanical heart prototype aimed at real patient implantation. Remodelled critical components, resolved tolerance errors, refined valve mechanisms and gear assemblies. Achieved 35N pumping force across 4 prototype iterations.</p>
+        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Biomedical</span><span class="ptag">ISO 13485</span><span class="ptag">GD&T</span><span class="ptag">Prototyping</span></div>
+      </a>
+
+      <a href="project-uav.html" class="project-card" data-num="05" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">05 / SIMULATION · UNIVERSITY OF BATH · FYP</div>
+        <h3>Solar UAV Flight Strategy Optimisation</h3>
+        <p>Final year BEng project with Limosaero. Built a 2-DOF Python flight simulator using real BBC Weather cloud imagery to determine optimal speed and trajectory strategies across summer solstice, equinox and winter solstice — achieving +313km range gain.</p>
+        <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Pygame</span><span class="ptag">NumPy</span><span class="ptag">OpenCV</span><span class="ptag">Trajectory Optimisation</span></div>
+      </a>
+
+      <a href="project-ml.html" class="project-card" data-num="06" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">06 / MACHINE LEARNING · UC BERKELEY · MECHENG 249</div>
+        <h3>Soccer Player Market Valuation via Neural Networks</h3>
+        <p>Two-programme ML study predicting player market values using neural networks. Programme 1 trained on ~430 EPL players with feature importance analysis and regularisation (MAE €9.64M). Programme 2 scaled to 5,000+ FIFA24 players with PCA dimensionality reduction — achieving a final MAE of $784,237.</p>
+        <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Keras / TensorFlow</span><span class="ptag">PCA</span><span class="ptag">Neural Networks</span><span class="ptag">scikit-learn</span></div>
+      </a>
+
+      <a href="project-goale.html" class="project-card" data-num="07" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">07 / EMBEDDED SYSTEMS · UC BERKELEY · ME235</div>
+        <h3>GoalE: Autonomous Ball Tracking System</h3>
+        <p>Real-time robotic goalkeeper using 4 ultrasonic sensors, least-squares triangulation and a servo actuator on an ESP32. Four parallel FreeRTOS tasks handle sensing, trajectory prediction, goal detection and UART streaming to a live LabVIEW GUI.</p>
+        <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">C / FreeRTOS</span><span class="ptag">LabVIEW</span><span class="ptag">Embedded Systems</span><span class="ptag">Sensor Fusion</span></div>
+      </a>
+
+      <a href="project-gecko.html" class="project-card" data-num="08" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">08 / NANOTECHNOLOGY · UC BERKELEY · ME218N</div>
+        <h3>Gecko-Inspired Dry Adhesion via Magnetic CNT Alignment</h3>
+        <p>Proposed a low-cost alternative to CVD by magnetically aligning Fe₃O₄-embedded MWCNTs in a flexible substrate. Simulated alignment dynamics and modelled adhesion via JKR theory — achieving 471,000 N/m² theoretical pull-off force and 2.3× improvement over random CNTs.</p>
+        <div class="project-tags"><span class="ptag">Nanotechnology</span><span class="ptag">Carbon Nanotubes</span><span class="ptag">JKR Theory</span><span class="ptag">Bio-Inspired Design</span><span class="ptag">Python Simulation</span></div>
+      </a>
+
+      <a href="project-photovoltaic.html" class="project-card" data-num="09" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">09 / RENEWABLE ENERGY · UC BERKELEY · ME GRADUATE</div>
+        <h3>Solar PV Farm Optimisation: TEGs, Cooling &amp; Wind Comparison</h3>
+        <p>Two-part Python simulation study comparing TEG heat harvesting vs active cooling for PV panels, and optimising GCR for land-constrained solar farms. Head-to-head solar vs wind comparison across Bath, Seoul and Berkeley using real TMY weather data — with a surprising result: one large wind turbine in Bath outperformed everything.</p>
+        <div class="project-tags"><span class="ptag">Python</span><span class="ptag">pvlib</span><span class="ptag">TEG Modelling</span><span class="ptag">Renewable Energy</span><span class="ptag">Jupyter Notebook</span></div>
+      </a>
+
+      <a href="project-treadmill.html" class="project-card" data-num="10" style="text-decoration:none;color:inherit;display:block;">
+        <div class="project-num">10 / CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
+        <h3>Omnidirectional Resistive Treadmill</h3>
+        <p>Designed a passive omnidirectional treadmill for rehabilitation, VR gaming, and military training in partnership with Blue Goji®. Hybrid electromagnetic + friction braking system reduced BOM by 50%. Octagonal platform with 8 angled plates at 15° passively returns users to centre. Validated via FEA and physical prototype demonstrated at UC Berkeley Demo Day.</p>
+        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FEA</span><span class="ptag">CNC Machining</span><span class="ptag">3D Printing</span><span class="ptag">Blue Goji®</span></div>
+      </a>
+
+      <div class="project-card" data-num="02">
+        <div class="project-num">02 / PRECISION HARDWARE · ZONEXUS</div>
+        <h3>Peltier Cryo-Cooler with PID Controller</h3>
+        <p>Active thermal regulation system reaching below −60 °C, integrating a multi-layer Peltier stack with water-cooled heat exchangers for vacuum operation. Dedicated PID controller maintains high-resolution thermal stability under varying loads.</p>
+        <div class="project-tags"><span class="ptag">Thermal Eng.</span><span class="ptag">PID Control</span><span class="ptag">Vacuum Systems</span><span class="ptag">Custom PCB</span></div>
+      </div>
+      <div class="project-card" data-num="03">
+        <div class="project-num">03 / PRECISION HARDWARE · ZONEXUS</div>
+        <h3>Air-Free Transfer Motorised Sample Holder</h3>
+        <p>Motorised holder with hermetically sealed tip chamber for transfer between ambient, argon glove box, and UHV environments. Custom stepper motor controller and PCB achieved sub-60-ångström positioning, verified by TEM imaging.</p>
+        <div class="project-tags"><span class="ptag">UHV Engineering</span><span class="ptag">Stepper Control</span><span class="ptag">KiCAD PCB</span><span class="ptag">TEM Verified</span></div>
+      </div>
+      <div class="project-card" data-num="04">
+        <div class="project-num">04 / EMBEDDED SYSTEMS · UC BERKELEY ME235</div>
+        <h3>GoalE: Autonomous Ball Tracking System</h3>
+        <p>Real-time multitasking embedded system using ESP32 with ultrasonic sensors and servo actuators for autonomous ball tracking and interception. Live LabVIEW GUI for real-time monitoring and manual override.</p>
+        <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">LabVIEW</span><span class="ptag">C++</span><span class="ptag">Servo Systems</span></div>
+      </div>
+      <div class="project-card" data-num="05">
+        <div class="project-num">05 / SIMULATION · UNIVERSITY OF BATH</div>
+        <h3>Solar UAV Flight Strategy Optimisation</h3>
+        <p>Built a 2-DOF flight simulator in MATLAB to optimise speed and trajectory for a solar-powered UAV across seasons. Achieved a 313 km range increase during summer solstice via cloud-coverage algorithms built from BBC Weather image data.</p>
+        <div class="project-tags"><span class="ptag">MATLAB</span><span class="ptag">Python</span><span class="ptag">Flight Simulation</span><span class="ptag">Aerodynamics</span></div>
+      </div>
+      <div class="project-card" data-num="06">
+        <div class="project-num">06 / BIOMEDICAL · UNIVERSITY OF BATH</div>
+        <h3>Team Bath Heart (TBH) — Mechanical Heart</h3>
+        <p>Contributed to a mechanical heart prototype aimed at real patient implementation. Led CAD remodelling, resolved tolerance errors, refined heart valve mechanisms and gear assemblies. Prototype demonstrated pumping at 35N max force across multiple development iterations.</p>
+        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Biomedical Design</span><span class="ptag">Prototyping</span><span class="ptag">ISO 13485</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="reveal">
+      <div class="section-label">// 04 — Skills</div>
+      <h2>Toolbox</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <h4>Mechanical & Design</h4>
+        <div class="skill-item"><span class="skill-name">SolidWorks</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Autodesk Fusion / AutoCAD</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">GD&T / DFM / DFA / DOE</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">CNC Machining</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">3D Printing & Prototyping</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h4>Simulation & Analysis</h4>
+        <div class="skill-item"><span class="skill-name">FEA (Nastran / ANSYS)</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Thermal Analysis</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">MATLAB / Simulink</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">LabVIEW</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">PID Control</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h4>Electrical & Hardware</h4>
+        <div class="skill-item"><span class="skill-name">PCB Design (KiCAD / EasyEDA)</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Embedded Systems (ESP32 / Arduino)</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Sensors & Actuators</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Vacuum / Cryogenic Systems</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Soldering & HW Assembly</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h4>Software & Data</h4>
+        <div class="skill-item"><span class="skill-name">Python (TensorFlow / PyTorch / Pandas)</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">C++ (Arduino / ESP32)</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Machine Learning</span><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">QGIS / Geospatial</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Microsoft Azure</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="reveal">
+      <div class="section-label">// 05 — Education</div>
+      <h2>Academic Background</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-year">Aug 2024 – May 2025 · Berkeley, CA</div>
+        <h3>University of California, Berkeley</h3>
+        <div class="edu-degree">Master of Engineering — Mechanical Engineering<br>Advanced Energy Technology Track</div>
+        <div class="edu-gpa">GPA: 3.8 / 4.0</div>
+        <p>Courses: Data Science, Energy Conversion, Machine Learning, Microprocessor-Based Mechanical Systems, Nanotechnology</p>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">Sep 2019 – Jun 2024 · Bath, UK</div>
+        <h3>University of Bath</h3>
+        <div class="edu-degree">Bachelor of Engineering — Mechanical Engineering</div>
+        <div class="edu-gpa">GPA: 4.0 / 4.0</div>
+        <p>Notable projects: Team Bath Heart (TBH), Solar UAV Optimisation, Carbon Fibre Eco-Brick Machine Design, Jar Opening Device</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner reveal">
+      <div class="section-label">// 06 — Contact</div>
+      <h2>Let's Build<br>Something Great</h2>
+      <p>Open to collaborations, full-time roles, and interesting engineering challenges. Feel free to reach out.</p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#83e8eaebececeddcefe6e6c3e1e6f1e8e6efe6faade6e7f6" class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span class="__cf_email__" data-cfemail="7a11131215151425161f1f3a181f08111f161f03541f1e0f">[email&#160;protected]</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ki-hoon-lee/" target="_blank" class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/ki-hoon-lee
+        </a>
+        <a href="https://github.com/ki-hoon-lee" target="_blank" class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github.com/ki-hoon-lee
+        </a>
+        <a href="Ki-Hoon_Lee_Resume.pdf" download class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Resume
+        </a>
+      </div>
+      <a href="/cdn-cgi/l/email-protection#a7cccecfc8c8c9f8cbc2c2e7c5c2d5ccc2cbc2de89c2c3d2" class="btn-primary">Send a Message →</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Ki-Hoon Lee — Mechanical Engineer</p>
+    <p>Built for GitHub Pages · San Francisco, CA</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => el.classList.add('hidden'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) setTimeout(() => {
+          entry.target.classList.add('visible');
+          entry.target.classList.remove('hidden');
+        }, i * 80);
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    const sec

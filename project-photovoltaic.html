@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar PV Farm Optimisation — Ki-Hoon Lee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #252530;
+      --gold: #e8c547;
+      --tiffany: #81d8d0;
+      --text: #e8e8f0;
+      --muted: #7878a0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: rgba(10,10,15,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--tiffany); }
+
+    .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,197,71,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(232,197,71,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .project-hero-glow { position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(232,197,71,0.06) 0%, transparent 65%); pointer-events: none; }
+    .project-category { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .project-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--tiffany); }
+    .project-hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.2rem, 5.5vw, 4.2rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .meta-val { font-size: 0.9rem; color: var(--text); }
+
+    .project-content { max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .section-block { margin-bottom: 5rem; }
+    .block-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .block-label::before { content: '// '; color: var(--border); }
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.2; }
+    h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.8rem; color: var(--text); margin-top: 1.5rem; }
+    p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1rem; }
+    p span { color: var(--text); }
+
+    /* Part badges */
+    .part-badge { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.4rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid; margin-bottom: 1.5rem; }
+    .part-badge.p1 { color: var(--gold); border-color: rgba(232,197,71,0.3); background: rgba(232,197,71,0.05); }
+    .part-badge.p2 { color: var(--tiffany); border-color: rgba(129,216,208,0.3); background: rgba(129,216,208,0.05); }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin: 2.5rem 0; }
+    .stat-box { background: var(--card); padding: 1.6rem; text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+    /* City comparison grid */
+    .city-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .city-box { background: var(--card); padding: 1.6rem; }
+    .city-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .city-sub { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .city-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
+    .city-stat:last-child { border-bottom: none; }
+    .city-stat-key { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); }
+    .city-stat-val { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--text); font-weight: 500; }
+
+    /* Equation block */
+    .eq-block { background: #0d0d14; border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 1.4rem 1.8rem; margin: 1.2rem 0; }
+    .eq-title { font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.7rem; }
+    .eq-formula { font-family: 'DM Mono', monospace; font-size: 0.92rem; color: var(--text); margin-bottom: 0.6rem; line-height: 2; }
+    .eq-vars { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); line-height: 2; }
+    .eq-vars span { color: var(--tiffany); }
+
+    /* Results table */
+    .result-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+    .result-table th { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.8rem 1rem; background: var(--card); border-bottom: 1px solid var(--border); text-align: left; }
+    .result-table td { padding: 0.8rem 1rem; border-bottom: 1px solid rgba(37,37,48,0.5); color: var(--muted); }
+    .result-table td.val { color: var(--text); font-family: 'DM Mono', monospace; }
+    .result-table td.highlight { color: var(--gold); font-family: 'DM Mono', monospace; font-weight: 500; }
+    .result-table tr:hover td { background: rgba(129,216,208,0.03); }
+
+    /* Insights box */
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .insight-box { background: var(--card); padding: 1.6rem; }
+    .insight-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--tiffany); }
+    .insight-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.75; margin: 0; }
+
+    /* Divider */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .part-divider { border: none; border-top: 2px solid var(--border); margin: 4rem 0; position: relative; }
+    .part-divider::after { content: attr(data-label); position: absolute; top: -0.7rem; left: 50%; transform: translateX(-50%); background: var(--bg); padding: 0 1rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--border); text-transform: uppercase; }
+
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { padding: 0.3rem 0.8rem; background: rgba(129,216,208,0.06); border: 1px solid rgba(129,216,208,0.18); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(129,216,208,0.7); }
+
+    .project-nav-footer { border-top: 1px solid var(--border); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .pnf-link { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .pnf-link:hover { color: var(--tiffany); }
+    .pnf-center { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 7rem 1.5rem 3rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .stats-row, .city-grid { grid-template-columns: repeat(2, 1fr); }
+      .insight-grid { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 2rem 1.5rem; }
+      .project-meta { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Ki-Hoon Lee</a>
+    <a class="nav-back" href="index.html#projects">← Back to Projects</a>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-glow"></div>
+    <div class="project-category">Academic · Renewable Energy · UC Berkeley · ME Graduate</div>
+    <h1>Solar PV Farm Optimisation:<br>TEGs, Cooling &amp; Wind Comparison</h1>
+    <div class="project-meta">
+      <div class="meta-item"><span class="meta-key">Year</span><span class="meta-val">2025</span></div>
+      <div class="meta-item"><span class="meta-key">Institution</span><span class="meta-val">UC Berkeley</span></div>
+      <div class="meta-item"><span class="meta-key">Cities</span><span class="meta-val">Bath · Seoul · Berkeley</span></div>
+      <div class="meta-item"><span class="meta-key">Tools</span><span class="meta-val">Python · pvlib · TMY Weather Data</span></div>
+    </div>
+  </div>
+
+  <div class="project-content">
+
+    <!-- OVERVIEW -->
+    <div class="section-block">
+      <div class="block-label">Overview</div>
+      <h2>Two Projects, One Question: How Do You Best Optimise a Solar Farm?</h2>
+      <p>This pair of Jupyter notebook projects — both drawing on real <span>Typical Meteorological Year (TMY)</span> weather data — investigates solar PV optimisation from two different angles. The three cities chosen — <span>Bath (UK)</span>, <span>Seoul (South Korea)</span>, and <span>Berkeley (USA)</span> — are the three cities Ki-Hoon has lived in, making the analysis personally grounded as well as technically rigorous.</p>
+      <p><span>Project 1</span> asks: how should excess heat in PV panels be managed — harvest it with thermoelectric generators (TEGs), or remove it with active cooling? <span>Project 2</span> asks: given a fixed land area or a fixed budget, how do you maximise energy output — and how does solar compare to wind?</p>
+
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">14,217</div><div class="stat-label">MWh/yr — Berkeley peak annual output</div></div>
+        <div class="stat-box"><div class="stat-num">2.3×</div><div class="stat-label">TEG vs random baseline improvement</div></div>
+        <div class="stat-box"><div class="stat-num">12,100</div><div class="stat-label">Modules on 200×200m at GCR 0.5</div></div>
+        <div class="stat-box"><div class="stat-num">$1M</div><div class="stat-label">Fixed budget constraint for comparison</div></div>
+      </div>
+    </div>
+
+    <hr class="part-divider" data-label="Project 1">
+
+    <!-- PROJECT 1 -->
+    <div class="section-block">
+      <div class="part-badge p1">Project 1 of 2</div>
+      <div class="block-label">TEGs vs Active Cooling</div>
+      <h2>Balancing Heat: Thermoelectric Generators vs Active Cooling for Solar PV</h2>
+      <p>PV panels lose efficiency as they heat up. This project simulates two strategies for handling that excess heat across three cities and three seasonal days — <span>Winter Solstice (Dec 21)</span>, <span>Equinox (Mar 20)</span>, and <span>Summer Solstice (Jun 21)</span> — and determines which delivers greater net energy benefit.</p>
+
+      <h3>Annual PV Production Baseline</h3>
+      <div class="city-grid">
+        <div class="city-box">
+          <div class="city-name">Bath, UK</div>
+          <div class="city-sub">51.38°N · High latitude · Overcast</div>
+          <div class="city-stat"><span class="city-stat-key">Annual output</span><span class="city-stat-val">8,119 MWh</span></div>
+          <div class="city-stat"><span class="city-stat-key">Solar profile</span><span class="city-stat-val">Low, irregular GHI</span></div>
+          <div class="city-stat"><span class="city-stat-key">Cooling need</span><span class="city-stat-val">Minimal</span></div>
+          <div class="city-stat"><span class="city-stat-key">Best strategy</span><span class="city-stat-val">TEGs</span></div>
+        </div>
+        <div class="city-box">
+          <div class="city-name">Seoul, South Korea</div>
+          <div class="city-sub">37.56°N · Seasonal · Moderate</div>
+          <div class="city-stat"><span class="city-stat-key">Annual output</span><span class="city-stat-val">11,309 MWh</span></div>
+          <div class="city-stat"><span class="city-stat-key">Solar profile</span><span class="city-stat-val">Strong seasonal swing</span></div>
+          <div class="city-stat"><span class="city-stat-key">Cooling need</span><span class="city-stat-val">Summer significant</span></div>
+          <div class="city-stat"><span class="city-stat-key">Best strategy</span><span class="city-stat-val">TEGs (realistic)</span></div>
+        </div>
+        <div class="city-box">
+          <div class="city-name">Berkeley, USA</div>
+          <div class="city-sub">37.87°N · Clear skies · High irradiance</div>
+          <div class="city-stat"><span class="city-stat-key">Annual output</span><span class="city-stat-val">14,217 MWh</span></div>
+          <div class="city-stat"><span class="city-stat-key">Solar profile</span><span class="city-stat-val">Broad, high GHI summer</span></div>
+          <div class="city-stat"><span class="city-stat-key">Cooling need</span><span class="city-stat-val">Summer high</span></div>
+          <div class="city-stat"><span class="city-stat-key">Best strategy</span><span class="city-stat-val">TEGs (realistic)</span></div>
+        </div>
+      </div>
+
+      <h3>TEG Simulation Model</h3>
+      <p>TEGs mounted on PV panel rear surfaces harvest thermal energy via the Seebeck effect. Their efficiency and power output were modelled using magnetic torque dynamics and thermodynamic equations:</p>
+
+      <div class="eq-block">
+        <div class="eq-title">TEG Efficiency (Carnot + Figure of Merit)</div>
+        <div class="eq-formula">η = ((T_H − T_C) / T_H) × (√(1 + ZT̄) − 1) / (√(1 + ZT̄) + T_C/T_H)</div>
+        <div class="eq-vars">
+          <span>T_H</span> — PV cell temperature (K) &nbsp;|&nbsp; <span>T_C</span> — ambient air temperature (K)<br>
+          <span>Z</span> = 0.0035 — figure of merit (Bi₂Te₃-based commercial materials)<br>
+          <span>h</span> = 10 W/m²·K — heat transfer coefficient<br>
+          <span>P_total</span> = η × A_panel × h × ΔT × N_strings × N_modules
+        </div>
+      </div>
+
+      <h3>Active Cooling Model</h3>
+      <p>The cooling system maintains panels at <span>25°C (STC)</span> — the standard test condition for optimal PV efficiency. Energy cost is modelled using a heat transfer coefficient and a Coefficient of Performance (COP):</p>
+
+      <div class="eq-block">
+        <div class="eq-title">Cooling Energy Cost</div>
+        <div class="eq-formula">P_cool = (h_cool × A_panel × (T_cell − 25°C)) / COP</div>
+        <div class="eq-vars">
+          <span>h_cool</span> = 15 W/m²·K (realistic) or 5 W/m²·K (best-case)<br>
+          <span>COP</span> = 3.0 (realistic) or 6–12 (theoretical best-case scenarios)
+        </div>
+      </div>
+
+      <h3>Key Findings</h3>
+      <div class="insight-grid">
+        <div class="insight-box">
+          <div class="insight-title">TEGs win under realistic conditions</div>
+          <p class="insight-desc">Under realistic parameters, TEGs outperform active cooling in every city and every season. The energy consumed by cooling systems consistently exceeds the PV efficiency gains — net cooling gain is negative across all cases.</p>
+        </div>
+        <div class="insight-box">
+          <div class="insight-title">Seoul delivers best TEG performance</div>
+          <p class="insight-desc">Seoul achieves the highest TEG output thanks to strong temperature gradients combined with solid irradiance. On equinox and summer days, TEGs deliver up to 3–4% of total PV system output.</p>
+        </div>
+        <div class="insight-box">
+          <div class="insight-title">Cooling only viable at theoretical limits</div>
+          <p class="insight-desc">At h=1 W/m²·K and COP=12 — well beyond current technology — cooling becomes competitive during summer solstice in Berkeley and Seoul. Real-world systems would still favour TEGs.</p>
+        </div>
+        <div class="insight-box">
+          <div class="insight-title">Bath: TEGs offer passive resilience</div>
+          <p class="insight-desc">Bath's cool, cloudy climate means minimal cooling benefit. TEGs offer a low-maintenance, passive strategy to recover a small but consistent fraction of waste heat — the only viable thermal management approach for low-irradiance climates.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="part-divider" data-label="Project 2">
+
+    <!-- PROJECT 2 -->
+    <div class="section-block">
+      <div class="part-badge p2">Project 2 of 2</div>
+      <div class="block-label">Land, Budget &amp; Wind Comparison</div>
+      <h2>Power per Dollar: Is Solar Better Than Wind?</h2>
+      <p>Given the same <span>200 × 200 m</span> land area and <span>$1,000,000 budget</span>, which renewable strategy yields the best return — a dense solar farm, or a wind turbine installation? This project optimises GCR for land-constrained solar, then compares solar vs wind head-to-head on energy output, revenue, and break-even time.</p>
+
+      <h3>Section 1 — Land-Constrained: GCR Optimisation</h3>
+      <p>Ground Coverage Ratio (GCR) defines how densely panels are spaced. Higher GCR fits more panels but increases inter-row shading. Lower GCR reduces shading but wastes land. The relationship is:</p>
+
+      <div class="eq-block">
+        <div class="eq-title">GCR Layout</div>
+        <div class="eq-formula">Row Pitch = Module Width / GCR &nbsp;→&nbsp; Rows = ⌊200 / Row Pitch⌋</div>
+        <div class="eq-vars">
+          At GCR = 0.5: Row Pitch = 1.984 m → 100 rows × 121 modules = <span>12,100 modules</span><br>
+          Module cost: $80/unit → 12,500 affordable (land constraint dominates at GCR 0.5)
+        </div>
+      </div>
+
+      <p>Simulations across GCR 0.3–1.0 showed that total energy output initially rises with GCR (more panels) but plateaus due to shading losses and diminishing returns. <span>Berkeley showed the highest energy return per dollar</span> at all GCR levels.</p>
+
+      <h3>Section 2 — Budget-Constrained: Solar vs Wind</h3>
+      <p>With a fixed $1M budget at GCR 0.5, annual energy output and revenue were simulated for both PV and wind installations. Electricity prices used: <span>Bath $0.35/kWh</span>, <span>Berkeley $0.26/kWh</span>, <span>Seoul $0.13/kWh</span>.</p>
+
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Technology</th>
+            <th>Key Result</th>
+            <th>Break-even</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="val">Berkeley</td><td>Solar (PV)</td><td class="highlight">Highest annual output</td><td class="val">Within year 1</td></tr>
+          <tr><td class="val">Bath</td><td>Solar (PV)</td><td class="val">High price offsets low yield</td><td class="val">Within year 1</td></tr>
+          <tr><td class="val">Seoul</td><td>Solar (PV)</td><td class="val">Strong sun, low price</td><td class="val">Year 2+</td></tr>
+          <tr><td class="val">Bath</td><td>Wind (1× large, 80m)</td><td class="highlight">~$600k profit, best wind ROI</td><td class="val">By mid-August</td></tr>
+          <tr><td class="val">Berkeley</td><td>Wind (1× large, 80m)</td><td class="val">Improved vs small turbines</td><td class="val">Multi-year</td></tr>
+          <tr><td class="val">Seoul</td><td>Wind (16× small, 10m)</td><td class="val">Lowest revenue overall</td><td class="val">&gt; 5 years</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The Surprising Winner: One Large Wind Turbine in Bath</h3>
+      <p>Deploying a single <span>1.5 MW, 80m-diameter turbine</span> (~$1M) in Bath outperformed the PV farm — breaking even by mid-August and generating approximately <span>$600k profit</span> by year end. Bath's strong wind resource, combined with the highest electricity price of the three cities, made this the standout result of the entire study.</p>
+      <p>By contrast, 16 small 10 kW turbines (5D spacing, same budget) generated significantly less revenue — confirming that turbine scale and hub height are critical variables, not just count.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- NOTEBOOKS -->
+    <div class="section-block">
+      <div class="block-label">Source Code</div>
+      <h2>Jupyter Notebooks</h2>
+      <p>The full simulation code including all pvlib models, TEG equations, GCR optimisation, and wind turbine analysis.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+        <a href="pv-project1.ipynb" download style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.2rem;background:rgba(232,197,71,0.08);border:1px solid rgba(232,197,71,0.3);font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;color:var(--gold);text-decoration:none;">↓ Project 1 — TEGs vs Cooling (.ipynb)</a>
+        <a href="pv-project2.ipynb" download style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.2rem;background:rgba(232,197,71,0.08);border:1px solid rgba(232,197,71,0.3);font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;color:var(--gold);text-decoration:none;">↓ Project 2 — Solar vs Wind (.ipynb)</a>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TOOLS -->
+    <div class="section-block">
+      <div class="block-label">Tools &amp; Methods</div>
+      <h2>Skills Applied</h2>
+      <div class="tags-row">
+        <span class="tag">Python</span>
+        <span class="tag">pvlib</span>
+        <span class="tag">TMY Weather Data (PVGIS)</span>
+        <span class="tag">Sandia Array Performance Model</span>
+        <span class="tag">Hay-Davies Irradiance Model</span>
+        <span class="tag">Single-Axis Solar Tracking</span>
+        <span class="tag">TEG Efficiency Modelling</span>
+        <span class="tag">JKR / Seebeck Effect</span>
+        <span class="tag">GCR Optimisation</span>
+        <span class="tag">Wind Power Curve Simulation</span>
+        <span class="tag">Revenue &amp; Break-even Analysis</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Jupyter Notebook</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="project-nav-footer">
+    <a href="project-gecko.html" class="pnf-link">← Gecko Adhesion</a>
+    <span class="pnf-center">Ki-Hoon Lee · 2025</span>
+    <a href="index.html#projects" class="pnf-link">All Projects →</a>
+  </div>
+
+</body>
+</html>

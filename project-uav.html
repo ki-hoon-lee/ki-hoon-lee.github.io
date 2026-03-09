@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar UAV — Ki-Hoon Lee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #252530;
+      --gold: #e8c547;
+      --tiffany: #81d8d0;
+      --text: #e8e8f0;
+      --muted: #7878a0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: rgba(10,10,15,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--tiffany); }
+
+    .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,197,71,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(232,197,71,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .project-hero-glow { position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(129,216,208,0.05) 0%, transparent 65%); pointer-events: none; }
+    .project-category { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .project-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--tiffany); }
+    .project-hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .meta-val { font-size: 0.9rem; color: var(--text); }
+
+    .project-content { max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .section-block { margin-bottom: 5rem; }
+    .block-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .block-label::before { content: '// '; color: var(--border); }
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.2; }
+    h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.8rem; }
+    p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1rem; }
+    p span { color: var(--text); }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin: 3rem 0; }
+    .stat-box { background: var(--card); padding: 1.8rem; text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 2rem; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+    .image-grid-1 { margin: 2rem 0; border: 1px solid var(--border); }
+    .image-full { width: 100%; display: block; }
+    .image-caption { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); padding: 0.6rem 0; text-align: center; }
+
+    /* Season cards */
+    .season-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .season-box { background: var(--card); padding: 1.8rem; }
+    .season-name { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; color: var(--tiffany); text-transform: uppercase; margin-bottom: 0.8rem; }
+    .season-stat { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--gold); margin-bottom: 0.2rem; }
+    .season-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+    .season-detail { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin: 0; }
+    .season-detail span { color: var(--text); }
+
+    /* Method pipeline */
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .method-box { background: var(--card); padding: 1.5rem; }
+    .method-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--tiffany); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .method-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .method-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    /* Specs table */
+    .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .spec-row { background: var(--card); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .spec-key { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
+    .spec-val { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--gold); }
+
+    /* Report link */
+    .report-link { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.8rem; background: rgba(232,197,71,0.1); border: 1px solid rgba(232,197,71,0.4); font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em; color: var(--gold); text-decoration: none; transition: all 0.2s; margin-top: 1.5rem; text-transform: uppercase; font-weight: 500; }
+    .report-link:hover { background: rgba(232,197,71,0.2); border-color: var(--gold); }
+
+    /* Partner badge */
+    .partner-bar { display: flex; align-items: center; gap: 1.5rem; margin-top: 2.5rem; padding: 1.2rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--tiffany); }
+    .partner-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
+    .partner-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.08em; color: var(--text); }
+    .partner-name span { color: var(--tiffany); }
+    .partner-desc { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+    .partner-link { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--tiffany); text-decoration: none; white-space: nowrap; padding: 0.4rem 0.8rem; border: 1px solid rgba(129,216,208,0.25); transition: all 0.2s; }
+    .partner-link:hover { background: rgba(129,216,208,0.08); }
+
+    /* PDF embed */
+    .pdf-embed-wrap { margin: 2rem 0; border: 1px solid var(--border); background: var(--card); }
+    .pdf-embed-header { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); }
+    .pdf-embed-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+    .pdf-embed-link { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; color: var(--tiffany); text-decoration: none; padding: 0.3rem 0.7rem; border: 1px solid rgba(129,216,208,0.25); transition: all 0.2s; }
+    .pdf-embed-link:hover { background: rgba(129,216,208,0.08); }
+    .pdf-embed-wrap iframe { width: 100%; height: 680px; border: none; display: block; }
+
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { padding: 0.3rem 0.8rem; background: rgba(129,216,208,0.06); border: 1px solid rgba(129,216,208,0.18); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(129,216,208,0.7); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    .project-nav-footer { border-top: 1px solid var(--border); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .pnf-link { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .pnf-link:hover { color: var(--tiffany); }
+    .pnf-center { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 7rem 1.5rem 3rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .stats-row, .season-grid, .method-grid, .specs-grid { grid-template-columns: 1fr 1fr; }
+      .project-nav-footer { padding: 2rem 1.5rem; }
+      .project-meta { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Ki-Hoon Lee</a>
+    <a class="nav-back" href="index.html#projects">← Back to Projects</a>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-glow"></div>
+    <div class="project-category">Academic · Final Year Project · University of Bath · ME30227</div>
+    <h1>Solar UAV<br>Flight Optimisation</h1>
+    <div class="project-meta">
+      <div class="meta-item"><span class="meta-key">Year</span><span class="meta-val">2023–2024</span></div>
+      <div class="meta-item"><span class="meta-key">Supervisor</span><span class="meta-val">Dr. Rick Lupton</span></div>
+      <div class="meta-item"><span class="meta-key">Partner</span><span class="meta-val">Limosaero, Cambridge</span></div>
+      <div class="meta-item"><span class="meta-key">Tools</span><span class="meta-val">Python · Pygame · NumPy · OpenCV</span></div>
+    </div>
+  </div>
+
+  <div class="project-content">
+
+    <!-- OVERVIEW -->
+    <div class="section-block">
+      <div class="block-label">Overview</div>
+      <h2>How Do Different Flight Strategies Optimise Range for a Solar-Powered UAV?</h2>
+      <p>This final year BEng project was conducted in collaboration with <span>Limosaero</span>, a Cambridge start-up developing a sub-20kg Low Altitude Long Endurance (LALE) solar UAV for applications including wildfire detection, rare earth exploration, and atmospheric monitoring. Unlike high-altitude platforms that operate above cloud cover, Limosaero's UAV must contend with variable cloud cover at 2,000m altitude — making flight strategy critical to range and endurance.</p>
+      <p>The project developed a <span>2-degree-of-freedom Python flight simulator</span> capable of modelling how variations in UAV speed and trajectory — combined with real-world BBC Weather cloud imagery and solar irradiance calculations — affect battery level and range across summer solstice, equinox, and winter solstice conditions.</p>
+
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">+313km</div><div class="stat-label">Range gain at summer solstice</div></div>
+        <div class="stat-box"><div class="stat-num">21 m/s</div><div class="stat-label">Max optimal speed (summer)</div></div>
+        <div class="stat-box"><div class="stat-num">88.69Wh</div><div class="stat-label">Max battery saved (winter)</div></div>
+        <div class="stat-box"><div class="stat-num">2-DOF</div><div class="stat-label">Simulation degrees of freedom</div></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- LIMOSAERO UAV -->
+    <div class="section-block">
+      <div class="block-label">The Platform</div>
+      <h2>Limosaero's Solar UAV</h2>
+      <p>The UAV features an <span>~8m wingspan</span>, mass of 18–20kg, and operates at 40–50 knots. Photovoltaic cells cover the entire wingspan and vertical stabilisers, feeding a 1,275Wh battery. The high-aspect-ratio double-boom airframe minimises drag for long-endurance operations.</p>
+      <div class="specs-grid">
+        <div class="spec-row"><span class="spec-key">Wingspan</span><span class="spec-val">~8 m</span></div>
+        <div class="spec-row"><span class="spec-key">Mass</span><span class="spec-val">18–20 kg</span></div>
+        <div class="spec-row"><span class="spec-key">Operating Speed</span><span class="spec-val">40–50 knots</span></div>
+        <div class="spec-row"><span class="spec-key">Min Drag Speed</span><span class="spec-val">12 m/s</span></div>
+        <div class="spec-row"><span class="spec-key">Battery Capacity</span><span class="spec-val">1,275 Wh</span></div>
+        <div class="spec-row"><span class="spec-key">Solar Panel Area</span><span class="spec-val">2.875 m²</span></div>
+        <div class="spec-row"><span class="spec-key">Solar Panel Efficiency</span><span class="spec-val">20%</span></div>
+        <div class="spec-row"><span class="spec-key">Propeller Efficiency</span><span class="spec-val">72%</span></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- METHOD -->
+    <div class="section-block">
+      <div class="block-label">Method</div>
+      <h2>Three-Module Python Simulation</h2>
+      <p>The simulator was built across three interconnected Python modules, each solving a distinct part of the problem before feeding into a unified flight simulation engine using Pygame for real-time 2D visualisation.</p>
+
+      <div class="method-grid">
+        <div class="method-box">
+          <div class="method-num">MODULE 01</div>
+          <div class="method-title">Solar Irradiance Calculator</div>
+          <p class="method-desc">Takes user inputs (latitude, date, year) and computes declination angle, solar noon, sunrise, and sunset times. Outputs a 1,440-point solar irradiance profile — one per minute of the day — peaking at up to 1,161 W/m² at summer solstice.</p>
+        </div>
+        <div class="method-box">
+          <div class="method-num">MODULE 02</div>
+          <div class="method-title">Cloud Image Processor</div>
+          <p class="method-desc">Processes 512×512px BBC Weather cloud satellite images using OpenCV and NumPy. Each pixel is mapped to a cloud intensity coefficient (1.0 = clear, 0.30 = maximum overcast) to produce a spatial grid of solar transmittance values.</p>
+        </div>
+        <div class="method-box">
+          <div class="method-num">MODULE 03</div>
+          <div class="method-title">Flight Simulator</div>
+          <p class="method-desc">A Pygame-based 2-DOF simulator moves a UAV point source over the cloud grid. At each minute tick, power in (solar × cloud coefficient × panel efficiency × area) and power out (friction + induced drag × velocity) are calculated, updating the battery level in real time.</p>
+        </div>
+      </div>
+
+      <div class="image-grid-1">
+        <img src="uav-1.jpg" alt="Solar UAV project poster — simulation results and flight strategies" class="image-full">
+      </div>
+      <div class="image-caption">Final Year Project poster — Limosaero solar UAV, simulation methodology and seasonal optimal strategy results</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- RESULTS -->
+    <div class="section-block">
+      <div class="block-label">Results</div>
+      <h2>Optimal Strategy by Season</h2>
+      <p>Simulations were run at latitude 44.5° (UK average) across summer solstice (Jun-20), equinox (Mar-20), and winter solstice (Dec-21), testing six speed configurations from 5–30 m/s. Final battery level upon completing a <span>65km mission</span> was the primary performance metric. Trajectory modification was tested against five real BBC cloud images using 30 pairs of straight vs. modified path simulations.</p>
+
+      <div class="season-grid">
+        <div class="season-box">
+          <div class="season-name">Summer Solstice · Jun-20</div>
+          <div class="season-stat">+313.2 km</div>
+          <div class="season-sub">Extra range vs. min drag speed</div>
+          <p class="season-detail">Peak irradiance <span>1,161 W/m²</span>. Optimal speed ramps from 12 m/s at dawn to <span>21 m/s</span> during peak hours (7am–16pm). Modified trajectory recommended only <span>4am–5am</span> to save 49.61 Wh. Perpetual flight achievable through most of the day.</p>
+        </div>
+        <div class="season-box">
+          <div class="season-name">Equinox · Mar-20</div>
+          <div class="season-stat">+118.8 km</div>
+          <div class="season-sub">Extra range vs. min drag speed</div>
+          <p class="season-detail">Peak irradiance <span>761 W/m²</span>. Max speed of <span>18 m/s</span> during peak hours. Modified trajectory recommended <span>6am–8am</span> saving 73.01 Wh. Perpetual flight achievable but harder; larger estimated battery deficit than summer.</p>
+        </div>
+        <div class="season-box">
+          <div class="season-name">Winter Solstice · Dec-21</div>
+          <div class="season-stat">88.69 Wh</div>
+          <div class="season-sub">Battery saved via cloud avoidance</div>
+          <p class="season-detail">Peak irradiance only <span>265 W/m²</span>. No perpetual flight possible. Fly at <span>minimum drag speed (12 m/s)</span> at all times. Modified trajectory recommended <span>9am–2pm</span> to maximise cloud avoidance and extend flight duration.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- KEY FINDINGS -->
+    <div class="section-block">
+      <div class="block-label">Key Findings</div>
+      <h2>What the Simulations Revealed</h2>
+      <p><span>Minimum drag speed (12 m/s) is optimal under zero sunlight</span> — at this speed, the balance between friction and induced drag is minimised, conserving battery. As solar power increases, higher speeds become viable since the surplus energy offsets the greater drag penalty.</p>
+      <p><span>Cloud avoidance only pays off under the right conditions.</span> Detouring around clouds adds distance and therefore power consumption. The simulation quantified the crossover point: trajectory modification is beneficial only when solar irradiance is high enough that the additional solar capture along the modified path outweighs the power cost of the extra distance flown.</p>
+      <p><span>Sunset is more punishing than sunrise for modified trajectories.</span> When the sun is rising, extra flight time continues to accrue solar energy. When setting, the extra time flown costs battery without the compensating solar gain — making straight-line flight optimal in the evening.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TOOLS -->
+    <div class="section-block">
+      <div class="block-label">Tools & Methods</div>
+      <h2>Skills Applied</h2>
+      <div class="tags-row">
+        <span class="tag">Python</span>
+        <span class="tag">Pygame</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">OpenCV (cv2)</span>
+        <span class="tag">Solar Irradiance Modelling</span>
+        <span class="tag">Cloud Image Processing</span>
+        <span class="tag">2-DOF Flight Simulation</span>
+        <span class="tag">Aerodynamic Drag Analysis</span>
+        <span class="tag">Trajectory Optimisation</span>
+        <span class="tag">Battery Energy Modelling</span>
+        <span class="tag">LALE UAV Design</span>
+        <span class="tag">Data Visualisation</span>
+      </div>
+      <div class="partner-bar">
+        <div>
+          <div class="partner-label">Industry Partner</div>
+          <div class="partner-name">LIMO<span>SAERO</span></div>
+          <div class="partner-desc">Cambridge, UK · Solar-powered LALE UAV developer</div>
+        </div>
+        <a class="partner-link" href="https://www.limosaero.co.uk" target="_blank">↗ limosaero.co.uk</a>
+      </div>
+      <a class="report-link" href="Ki-Hoon_Lee_khl71_FYP_Report.pdf" target="_blank">↗ View Full Technical Report (PDF · 7,936 words)</a>
+    </div>
+
+    <hr class="divider">
+
+    <!-- REPORT -->
+    <div class="section-block">
+      <div class="block-label">Technical Report</div>
+      <h2>Full Written Report</h2>
+      <p>The complete 7,936-word final year BEng report covering literature review, methodology, simulation results and analysis across all three seasonal conditions.</p>
+      <div class="pdf-embed-wrap">
+        <div class="pdf-embed-header">
+          <span class="pdf-embed-title">Ki-Hoon_Lee_khl71_FYP_Report.pdf — ME30227 Final Year Project</span>
+          <a class="pdf-embed-link" href="Ki-Hoon_Lee_khl71_FYP_Report.pdf" target="_blank">↗ Open fullscreen</a>
+        </div>
+        <iframe src="Ki-Hoon_Lee_khl71_FYP_Report.pdf" title="Solar UAV FYP technical report"></iframe>
+      </div>
+      <a class="pdf-embed-link" href="Ki-Hoon_Lee_khl71_FYP_Report.pdf" download style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:0.8rem;">↓ Download Report (PDF)</a>
+    </div>
+
+  </div>
+
+  <div class="project-nav-footer">
+    <a href="project-tbh.html" class="pnf-link">← Team Bath Heart</a>
+    <span class="pnf-center">Ki-Hoon Lee · 2024</span>
+    <a href="index.html#projects" class="pnf-link">All Projects →</a>
+  </div>
+
+</body>
+</html>
