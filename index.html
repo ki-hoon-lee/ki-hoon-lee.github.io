@@ -5,17 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ki-Hoon Lee — Mechanical Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Gugi&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --card: #16161f;
-      --border: #252530;
-      --gold: #e8c547;
-      --tiffany: #81d8d0;
-      --text: #e8e8f0;
-      --muted: #7878a0;
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --card: #161616;
+      --border: #242424;
+      --gold: #81d8d0;
+      --tiffany: #52d9a8;
+      --text: #e8e8e8;
+      --muted: #787878;
+      --nav-bg: rgba(10,10,15,0.88);
+      --transition-speed: 0.4s;
+    }
+
+    /* ── LIGHT MODE ── */
+    body.light {
+      --bg: #81d8d0;
+      --surface: #6ecec6;
+      --card: #75d4cc;
+      --border: rgba(0,70,65,0.18);
+      --gold: #0a4a45;
+      --tiffany: #085048;
+      --text: #041e1c;
+      --muted: #1a5550;
+      --nav-bg: rgba(106,208,200,0.92);
+    }
+
+    /* Smooth theme transition */
+    body, nav, section, footer, .project-card, .edu-card, .exp-item, .skill-item, .detail-row {
+      transition:
+        background var(--transition-speed) ease,
+        background-color var(--transition-speed) ease,
+        color var(--transition-speed) ease,
+        border-color var(--transition-speed) ease;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,14 +73,15 @@
       align-items: center;
       justify-content: space-between;
       padding: 1.2rem 4rem;
-      background: rgba(10,10,15,0.88);
+      background: var(--nav-bg);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
     }
     .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.05rem;
+      font-family: 'Gugi', cursive;
+      font-weight: 400;
+      font-size: 2rem;
       letter-spacing: 0.06em;
       color: var(--gold);
       text-decoration: none;
@@ -241,13 +266,18 @@
     /* PROJECTS */
     #projects { background: var(--surface); border-top: 1px solid var(--border); }
     .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
-    .project-card { background: var(--card); padding: 2.5rem; position: relative; overflow: hidden; transition: background 0.3s; }
-    .project-card:hover { background: #1c1c28; }
-    .project-card::before { content: attr(data-num); position: absolute; top: 1.2rem; right: 1.8rem; font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; }
+    .project-card { background: var(--card); position: relative; overflow: hidden; transition: background 0.3s; text-decoration: none; color: inherit; display: block; }
+    .project-card:hover { background: #1c1c1c; }
     .project-card:hover::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--tiffany)); }
-    .project-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--tiffany); margin-bottom: 0.9rem; }
-    .project-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.7rem; line-height: 1.3; }
-    .project-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.4rem; }
+    .card-thumb { width: 100%; height: 200px; overflow: hidden; background: #0f0f0f; position: relative; }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, filter 0.4s ease; filter: brightness(0.85) saturate(0.7); }
+    .project-card:hover .card-thumb img { transform: scale(1.04); filter: brightness(1) saturate(1); }
+    .card-thumb-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #111 0%, #181818 100%); font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: #2a2a2a; text-transform: uppercase; }
+    .card-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(10,10,10,0.7) 100%); pointer-events: none; }
+    .card-body { padding: 1.6rem 2rem 2rem; }
+    .project-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--tiffany); margin-bottom: 0.7rem; }
+    .project-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; line-height: 1.3; color: var(--text); }
+    .project-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .ptag { padding: 0.18rem 0.6rem; background: rgba(129,216,208,0.06); border: 1px solid rgba(129,216,208,0.18); font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; color: rgba(129,216,208,0.7); }
 
@@ -287,7 +317,7 @@
     .reveal.hidden { opacity: 0; transform: translateY(20px); }
     .reveal.hidden.visible { opacity: 1; transform: none; }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE — TABLET */
     @media (max-width: 960px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1.2rem; }
@@ -295,24 +325,185 @@
       #hero { padding: 0 1.5rem 4rem; }
       .hero-photo-wrap { display: none; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
       .edu-grid { grid-template-columns: 1fr; }
       .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
+
+    /* RESPONSIVE — MOBILE */
+    @media (max-width: 600px) {
+      /* Nav — hide all links, show only logo + resume */
+      nav { padding: 1rem 1.2rem; }
+      .nav-links li { display: none; }
+      .nav-links li:last-child { display: block; } /* keep resume button */
+
+      /* Hero */
+      #hero { padding: 0 1.2rem 3.5rem; min-height: 100svh; }
+      h1 { font-size: clamp(2.8rem, 13vw, 4rem); }
+      .hero-sub { font-size: 0.88rem; margin-bottom: 2rem; }
+      .hero-cta { flex-direction: column; gap: 0.7rem; }
+      .hero-cta a { width: 100%; text-align: center; justify-content: center; padding: 0.9rem 1.5rem; }
+
+      /* Sections */
+      section { padding: 3.5rem 1.2rem; }
+      h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 2rem; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .detail-key { min-width: 80px; font-size: 0.62rem; }
+      .detail-val { font-size: 0.85rem; }
+
+      /* Experience */
+      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; padding: 1.8rem 0; }
+      .exp-right h3 { font-size: 1rem; }
+      .exp-right p { font-size: 0.83rem; }
+
+      /* Projects */
+      .projects-grid { grid-template-columns: 1fr; gap: 1px; }
+      .card-thumb { height: 160px; }
+      .card-body { padding: 1.4rem 1.2rem 1.6rem; }
+      .project-card h3 { font-size: 1rem; }
+      .project-card p { font-size: 0.82rem; }
+
+      /* Skills */
+      .skills-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .skill-bar { width: 80px; }
+
+      /* Education */
+      .edu-grid { grid-template-columns: 1fr; }
+      .edu-card { padding: 1.8rem 1.4rem; }
+
+      /* Contact */
+      .contact-links { flex-direction: column; align-items: center; gap: 0.7rem; }
+      .contact-pill { width: 100%; max-width: 320px; justify-content: center; }
+      #contact .btn-primary { width: 100%; max-width: 320px; justify-content: center; }
+
+      /* Footer */
+      footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+
+    /* ── Expand button ── */
+    .projects-expand-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .projects-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .projects-expand-btn:hover {
+      border-color: var(--gold);
+      background: rgba(129,216,208,0.06);
+    }
+    #toggle-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      font-size: 1rem;
+    }
+    #toggle-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    /* Smooth reveal for extra projects */
+    .projects-extra {
+      overflow: hidden;
+      animation: fadeSlideIn 0.4s ease forwards;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── THEME TOGGLE BUTTON ── */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px; height: 22px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--gold); }
+    .theme-toggle-knob {
+      position: absolute;
+      left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: transform 0.3s ease, background 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px;
+    }
+    body.light .theme-toggle-knob {
+      transform: translateX(16px);
+      background: var(--gold);
+    }
+    body.light .theme-toggle {
+      background: rgba(0,70,65,0.15);
+      border-color: var(--gold);
+    }
+
+    /* ── LIGHT MODE OVERRIDES for hardcoded colours ── */
+    body.light .project-card:hover { background: #6ecec6 !important; }
+    body.light .card-thumb img { filter: brightness(0.92) saturate(0.9); }
+    body.light .project-card:hover .card-thumb img { filter: brightness(1) saturate(1); }
+    body.light .card-thumb::after { background: linear-gradient(to bottom, transparent 40%, rgba(106,208,200,0.7) 100%); }
+    body.light h1 .line2 { -webkit-text-stroke: 1px rgba(4,74,69,0.4); }
+    body.light .hero-grid-bg {
+      background-image:
+        linear-gradient(rgba(4,74,69,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4,74,69,0.07) 1px, transparent 1px);
+    }
+    body.light .hero-glow-gold { background: radial-gradient(ellipse, rgba(4,74,69,0.08) 0%, transparent 65%); }
+    body.light .hero-glow-tiffany { background: radial-gradient(ellipse, rgba(4,74,69,0.05) 0%, transparent 65%); }
+    body.light .btn-primary { background: var(--gold); color: #81d8d0; }
+    body.light .btn-primary:hover { box-shadow: 0 8px 24px rgba(4,74,69,0.25); }
+    body.light .btn-tiffany { border-color: var(--tiffany); color: var(--tiffany); }
+    body.light .btn-tiffany:hover { background: var(--tiffany); color: #81d8d0; }
+    body.light .nav-cv { border-color: var(--tiffany) !important; color: var(--tiffany) !important; }
+    body.light .nav-cv:hover { background: var(--tiffany) !important; color: #81d8d0 !important; }
+    body.light .ptag { background: rgba(4,74,69,0.08); border-color: rgba(4,74,69,0.25); color: rgba(4,74,69,0.8); }
+    body.light .exp-tag { border-color: rgba(4,74,69,0.2); color: var(--muted); }
+    body.light .projects-expand-btn:hover { background: rgba(4,74,69,0.08); border-color: var(--gold); }
+    body.light .contact-pill:hover { border-color: var(--tiffany); color: var(--tiffany); }
+    body.light .skill-fill { background: linear-gradient(90deg, var(--tiffany), var(--gold)); }
+    body.light .hero-photo-frame::after { background: linear-gradient(to bottom, transparent 60%, rgba(110,206,198,0.35) 100%); }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-logo" href="#hero">Ki-Hoon Lee</a>
+    <a class="nav-logo" href="#hero">이기훈</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
+          <span class="theme-toggle-knob" id="theme-knob"></span>
+        </button>
+      </li>
       <li><a href="Ki-Hoon_Lee_Resume.pdf" download class="nav-cv">↓ Resume</a></li>
     </ul>
   </nav>
@@ -429,107 +620,124 @@
       <div class="section-label">// 03 — Projects</div>
       <h2>Selected Work</h2>
     </div>
+
+    <!-- FEATURED: 3 cards always visible -->
     <div class="projects-grid reveal">
-      <a href="project-jar-opener.html" class="project-card" data-num="01" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">01 / ACADEMIC · UNIVERSITY OF BATH</div>
-        <h3>Jar Opening Device</h3>
-        <p>A mechanical jar opener designed to minimise torque input for individuals with arthritis. Full design lifecycle from research and Pugh's Matrix concept selection through CAD, materials assessment and eco audit.</p>
-        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Pugh's Matrix</span><span class="ptag">DFM</span><span class="ptag">Eco Audit</span><span class="ptag">Product Design</span></div>
+
+      <a href="project-uav.html" class="project-card" data-num="01">
+        <div class="card-thumb"><img src="uav-1.jpg" alt="Solar UAV" /></div>
+        <div class="card-body">
+          <div class="project-num">01 / SIMULATION · UNIVERSITY OF BATH · FYP</div>
+          <h3>Solar UAV Flight Strategy Optimisation</h3>
+          <p>Final year BEng project with Limosaero. Built a 2-DOF Python flight simulator using real BBC Weather cloud imagery — achieving +313km range gain.</p>
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">NumPy</span><span class="ptag">OpenCV</span><span class="ptag">Trajectory Optimisation</span><span class="ptag">Limosaero</span></div>
+        </div>
       </a>
 
-      <a href="project-machine-design.html" class="project-card" data-num="02" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">02 / ACADEMIC · UNIVERSITY OF BATH</div>
-        <h3>Carbon Fibre Eco-Brick Machine</h3>
-        <p>Led supply chain design for recycling shredded carbon fibre into eco-bricks. Full design lifecycle including concept generation, Pugh's Matrix, FMECA reliability analysis and gravity-driven production line.</p>
-        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FMECA</span><span class="ptag">UML</span><span class="ptag">Supply Chain</span><span class="ptag">Reliability Eng.</span></div>
+      <a href="project-treadmill.html" class="project-card" data-num="02">
+        <div class="card-thumb"><img src="treadmill-1.jpg" alt="Omnidirectional Treadmill" /></div>
+        <div class="card-body">
+          <div class="project-num">02 / CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
+          <h3>Omnidirectional Resistive Treadmill</h3>
+          <p>Passive omnidirectional treadmill for rehabilitation and VR in partnership with Blue Goji®. Hybrid braking system reduced BOM by 50%. Validated via FEA and demonstrated at UC Berkeley Demo Day.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FEA</span><span class="ptag">CNC Machining</span><span class="ptag">Blue Goji®</span></div>
+        </div>
       </a>
 
-      <a href="project-fea.html" class="project-card" data-num="03" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">03 / ACADEMIC · UNIVERSITY OF BATH</div>
-        <h3>Finite Element Analysis</h3>
-        <p>Structural stress analysis of a door coat hanger using Autodesk Nastran. Shell Von Mises stress contour mapping identified peak stress concentrations of 245.1 MPa and max deformation of 3.71 mm.</p>
-        <div class="project-tags"><span class="ptag">Autodesk Nastran</span><span class="ptag">Von Mises</span><span class="ptag">Shell Elements</span><span class="ptag">Structural Analysis</span></div>
+      <a href="project-goale.html" class="project-card" data-num="03">
+        <div class="card-thumb"><img src="goale-gui.jpg" alt="GoalE System" /></div>
+        <div class="card-body">
+          <div class="project-num">03 / EMBEDDED SYSTEMS · UC BERKELEY · ME235</div>
+          <h3>GoalE: Autonomous Ball Tracking System</h3>
+          <p>Real-time robotic goalkeeper using 4 ultrasonic sensors, least-squares triangulation and a servo actuator on an ESP32 with four parallel FreeRTOS tasks.</p>
+          <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">C / FreeRTOS</span><span class="ptag">LabVIEW</span><span class="ptag">Sensor Fusion</span></div>
+        </div>
       </a>
 
-      <a href="project-tbh.html" class="project-card" data-num="04" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">04 / ACADEMIC · UNIVERSITY OF BATH</div>
-        <h3>Team Bath Heart (TBH)</h3>
-        <p>CAD lead on a mechanical heart prototype aimed at real patient implantation. Remodelled critical components, resolved tolerance errors, refined valve mechanisms and gear assemblies. Achieved 35N pumping force across 4 prototype iterations.</p>
-        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Biomedical</span><span class="ptag">ISO 13485</span><span class="ptag">GD&T</span><span class="ptag">Prototyping</span></div>
+    </div>
+
+    <!-- HIDDEN: remaining 7 cards -->
+    <div class="projects-grid projects-extra" id="projects-extra" style="display:none; margin-top:1.5px;">
+
+      <a href="project-gecko.html" class="project-card" data-num="04">
+        <div class="card-thumb"><img src="gecko-1.png" alt="Gecko Adhesion" /></div>
+        <div class="card-body">
+          <div class="project-num">04 / NANOTECHNOLOGY · UC BERKELEY · ME218N</div>
+          <h3>Gecko-Inspired Dry Adhesion via Magnetic CNT Alignment</h3>
+          <p>Magnetically aligned Fe₃O₄-embedded MWCNTs achieving 471,000 N/m² theoretical pull-off force — 2.3× improvement over random CNTs.</p>
+          <div class="project-tags"><span class="ptag">Nanotechnology</span><span class="ptag">Carbon Nanotubes</span><span class="ptag">JKR Theory</span><span class="ptag">Python</span></div>
+        </div>
       </a>
 
-      <a href="project-uav.html" class="project-card" data-num="05" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">05 / SIMULATION · UNIVERSITY OF BATH · FYP</div>
-        <h3>Solar UAV Flight Strategy Optimisation</h3>
-        <p>Final year BEng project with Limosaero. Built a 2-DOF Python flight simulator using real BBC Weather cloud imagery to determine optimal speed and trajectory strategies across summer solstice, equinox and winter solstice — achieving +313km range gain.</p>
-        <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Pygame</span><span class="ptag">NumPy</span><span class="ptag">OpenCV</span><span class="ptag">Trajectory Optimisation</span></div>
+      <a href="project-ml.html" class="project-card" data-num="05">
+        <div class="card-thumb"><img src="ml-thumb.svg" alt="Machine Learning" /></div>
+        <div class="card-body">
+          <div class="project-num">05 / MACHINE LEARNING · UC BERKELEY · MECHENG 249</div>
+          <h3>Soccer Player Market Valuation via Neural Networks</h3>
+          <p>Two-programme ML study predicting player market values. Scaled to 5,000+ FIFA24 players with PCA dimensionality reduction — final MAE of $784,237.</p>
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Keras / TensorFlow</span><span class="ptag">PCA</span><span class="ptag">Neural Networks</span></div>
+        </div>
       </a>
 
-      <a href="project-ml.html" class="project-card" data-num="06" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">06 / MACHINE LEARNING · UC BERKELEY · MECHENG 249</div>
-        <h3>Soccer Player Market Valuation via Neural Networks</h3>
-        <p>Two-programme ML study predicting player market values using neural networks. Programme 1 trained on ~430 EPL players with feature importance analysis and regularisation (MAE €9.64M). Programme 2 scaled to 5,000+ FIFA24 players with PCA dimensionality reduction — achieving a final MAE of $784,237.</p>
-        <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Keras / TensorFlow</span><span class="ptag">PCA</span><span class="ptag">Neural Networks</span><span class="ptag">scikit-learn</span></div>
+      <a href="project-photovoltaic.html" class="project-card" data-num="06">
+        <div class="card-thumb"><img src="pv-thumb.svg" alt="Photovoltaic Farm" /></div>
+        <div class="card-body">
+          <div class="project-num">06 / RENEWABLE ENERGY · UC BERKELEY · ME GRADUATE</div>
+          <h3>Solar PV Farm Optimisation: TEGs, Cooling &amp; Wind</h3>
+          <p>Two-part Python simulation comparing TEG heat harvesting vs active cooling. Head-to-head solar vs wind across Bath, Seoul and Berkeley using real TMY data.</p>
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">pvlib</span><span class="ptag">TEG Modelling</span><span class="ptag">Renewable Energy</span></div>
+        </div>
       </a>
 
-      <a href="project-goale.html" class="project-card" data-num="07" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">07 / EMBEDDED SYSTEMS · UC BERKELEY · ME235</div>
-        <h3>GoalE: Autonomous Ball Tracking System</h3>
-        <p>Real-time robotic goalkeeper using 4 ultrasonic sensors, least-squares triangulation and a servo actuator on an ESP32. Four parallel FreeRTOS tasks handle sensing, trajectory prediction, goal detection and UART streaming to a live LabVIEW GUI.</p>
-        <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">C / FreeRTOS</span><span class="ptag">LabVIEW</span><span class="ptag">Embedded Systems</span><span class="ptag">Sensor Fusion</span></div>
+      <a href="project-tbh.html" class="project-card" data-num="07">
+        <div class="card-thumb"><img src="tbh-1.png" alt="Team Bath Heart" /></div>
+        <div class="card-body">
+          <div class="project-num">07 / BIOMEDICAL · UNIVERSITY OF BATH</div>
+          <h3>Team Bath Heart (TBH)</h3>
+          <p>CAD lead on a mechanical heart prototype for real patient implantation. Achieved 35N pumping force across 4 prototype iterations.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Biomedical</span><span class="ptag">ISO 13485</span><span class="ptag">GD&T</span></div>
+        </div>
       </a>
 
-      <a href="project-gecko.html" class="project-card" data-num="08" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">08 / NANOTECHNOLOGY · UC BERKELEY · ME218N</div>
-        <h3>Gecko-Inspired Dry Adhesion via Magnetic CNT Alignment</h3>
-        <p>Proposed a low-cost alternative to CVD by magnetically aligning Fe₃O₄-embedded MWCNTs in a flexible substrate. Simulated alignment dynamics and modelled adhesion via JKR theory — achieving 471,000 N/m² theoretical pull-off force and 2.3× improvement over random CNTs.</p>
-        <div class="project-tags"><span class="ptag">Nanotechnology</span><span class="ptag">Carbon Nanotubes</span><span class="ptag">JKR Theory</span><span class="ptag">Bio-Inspired Design</span><span class="ptag">Python Simulation</span></div>
+      <a href="project-machine-design.html" class="project-card" data-num="08">
+        <div class="card-thumb"><img src="machine-1.png" alt="Carbon Fibre Machine" /></div>
+        <div class="card-body">
+          <div class="project-num">08 / ACADEMIC · UNIVERSITY OF BATH</div>
+          <h3>Carbon Fibre Eco-Brick Machine</h3>
+          <p>Supply chain design for recycling shredded carbon fibre into eco-bricks. Full lifecycle including FMECA reliability analysis and gravity-driven production line.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FMECA</span><span class="ptag">UML</span><span class="ptag">Reliability Eng.</span></div>
+        </div>
       </a>
 
-      <a href="project-photovoltaic.html" class="project-card" data-num="09" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">09 / RENEWABLE ENERGY · UC BERKELEY · ME GRADUATE</div>
-        <h3>Solar PV Farm Optimisation: TEGs, Cooling &amp; Wind Comparison</h3>
-        <p>Two-part Python simulation study comparing TEG heat harvesting vs active cooling for PV panels, and optimising GCR for land-constrained solar farms. Head-to-head solar vs wind comparison across Bath, Seoul and Berkeley using real TMY weather data — with a surprising result: one large wind turbine in Bath outperformed everything.</p>
-        <div class="project-tags"><span class="ptag">Python</span><span class="ptag">pvlib</span><span class="ptag">TEG Modelling</span><span class="ptag">Renewable Energy</span><span class="ptag">Jupyter Notebook</span></div>
+      <a href="project-fea.html" class="project-card" data-num="09">
+        <div class="card-thumb"><img src="fea-1.png" alt="Finite Element Analysis" /></div>
+        <div class="card-body">
+          <div class="project-num">09 / ACADEMIC · UNIVERSITY OF BATH</div>
+          <h3>Finite Element Analysis</h3>
+          <p>Structural stress analysis of a door coat hanger using Autodesk Nastran. Identified peak stress of 245.1 MPa and max deformation of 3.71 mm.</p>
+          <div class="project-tags"><span class="ptag">Autodesk Nastran</span><span class="ptag">Von Mises</span><span class="ptag">Shell Elements</span></div>
+        </div>
       </a>
 
-      <a href="project-treadmill.html" class="project-card" data-num="10" style="text-decoration:none;color:inherit;display:block;">
-        <div class="project-num">10 / CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
-        <h3>Omnidirectional Resistive Treadmill</h3>
-        <p>Designed a passive omnidirectional treadmill for rehabilitation, VR gaming, and military training in partnership with Blue Goji®. Hybrid electromagnetic + friction braking system reduced BOM by 50%. Octagonal platform with 8 angled plates at 15° passively returns users to centre. Validated via FEA and physical prototype demonstrated at UC Berkeley Demo Day.</p>
-        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FEA</span><span class="ptag">CNC Machining</span><span class="ptag">3D Printing</span><span class="ptag">Blue Goji®</span></div>
+      <a href="project-jar-opener.html" class="project-card" data-num="10">
+        <div class="card-thumb"><img src="jar-1.jpg" alt="Jar Opening Device" /></div>
+        <div class="card-body">
+          <div class="project-num">10 / ACADEMIC · UNIVERSITY OF BATH</div>
+          <h3>Jar Opening Device</h3>
+          <p>Mechanical jar opener designed to minimise torque input for individuals with arthritis. Full design lifecycle from Pugh's Matrix through CAD and eco audit.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Pugh's Matrix</span><span class="ptag">DFM</span><span class="ptag">Eco Audit</span></div>
+        </div>
       </a>
 
-      <div class="project-card" data-num="02">
-        <div class="project-num">02 / PRECISION HARDWARE · ZONEXUS</div>
-        <h3>Peltier Cryo-Cooler with PID Controller</h3>
-        <p>Active thermal regulation system reaching below −60 °C, integrating a multi-layer Peltier stack with water-cooled heat exchangers for vacuum operation. Dedicated PID controller maintains high-resolution thermal stability under varying loads.</p>
-        <div class="project-tags"><span class="ptag">Thermal Eng.</span><span class="ptag">PID Control</span><span class="ptag">Vacuum Systems</span><span class="ptag">Custom PCB</span></div>
-      </div>
-      <div class="project-card" data-num="03">
-        <div class="project-num">03 / PRECISION HARDWARE · ZONEXUS</div>
-        <h3>Air-Free Transfer Motorised Sample Holder</h3>
-        <p>Motorised holder with hermetically sealed tip chamber for transfer between ambient, argon glove box, and UHV environments. Custom stepper motor controller and PCB achieved sub-60-ångström positioning, verified by TEM imaging.</p>
-        <div class="project-tags"><span class="ptag">UHV Engineering</span><span class="ptag">Stepper Control</span><span class="ptag">KiCAD PCB</span><span class="ptag">TEM Verified</span></div>
-      </div>
-      <div class="project-card" data-num="04">
-        <div class="project-num">04 / EMBEDDED SYSTEMS · UC BERKELEY ME235</div>
-        <h3>GoalE: Autonomous Ball Tracking System</h3>
-        <p>Real-time multitasking embedded system using ESP32 with ultrasonic sensors and servo actuators for autonomous ball tracking and interception. Live LabVIEW GUI for real-time monitoring and manual override.</p>
-        <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">LabVIEW</span><span class="ptag">C++</span><span class="ptag">Servo Systems</span></div>
-      </div>
-      <div class="project-card" data-num="05">
-        <div class="project-num">05 / SIMULATION · UNIVERSITY OF BATH</div>
-        <h3>Solar UAV Flight Strategy Optimisation</h3>
-        <p>Built a 2-DOF flight simulator in MATLAB to optimise speed and trajectory for a solar-powered UAV across seasons. Achieved a 313 km range increase during summer solstice via cloud-coverage algorithms built from BBC Weather image data.</p>
-        <div class="project-tags"><span class="ptag">MATLAB</span><span class="ptag">Python</span><span class="ptag">Flight Simulation</span><span class="ptag">Aerodynamics</span></div>
-      </div>
-      <div class="project-card" data-num="06">
-        <div class="project-num">06 / BIOMEDICAL · UNIVERSITY OF BATH</div>
-        <h3>Team Bath Heart (TBH) — Mechanical Heart</h3>
-        <p>Contributed to a mechanical heart prototype aimed at real patient implementation. Led CAD remodelling, resolved tolerance errors, refined heart valve mechanisms and gear assemblies. Prototype demonstrated pumping at 35N max force across multiple development iterations.</p>
-        <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Biomedical Design</span><span class="ptag">Prototyping</span><span class="ptag">ISO 13485</span></div>
-      </div>
+    </div>
+
+    <!-- EXPAND BUTTON -->
+    <div class="projects-expand-wrap reveal">
+      <button class="projects-expand-btn" id="projects-toggle" onclick="toggleProjects()">
+        <span id="toggle-label">View All Projects</span>
+        <span id="toggle-count" style="opacity:0.5;margin-left:0.5rem;font-size:0.85em">(+7 more)</span>
+        <span id="toggle-arrow">↓</span>
+      </button>
     </div>
   </section>
 
@@ -642,4 +850,57 @@
     }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
     reveals.forEach(el => observer.observe(el));
 
-    const sec
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+  </script>
+
+  <script>
+    function toggleProjects() {
+      const extra = document.getElementById('projects-extra');
+      const label = document.getElementById('toggle-label');
+      const count = document.getElementById('toggle-count');
+      const arrow = document.getElementById('toggle-arrow');
+      const isHidden = extra.style.display === 'none';
+
+      if (isHidden) {
+        extra.style.display = 'grid';
+        label.textContent = 'Show Less';
+        count.style.display = 'none';
+        arrow.classList.add('open');
+      } else {
+        extra.style.display = 'none';
+        label.textContent = 'View All Projects';
+        count.style.display = 'inline';
+        arrow.classList.remove('open');
+        // Scroll back up to the projects section smoothly
+        document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
+
+  <script>
+    // Theme toggle — persists via localStorage
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light');
+      localStorage.setItem('khl-theme', isLight ? 'light' : 'dark');
+    }
+
+    // Apply saved theme on load (before paint)
+    (function() {
+      if (localStorage.getItem('khl-theme') === 'light') {
+        document.body.classList.add('light');
+      }
+    })();
+  </script>
+
+</body>
+</html>
