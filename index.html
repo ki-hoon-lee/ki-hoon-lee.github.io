@@ -1021,4 +1021,19 @@
       const btn  = document.getElementById('hamburger');
       const open = menu.classList.toggle('open');
       btn.classList.toggle('open', open);
-      document.body.style.overfl
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn  = document.getElementById('hamburger');
+      if (menu) menu.classList.remove('open');
+      if (btn)  btn.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 600) closeMobileMenu();
+    });
+  </script>
+
+</body>
+</html>
