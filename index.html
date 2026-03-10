@@ -22,15 +22,15 @@
 
     /* ── LIGHT MODE ── */
     body.light {
-      --bg: #81d8d0;
-      --surface: #6ecec6;
-      --card: #75d4cc;
-      --border: rgba(0,70,65,0.18);
-      --gold: #0a4a45;
-      --tiffany: #085048;
+      --bg: #f8fffe;
+      --surface: #f0fdfc;
+      --card: #f5fffe;
+      --border: rgba(42,173,164,0.18);
+      --gold: #2aada4;
+      --tiffany: #4ab8b2;
       --text: #041e1c;
-      --muted: #1a5550;
-      --nav-bg: rgba(106,208,200,0.92);
+      --muted: #3a7a76;
+      --nav-bg: rgba(245,255,254,0.95);
     }
 
     /* Smooth theme transition */
@@ -334,13 +334,14 @@
 
     /* RESPONSIVE — MOBILE */
     @media (max-width: 600px) {
-      /* Nav — hide all links, show only logo + resume */
+      /* Nav */
       nav { padding: 1rem 1.2rem; }
-      .nav-links li { display: none; }
-      .nav-links li:last-child { display: block; } /* keep resume button */
+      .nav-links { display: none; } /* hide desktop links entirely */
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
 
-      /* Hero */
-      #hero { padding: 0 1.2rem 3.5rem; min-height: 100svh; }
+      /* Hero — add top padding so content clears both nav + browser bar */
+      #hero { padding: 8rem 1.2rem 3.5rem; min-height: 100svh; }
       h1 { font-size: clamp(2.8rem, 13vw, 4rem); }
       .hero-sub { font-size: 0.88rem; margin-bottom: 2rem; }
       .hero-cta { flex-direction: column; gap: 0.7rem; }
@@ -432,64 +433,172 @@
     .theme-toggle {
       display: flex;
       align-items: center;
-      justify-content: center;
-      width: 38px; height: 22px;
-      border-radius: 11px;
+      width: 56px; height: 28px;
+      border-radius: 14px;
       border: 1px solid var(--border);
       background: var(--card);
       cursor: pointer;
       position: relative;
-      transition: background 0.3s, border-color 0.3s;
+      padding: 0;
+      transition: background 0.35s, border-color 0.35s;
       flex-shrink: 0;
     }
     .theme-toggle:hover { border-color: var(--gold); }
+    /* Icons — perfectly centred in each half */
+    .toggle-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      line-height: 1;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px; height: 18px;
+    }
+    .toggle-icon-moon { left: 4px; opacity: 1; }
+    .toggle-icon-sun  { right: 4px; opacity: 0.35; }
+    body.light .toggle-icon-moon { opacity: 0.35; }
+    body.light .toggle-icon-sun  { opacity: 1; }
+    /* Sliding knob — vertically centred */
     .theme-toggle-knob {
       position: absolute;
-      left: 3px;
-      width: 14px; height: 14px;
+      top: 50%;
+      left: 4px;
+      transform: translateY(-50%);
+      width: 20px; height: 20px;
       border-radius: 50%;
       background: var(--muted);
-      transition: transform 0.3s ease, background 0.3s ease;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 8px;
+      transition: left 0.32s cubic-bezier(.4,0,.2,1), background 0.32s;
+      z-index: 1;
     }
     body.light .theme-toggle-knob {
-      transform: translateX(16px);
+      left: 32px;
       background: var(--gold);
     }
     body.light .theme-toggle {
-      background: rgba(0,70,65,0.15);
-      border-color: var(--gold);
+      background: rgba(42,173,164,0.1);
+      border-color: rgba(42,173,164,0.3);
+    }
+
+    /* ── HAMBURGER MENU ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none; border: none;
+      cursor: pointer; padding: 4px;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%; height: 1.5px;
+      background: var(--muted);
+      transition: transform 0.3s, opacity 0.3s, background 0.3s;
+      transform-origin: center;
+    }
+    .hamburger:hover span { background: var(--gold); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile dropdown menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 99;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1), background 0.35s;
+    }
+    .mobile-menu.open {
+      transform: translateY(0);
+    }
+    .mobile-menu-inner {
+      padding: 5rem 1.5rem 1.5rem;
+    }
+    .mobile-menu a {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0 0;
+      margin-top: 0.5rem;
     }
 
     /* ── LIGHT MODE OVERRIDES for hardcoded colours ── */
-    body.light .project-card:hover { background: #6ecec6 !important; }
+    body.light .project-card:hover { background: #e8fffe !important; }
     body.light .card-thumb img { filter: brightness(0.92) saturate(0.9); }
     body.light .project-card:hover .card-thumb img { filter: brightness(1) saturate(1); }
-    body.light .card-thumb::after { background: linear-gradient(to bottom, transparent 40%, rgba(106,208,200,0.7) 100%); }
-    body.light h1 .line2 { -webkit-text-stroke: 1px rgba(4,74,69,0.4); }
+    body.light .card-thumb::after { background: linear-gradient(to bottom, transparent 40%, rgba(245,255,254,0.75) 100%); }
+    body.light h1 .line2 { -webkit-text-stroke: 1px rgba(42,173,164,0.4); }
     body.light .hero-grid-bg {
       background-image:
-        linear-gradient(rgba(4,74,69,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(4,74,69,0.07) 1px, transparent 1px);
+        linear-gradient(rgba(42,173,164,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42,173,164,0.06) 1px, transparent 1px);
     }
-    body.light .hero-glow-gold { background: radial-gradient(ellipse, rgba(4,74,69,0.08) 0%, transparent 65%); }
-    body.light .hero-glow-tiffany { background: radial-gradient(ellipse, rgba(4,74,69,0.05) 0%, transparent 65%); }
-    body.light .btn-primary { background: var(--gold); color: #81d8d0; }
-    body.light .btn-primary:hover { box-shadow: 0 8px 24px rgba(4,74,69,0.25); }
+    body.light .hero-glow-gold  { background: radial-gradient(ellipse, rgba(42,173,164,0.07) 0%, transparent 65%); }
+    body.light .hero-glow-tiffany { background: radial-gradient(ellipse, rgba(42,173,164,0.04) 0%, transparent 65%); }
+    body.light .btn-primary { background: var(--gold); color: #f8fffe; }
+    body.light .btn-primary:hover { box-shadow: 0 8px 24px rgba(42,173,164,0.2); }
     body.light .btn-tiffany { border-color: var(--tiffany); color: var(--tiffany); }
-    body.light .btn-tiffany:hover { background: var(--tiffany); color: #81d8d0; }
+    body.light .btn-tiffany:hover { background: var(--tiffany); color: #f8fffe; }
+    body.light .btn-outline { border-color: rgba(42,173,164,0.25); color: var(--muted); }
+    body.light .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
     body.light .nav-cv { border-color: var(--tiffany) !important; color: var(--tiffany) !important; }
-    body.light .nav-cv:hover { background: var(--tiffany) !important; color: #81d8d0 !important; }
-    body.light .ptag { background: rgba(4,74,69,0.08); border-color: rgba(4,74,69,0.25); color: rgba(4,74,69,0.8); }
-    body.light .exp-tag { border-color: rgba(4,74,69,0.2); color: var(--muted); }
-    body.light .projects-expand-btn:hover { background: rgba(4,74,69,0.08); border-color: var(--gold); }
+    body.light .nav-cv:hover { background: var(--tiffany) !important; color: #f8fffe !important; }
+    body.light .ptag { background: rgba(42,173,164,0.07); border-color: rgba(42,173,164,0.2); color: rgba(10,61,57,0.75); }
+    body.light .exp-tag { border-color: rgba(42,173,164,0.18); color: var(--muted); }
+    body.light .projects-expand-btn { border-color: rgba(42,173,164,0.25); color: var(--gold); }
+    body.light .projects-expand-btn:hover { background: rgba(42,173,164,0.07); border-color: var(--gold); }
+    body.light .contact-pill { border-color: rgba(42,173,164,0.2); color: var(--muted); }
     body.light .contact-pill:hover { border-color: var(--tiffany); color: var(--tiffany); }
     body.light .skill-fill { background: linear-gradient(90deg, var(--tiffany), var(--gold)); }
-    body.light .hero-photo-frame::after { background: linear-gradient(to bottom, transparent 60%, rgba(110,206,198,0.35) 100%); }
+    body.light .hero-photo-frame::after { background: linear-gradient(to bottom, transparent 60%, rgba(245,255,254,0.35) 100%); }
+    body.light .mobile-menu { background: var(--surface); }
+    body.light .hamburger span { background: var(--muted); }
   </style>
 </head>
 <body>
+
+  <!-- Mobile dropdown menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-inner">
+      <a href="#about"      onclick="closeMobileMenu()">About</a>
+      <a href="#experience" onclick="closeMobileMenu()">Experience</a>
+      <a href="#projects"   onclick="closeMobileMenu()">Projects</a>
+      <a href="#skills"     onclick="closeMobileMenu()">Skills</a>
+      <a href="#contact"    onclick="closeMobileMenu()">Contact</a>
+      <div class="mobile-menu-footer">
+        <a href="Ki-Hoon_Lee_Resume.pdf" download class="nav-cv" style="border:1px solid;padding:0.45rem 1rem;">↓ Resume</a>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
+          <span class="theme-toggle-knob"></span>
+          <span class="toggle-icon toggle-icon-moon">🌙</span>
+          <span class="toggle-icon toggle-icon-sun">☀️</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <nav>
     <a class="nav-logo" href="#hero">이기훈</a>
@@ -502,10 +611,15 @@
       <li>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
           <span class="theme-toggle-knob" id="theme-knob"></span>
+          <span class="toggle-icon toggle-icon-moon">🌙</span>
+          <span class="toggle-icon toggle-icon-sun">☀️</span>
         </button>
       </li>
       <li><a href="Ki-Hoon_Lee_Resume.pdf" download class="nav-cv">↓ Resume</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <section id="hero">
@@ -546,7 +660,7 @@
         <div class="detail-row"><span class="detail-key">Education</span><span class="detail-val">MEng UC Berkeley · BEng University of Bath</span></div>
         <div class="detail-row"><span class="detail-key">Specialisms</span><span class="detail-val">Electromechanical Design · FEA · Precision Fabrication · Embedded Systems</span></div>
         <div class="detail-row"><span class="detail-key">Languages</span><span class="detail-val">English · Korean (Fluent) · French (B2) · Chinese (HSK1)</span></div>
-        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="/cdn-cgi/l/email-protection#1d767475727273427178785d7f786f767871786433787968"><span class="__cf_email__" data-cfemail="7d161415121213221118183d1f180f161811180453181908">[email&#160;protected]</span></a></span></div>
+        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="mailto:kihoon_lee@berkeley.edu">kihoon_lee@berkeley.edu</a></span></div>
         <div class="detail-row"><span class="detail-key">Resume</span><span class="detail-val"><a href="Ki-Hoon_Lee_Resume.pdf" download>Download PDF ↓</a></span></div>
       </div>
     </div>
@@ -811,10 +925,7 @@
       <h2>Let's Build<br>Something Great</h2>
       <p>Open to collaborations, full-time roles, and interesting engineering challenges. Feel free to reach out.</p>
       <div class="contact-links">
-        <a href="/cdn-cgi/l/email-protection#83e8eaebececeddcefe6e6c3e1e6f1e8e6efe6faade6e7f6" class="contact-pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span class="__cf_email__" data-cfemail="7a11131215151425161f1f3a181f08111f161f03541f1e0f">[email&#160;protected]</span>
-        </a>
+        <a href="mailto:kihoon_lee@berkeley.edu" class="contact-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>kihoon_lee@berkeley.edu</a>
         <a href="https://www.linkedin.com/in/ki-hoon-lee/" target="_blank" class="contact-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           linkedin.com/in/ki-hoon-lee
@@ -828,7 +939,7 @@
           Download Resume
         </a>
       </div>
-      <a href="/cdn-cgi/l/email-protection#a7cccecfc8c8c9f8cbc2c2e7c5c2d5ccc2cbc2de89c2c3d2" class="btn-primary">Send a Message →</a>
+      <a href="mailto:kihoon_lee@berkeley.edu" class="btn-primary">Send a Message →</a>
     </div>
   </section>
 
@@ -837,7 +948,7 @@
     <p>Built for GitHub Pages · San Francisco, CA</p>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     const reveals = document.querySelectorAll('.reveal');
     reveals.forEach(el => el.classList.add('hidden'));
     const observer = new IntersectionObserver((entries) => {
@@ -893,13 +1004,30 @@
       const isLight = document.body.classList.toggle('light');
       localStorage.setItem('khl-theme', isLight ? 'light' : 'dark');
     }
-
     // Apply saved theme on load (before paint)
     (function() {
       if (localStorage.getItem('khl-theme') === 'light') {
         document.body.classList.add('light');
       }
     })();
+
+    // Hamburger menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn  = document.getElementById('hamburger');
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Close mobile menu on resize back to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 600) closeMobileMenu();
+    });
   </script>
 
 </body>
