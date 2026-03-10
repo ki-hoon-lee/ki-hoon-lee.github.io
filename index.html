@@ -59,8 +59,9 @@
       position: fixed;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
+      pointer-events: none !important;
+      z-index: 9;
+      /* noise overlay — must NOT block clicks */
       opacity: 0.4;
     }
 
@@ -116,6 +117,7 @@
     }
     .hero-grid-bg {
       position: absolute; inset: 0;
+      pointer-events: none;
       background-image:
         linear-gradient(rgba(232,197,71,0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(232,197,71,0.04) 1px, transparent 1px);
@@ -124,12 +126,14 @@
     }
     .hero-glow-gold {
       position: absolute; bottom: -10%; left: -5%;
+      pointer-events: none;
       width: 600px; height: 600px;
       background: radial-gradient(ellipse, rgba(232,197,71,0.05) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero-glow-tiffany {
       position: absolute; top: -10%; right: -5%;
+      pointer-events: none;
       width: 700px; height: 700px;
       background: radial-gradient(ellipse, rgba(129,216,208,0.06) 0%, transparent 65%);
       pointer-events: none;
@@ -187,7 +191,7 @@
     }
     h1 .line2 {
       color: transparent;
-      -webkit-text-stroke: 1px rgba(232,197,71,0.45);
+      -webkit-text-stroke: 2px var(--gold);
     }
 
     .hero-sub {
@@ -337,8 +341,8 @@
       /* Nav */
       nav { padding: 1rem 1.2rem; }
       .nav-links { display: none; } /* hide desktop links entirely */
-      .hamburger { display: flex; }
-      .mobile-menu { display: block; }
+      .hamburger { display: flex !important; }
+      .mobile-menu { display: block !important; }
 
       /* Hero — add top padding so content clears both nav + browser bar */
       #hero { padding: 8rem 1.2rem 3.5rem; min-height: 100svh; }
@@ -660,7 +664,7 @@
         <div class="detail-row"><span class="detail-key">Education</span><span class="detail-val">MEng UC Berkeley · BEng University of Bath</span></div>
         <div class="detail-row"><span class="detail-key">Specialisms</span><span class="detail-val">Electromechanical Design · FEA · Precision Fabrication · Embedded Systems</span></div>
         <div class="detail-row"><span class="detail-key">Languages</span><span class="detail-val">English · Korean (Fluent) · French (B2) · Chinese (HSK1)</span></div>
-        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="mailto:kihoon_lee@berkeley.edu">kihoon_lee@berkeley.edu</a></span></div>
+        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="/cdn-cgi/l/email-protection#89e2e0e1e6e6e7d6e5ececc9ebecfbe2ece5ecf0a7ecedfc"><span class="__cf_email__" data-cfemail="95fefcfdfafafbcaf9f0f0d5f7f0e7fef0f9f0ecbbf0f1e0">[email&#160;protected]</span></a></span></div>
         <div class="detail-row"><span class="detail-key">Resume</span><span class="detail-val"><a href="Ki-Hoon_Lee_Resume.pdf" download>Download PDF ↓</a></span></div>
       </div>
     </div>
@@ -925,7 +929,7 @@
       <h2>Let's Build<br>Something Great</h2>
       <p>Open to collaborations, full-time roles, and interesting engineering challenges. Feel free to reach out.</p>
       <div class="contact-links">
-        <a href="mailto:kihoon_lee@berkeley.edu" class="contact-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>kihoon_lee@berkeley.edu</a>
+        <a href="/cdn-cgi/l/email-protection#056e6c6d6a6a6b5a696060456760776e6069607c2b606170" class="contact-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg><span class="__cf_email__" data-cfemail="3f54565750505160535a5a7f5d5a4d545a535a46115a5b4a">[email&#160;protected]</span></a>
         <a href="https://www.linkedin.com/in/ki-hoon-lee/" target="_blank" class="contact-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           linkedin.com/in/ki-hoon-lee
@@ -939,7 +943,7 @@
           Download Resume
         </a>
       </div>
-      <a href="mailto:kihoon_lee@berkeley.edu" class="btn-primary">Send a Message →</a>
+      <a href="/cdn-cgi/l/email-protection#2942404146464776454c4c694b4c5b424c454c50074c4d5c" class="btn-primary">Send a Message →</a>
     </div>
   </section>
 
@@ -948,7 +952,7 @@
     <p>Built for GitHub Pages · San Francisco, CA</p>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const reveals = document.querySelectorAll('.reveal');
     reveals.forEach(el => el.classList.add('hidden'));
     const observer = new IntersectionObserver((entries) => {
@@ -1017,18 +1021,4 @@
       const btn  = document.getElementById('hamburger');
       const open = menu.classList.toggle('open');
       btn.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
-    function closeMobileMenu() {
-      document.getElementById('mobile-menu').classList.remove('open');
-      document.getElementById('hamburger').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    // Close mobile menu on resize back to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 600) closeMobileMenu();
-    });
-  </script>
-
-</body>
-</html>
+      document.body.style.overfl
