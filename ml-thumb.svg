@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#0f0f0f"/>
+  <!-- Grid lines -->
+  <g stroke="#1a1a1a" stroke-width="1">
+    <line x1="0" y1="50" x2="800" y2="50"/><line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/><line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/><line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="100" y1="0" x2="100" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/><line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="500" y1="0" x2="500" y2="400"/><line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="700" y1="0" x2="700" y2="400"/>
+  </g>
+  <!-- Neural network nodes -->
+  <!-- Layer 1 -->
+  <circle cx="120" cy="100" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="120" cy="180" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="120" cy="260" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="120" cy="320" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.6"/>
+  <!-- Layer 2 -->
+  <circle cx="280" cy="120" r="18" fill="none" stroke="#52d9a8" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="280" cy="200" r="18" fill="none" stroke="#52d9a8" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="280" cy="280" r="18" fill="none" stroke="#52d9a8" stroke-width="1.5" opacity="0.7"/>
+  <!-- Layer 3 -->
+  <circle cx="440" cy="140" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="440" cy="220" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="440" cy="300" r="18" fill="none" stroke="#81d8d0" stroke-width="1.5" opacity="0.7"/>
+  <!-- Layer 4 (output) -->
+  <circle cx="600" cy="200" r="22" fill="rgba(129,216,208,0.15)" stroke="#81d8d0" stroke-width="2" opacity="0.9"/>
+  <!-- Connections layer 1->2 -->
+  <g stroke="#81d8d0" stroke-width="0.5" opacity="0.15">
+    <line x1="138" y1="100" x2="262" y2="120"/><line x1="138" y1="100" x2="262" y2="200"/><line x1="138" y1="100" x2="262" y2="280"/>
+    <line x1="138" y1="180" x2="262" y2="120"/><line x1="138" y1="180" x2="262" y2="200"/><line x1="138" y1="180" x2="262" y2="280"/>
+    <line x1="138" y1="260" x2="262" y2="120"/><line x1="138" y1="260" x2="262" y2="200"/><line x1="138" y1="260" x2="262" y2="280"/>
+    <line x1="138" y1="320" x2="262" y2="120"/><line x1="138" y1="320" x2="262" y2="200"/><line x1="138" y1="320" x2="262" y2="280"/>
+  </g>
+  <!-- Connections layer 2->3 -->
+  <g stroke="#52d9a8" stroke-width="0.5" opacity="0.15">
+    <line x1="298" y1="120" x2="422" y2="140"/><line x1="298" y1="120" x2="422" y2="220"/><line x1="298" y1="120" x2="422" y2="300"/>
+    <line x1="298" y1="200" x2="422" y2="140"/><line x1="298" y1="200" x2="422" y2="220"/><line x1="298" y1="200" x2="422" y2="300"/>
+    <line x1="298" y1="280" x2="422" y2="140"/><line x1="298" y1="280" x2="422" y2="220"/><line x1="298" y1="280" x2="422" y2="300"/>
+  </g>
+  <!-- Connections layer 3->4 -->
+  <g stroke="#81d8d0" stroke-width="0.8" opacity="0.25">
+    <line x1="458" y1="140" x2="578" y2="200"/>
+    <line x1="458" y1="220" x2="578" y2="200"/>
+    <line x1="458" y1="300" x2="578" y2="200"/>
+  </g>
+  <!-- Prediction line chart on right -->
+  <polyline points="640,320 660,280 680,295 700,240 720,255 740,200 760,215 780,170" fill="none" stroke="#81d8d0" stroke-width="2" opacity="0.8"/>
+  <polyline points="640,310 660,270 680,305 700,250 720,230 740,210 760,235 780,185" fill="none" stroke="#52d9a8" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+  <!-- Labels -->
+  <text x="400" y="385" text-anchor="middle" font-family="monospace" font-size="11" fill="#333" letter-spacing="3">NEURAL NETWORK · MARKET VALUATION</text>
+</svg>
