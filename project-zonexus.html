@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZoNexus — Ki-Hoon Lee</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Jua&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1520;
+      --surface: #111d2b;
+      --card: #162031;
+      --border: rgba(255,255,255,0.08);
+      --accent: #5b9cf6;
+      --accent2: #93c5fd;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --nav-bg: rgba(13,21,32,0.92);
+      --transition-speed: 0.4s;
+    }
+    body.light {
+      --bg: #f5f9ff;
+      --surface: #edf3fc;
+      --card: #f0f6ff;
+      --border: rgba(37,55,78,0.12);
+      --accent: #2563eb;
+      --accent2: #3b82f6;
+      --text: #25374e;
+      --muted: #64748b;
+      --nav-bg: rgba(245,249,255,0.95);
+    }
+    body, nav, section, .section-block, .tag { transition: background var(--transition-speed) ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+
+    h1, h2, h3, h4 { font-family: 'Libre Franklin', sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: var(--nav-bg); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Jua', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-back { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--accent2); }
+
+    /* Theme toggle */
+    .theme-toggle { display: flex; align-items: center; width: 52px; height: 26px; border-radius: 13px; border: 1px solid var(--border); background: var(--card); cursor: pointer; position: relative; padding: 0; transition: background 0.35s, border-color 0.35s; flex-shrink: 0; }
+    .theme-toggle:hover { border-color: var(--accent); }
+    .toggle-icon { position: absolute; font-size: 10px; line-height: 1; transition: opacity 0.3s; pointer-events: none; }
+    .toggle-icon-moon { left: 7px; opacity: 1; }
+    .toggle-icon-sun  { right: 7px; opacity: 0.35; }
+    body.light .toggle-icon-moon { opacity: 0.35; }
+    body.light .toggle-icon-sun  { opacity: 1; }
+    .theme-toggle-knob { position: absolute; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--muted); transition: transform 0.32s cubic-bezier(.4,0,.2,1), background 0.32s; }
+    body.light .theme-toggle-knob { transform: translateX(26px); background: var(--accent); }
+    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
+
+    /* Hero */
+    .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(91,156,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(91,156,246,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); pointer-events: none; }
+    .project-hero-glow { position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(91,156,246,0.06) 0%, transparent 65%); pointer-events: none; }
+    .project-category { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--accent2); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .project-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--accent2); }
+    .project-hero h1 { font-family: 'Libre Franklin', sans-serif; font-weight: 800; font-size: clamp(2.2rem, 5.5vw, 4.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .meta-val { font-size: 0.9rem; color: var(--text); }
+
+    /* Content */
+    .project-content { max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .section-block { margin-bottom: 5rem; }
+    .block-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--accent2); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .block-label::before { content: '// '; color: var(--border); }
+    h2 { font-family: 'Libre Franklin', sans-serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.2; }
+    h3 { font-family: 'Libre Franklin', sans-serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.7rem; color: var(--text); margin-top: 2rem; }
+    p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1rem; }
+    p span { color: var(--text); }
+
+    /* Product cards */
+    .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2.5rem 0; }
+    .product-card { background: var(--card); padding: 0; overflow: hidden; }
+    .product-card-img { width: 100%; height: 240px; object-fit: cover; display: block; }
+    .product-card-img-placeholder { width: 100%; height: 240px; background: var(--surface); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+    .product-card-body { padding: 1.6rem; }
+    .product-num { font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .product-card h3 { font-size: 1rem; margin-top: 0; margin-bottom: 0.5rem; }
+    .product-card p { font-size: 0.83rem; margin-bottom: 0.8rem; }
+    .my-contribution { background: rgba(91,156,246,0.06); border-left: 2px solid var(--accent); padding: 0.7rem 1rem; margin-top: 0.8rem; }
+    .my-contribution-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+    .my-contribution p { font-size: 0.8rem; color: var(--text); margin: 0; line-height: 1.6; }
+
+    /* Stats */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin: 2.5rem 0; }
+    .stat-box { background: var(--card); padding: 1.8rem; text-align: center; }
+    .stat-num { font-family: 'Libre Franklin', sans-serif; font-weight: 700; font-size: 2rem; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+    /* Image layouts */
+    .image-full-wrap { margin: 2rem 0; border: 1px solid var(--border); background: var(--card); }
+    .image-full-wrap img { width: 100%; display: block; max-height: 520px; object-fit: contain; }
+    .img-cap { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); padding: 0.7rem 1rem; border-top: 1px solid var(--border); text-align: center; }
+
+    .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .image-grid-2 > div { background: var(--card); }
+    .image-grid-2 img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
+
+    /* NDA notice */
+    .nda-notice { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.5rem; background: rgba(91,156,246,0.04); border: 1px solid rgba(91,156,246,0.15); margin: 2rem 0; }
+    .nda-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .nda-text { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .nda-text strong { color: var(--text); }
+
+    /* Tags */
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { padding: 0.3rem 0.8rem; background: rgba(91,156,246,0.06); border: 1px solid rgba(91,156,246,0.18); font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(91,156,246,0.7); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    /* Company bar */
+    .company-bar { display: flex; align-items: center; gap: 1.5rem; padding: 1.2rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent); margin-bottom: 2.5rem; }
+    .company-logo { font-family: 'Libre Franklin', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--accent); letter-spacing: -0.02em; }
+    .company-info { flex: 1; }
+    .company-info-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .company-info-desc { font-size: 0.85rem; color: var(--text); margin-top: 0.2rem; }
+    .company-link { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: var(--accent2); text-decoration: none; letter-spacing: 0.05em; border: 1px solid rgba(91,156,246,0.25); padding: 0.35rem 0.8rem; transition: all 0.2s; }
+    .company-link:hover { background: rgba(91,156,246,0.08); }
+
+    /* Footer nav */
+    .project-nav-footer { border-top: 1px solid var(--border); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .pnf-link { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .pnf-link:hover { color: var(--accent2); }
+    .pnf-center { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
+
+    body.light .tag { background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: rgba(37,99,235,0.75); }
+    body.light .my-contribution { background: rgba(37,99,235,0.04); }
+    body.light .pnf-link { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 7rem 1.5rem 3rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .product-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .image-grid-2 { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 2rem 1.5rem; }
+      .project-meta { gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .project-hero { padding: 6rem 1.2rem 2.5rem; }
+      .project-hero h1 { font-size: clamp(2rem, 10vw, 3rem); }
+      .project-content { padding: 2.5rem 1.2rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 1.5rem; }
+      .project-nav-footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .pnf-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">이기훈</a>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html#projects">← Back to Projects</a>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
+        <span class="toggle-icon toggle-icon-moon">🌙</span>
+        <span class="toggle-icon toggle-icon-sun">☀️</span>
+        <span class="theme-toggle-knob"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-glow"></div>
+    <div class="project-category">Professional · Mechanical Design · ZoNexus LLC</div>
+    <h1>Precision Instruments<br>for Electron Microscopy</h1>
+    <div class="project-meta">
+      <div class="meta-item"><span class="meta-key">Company</span><span class="meta-val">ZoNexus LLC</span></div>
+      <div class="meta-item"><span class="meta-key">Role</span><span class="meta-val">Mechanical Design Engineer</span></div>
+      <div class="meta-item"><span class="meta-key">Period</span><span class="meta-val">Jul 2025 – Present</span></div>
+      <div class="meta-item"><span class="meta-key">Location</span><span class="meta-val">Richmond, CA</span></div>
+    </div>
+  </div>
+
+  <div class="project-content">
+
+    <!-- OVERVIEW -->
+    <div class="section-block">
+      <div class="block-label">Overview</div>
+
+      <div class="company-bar">
+        <div class="company-logo">ZoNexus</div>
+        <div class="company-info">
+          <div class="company-info-name">ZoNexus LLC · Richmond, California</div>
+          <div class="company-info-desc">Precision TEM/SEM instrumentation — sample holders, cryogenic stages, and vacuum-compatible transfer systems for electron microscopy research</div>
+        </div>
+        <a class="company-link" href="https://www.zonexus.com" target="_blank" rel="noopener">zonexus.com ↗</a>
+      </div>
+
+      <div class="nda-notice">
+        <span class="nda-icon">🔒</span>
+        <div class="nda-text"><strong>NDA applies.</strong> Detailed design drawings, internal specifications, and proprietary CAD are confidential. Content shown here is limited to publicly available information from the ZoNexus website, supplemented by a description of my specific contributions.</div>
+      </div>
+
+      <h2>Designing the Next Generation of Electron Microscopy Sample Holders</h2>
+      <p>ZoNexus designs precision instruments for transmission electron microscopy (TEM) and scanning electron microscopy (SEM) — enabling researchers to study materials at the atomic scale. As Mechanical Design Engineer, I own the full product lifecycle for multiple hardware platforms: from concept and CAD through tolerance analysis, fabrication, and assembly validation.</p>
+      <p>My work spans four product lines, each solving a distinct challenge in sample preparation and in-situ experimentation. Across all products I work within tight vacuum-compatibility, cryogenic, and electromechanical constraints — producing <span>GD&T-compliant drawings</span> and collaborating closely with <span>Lawrence Berkeley National Lab</span> on rapid iteration cycles.</p>
+
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">4</div><div class="stat-label">Product lines</div></div>
+        <div class="stat-box"><div class="stat-num">360°</div><div class="stat-label">Tomography rotation</div></div>
+        <div class="stat-box"><div class="stat-num">LBNL</div><div class="stat-label">Collaboration partner</div></div>
+        <div class="stat-box"><div class="stat-num">US Pat.</div><div class="stat-label">Air-free transfer module</div></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- PRODUCT 1: TOMOGRAPHY HOLDER -->
+    <div class="section-block">
+      <div class="block-label">Product 01</div>
+      <h2>Continuous Rotation Tomography Holder</h2>
+
+      <div class="image-full-wrap">
+        <img src="https://www.zonexus.com/Resources/zonexus1.png" alt="ZoNexus continuous rotation tomography holder">
+        <div class="img-cap">ZoNexus continuous rotation TEM tomography holder — 360° piezo-motor driven rotation</div>
+      </div>
+
+      <p>Conventional tomography holders rely on the microscope's goniometer for rotation, which limits the tilt angle to ~70° — resulting in a "missing wedge" artifact that degrades tomogram quality. ZoNexus solved this with a holder featuring a <span>built-in high-precision piezo-motor</span> enabling full 360° continuous rotation, eliminating the missing wedge entirely.</p>
+
+      <h3>Product Features</h3>
+      <p>The holder supports both continuous rotation mode (for fast acquisition with direct electron detectors) and step-and-collect mode (compatible with standard goniometer tilt series software). Detachable tips allow FIB-prepared samples to be transferred directly. Three tip types are included: needle, half-grid, and full-grid.</p>
+
+      <div class="my-contribution">
+        <div class="my-contribution-label">My Contribution</div>
+        <p>I added a <strong>biasing feature</strong> to the holder tip, enabling users to load and electrically bias a MEMS chip at the end of the holder for in-situ electrical measurements during tomographic imaging — expanding the holder's capability beyond pure structural characterisation.</p>
+      </div>
+
+      <div class="image-full-wrap" style="margin-top:1.5rem">
+        <img src="https://www.zonexus.com/Resources/insitucrtomo.jpeg" alt="In-situ continuous rotation tomography">
+        <div class="img-cap">In-situ continuous rotation tomography — enabling real-time structural observation at atomic scale</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- PRODUCT 2: HIGH THROUGHPUT HOLDER -->
+    <div class="section-block">
+      <div class="block-label">Product 02</div>
+      <h2>High Throughput Air-Free Transfer Holder</h2>
+
+      <div class="image-full-wrap">
+        <img src="https://www.zonexus.com/Resources/airfreest.jpeg" alt="ZoNexus high throughput air-free transfer holder">
+        <div class="img-cap">ZoNexus high throughput air-free TEM holder — 3-sample capacity with clamshell loading design</div>
+      </div>
+
+      <p>Air-sensitive materials (battery electrodes, catalysts, reactive metals) degrade within seconds of exposure to atmosphere. This TEM holder solves that by allowing <span>3 samples</span> to be loaded inside a glove box and transferred directly to the TEM without any air exposure — using a user-friendly clamshell-type enclosure that simplifies loading in confined glove-box environments.</p>
+
+      <div class="my-contribution">
+        <div class="my-contribution-label">My Contribution</div>
+        <p>I designed and implemented a <strong>stepper motor-controlled positioning system</strong> for the sample stage, allowing the user to precisely select and position individual samples programmatically — enabling automated, reproducible sample switching without breaking the vacuum seal or exposing to air. The system supports both manual and motor-driven control modes.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- PRODUCT 3: PELTIER STAGE -->
+    <div class="section-block">
+      <div class="block-label">Product 03</div>
+      <h2>Peltier Cold Stage for SEM/FIB</h2>
+
+      <div class="image-full-wrap">
+        <img src="https://www.zonexus.com/Resources/peltierstage.jpeg" alt="ZoNexus Peltier cold stage for SEM/FIB">
+        <div class="img-cap">ZoNexus Peltier cold stage for SEM/FIB — enabling cryo-temperature experiments inside the SEM chamber</div>
+      </div>
+
+      <p>Cryo-electron microscopy requires precise, stable temperature control inside the SEM vacuum chamber. This Peltier-based cold stage enables researchers to perform <span>low-temperature in-situ experiments</span> directly within the SEM/FIB — cooling samples for cryo-preservation, condensation studies, and temperature-dependent materials characterisation.</p>
+
+      <div class="my-contribution">
+        <div class="my-contribution-label">My Contribution</div>
+        <p>I developed a <strong>PID temperature controller</strong> for the Peltier stage — designing the control loop logic, tuning the PID gains for stable setpoint tracking, and integrating the controller with the stage hardware. The system achieves accurate, stable temperature control across the operating range required for cryo-SEM applications.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- PRODUCT 4: AIR-FREE SEM MODULE -->
+    <div class="section-block">
+      <div class="block-label">Product 04</div>
+      <h2>Air-Free Transfer Module for SEM/FIB</h2>
+
+      <div class="image-full-wrap">
+        <img src="https://www.zonexus.com/Resources/airfreest.jpeg" alt="ZoNexus air-free transfer SEM/FIB module">
+        <div class="img-cap">ZoNexus air-free transfer module — US Patent US2021/03571A1</div>
+      </div>
+
+      <p>This patented module (<span>US Patent US2021/03571A1</span>) consists of a small chamber mountable on the SEM stage. It can be loaded with air-sensitive samples in a glove box, sealed, and transported to the SEM/FIB without any atmosphere exposure. After analysis or FIB liftout, the chamber can be resealed in argon or vacuum for return transfer — enabling a fully closed workflow from glove box to SEM to TEM.</p>
+
+      <h3>Salient Features</h3>
+      <p>Air-free (inert gas) or vacuum transfer between glove box and SEM/FIB. The system includes the transfer module, a touchscreen controller, and a remote controller for glove-box operation. Compatible with ZoNexus air-free TEM holders for seamless cross-instrument sample workflows.</p>
+
+      <div class="my-contribution">
+        <div class="my-contribution-label">My Contribution</div>
+        <p>I added a <strong>biasing stub option</strong> to the SEM module — enabling in-situ electrical biasing experiments within the SEM chamber without compromising the air-free seal. This extends the module's capability to include electrical characterisation alongside standard imaging and FIB workflows.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TOOLS -->
+    <div class="section-block">
+      <div class="block-label">Skills Applied</div>
+      <h2>Tools &amp; Methods</h2>
+      <div class="tags-row">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">GD&T</span>
+        <span class="tag">DFM / DFA</span>
+        <span class="tag">Tolerance Analysis</span>
+        <span class="tag">Vacuum System Design</span>
+        <span class="tag">Cryogenic Systems</span>
+        <span class="tag">Electromechanical Integration</span>
+        <span class="tag">Stepper Motor Control</span>
+        <span class="tag">PID Temperature Control</span>
+        <span class="tag">PCB Integration</span>
+        <span class="tag">MEMS Biasing</span>
+        <span class="tag">FIB Sample Preparation</span>
+        <span class="tag">TEM / SEM Instrumentation</span>
+        <span class="tag">Lawrence Berkeley National Lab</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="project-nav-footer">
+    <a href="index.html#projects" class="pnf-link">← All Projects</a>
+    <span class="pnf-center">Ki-Hoon Lee · 2025</span>
+    <a href="project-treadmill.html" class="pnf-link">Omnidirectional Treadmill →</a>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light');
+      localStorage.setItem('khl-theme', isLight ? 'light' : 'dark');
+    }
+    (function() {
+      if (localStorage.getItem('khl-theme') === 'light') document.body.classList.add('light');
+    })();
+  </script>
+</body>
+</html>
