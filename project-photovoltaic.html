@@ -179,14 +179,13 @@
     .toggle-icon-sun  { right: 7px; opacity: 0.35; }
     body.light .toggle-icon-moon { opacity: 0.35; }
     body.light .toggle-icon-sun  { opacity: 1; }
-    .theme-toggle-knob {
-      position: absolute; left: 3px;
-      width: 18px; height: 18px; border-radius: 50%;
-      background: var(--muted);
-      transition: transform 0.32s cubic-bezier(.4,0,.2,1), background 0.32s;
-    }
-    body.light .theme-toggle-knob { transform: translateX(26px); background: var(--accent); }
-    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
+          .theme-toggle-knob {
+        position: absolute; top: 4px; left: 3px;
+        width: 18px; height: 18px; border-radius: 50%;
+        background: var(--muted);
+        transition: left 0.32s cubic-bezier(.4,0,.2,1), background 0.32s;
+      }
+    body.light    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
     body.light .tag { background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: rgba(10,61,57,0.75); }
     body.light .pnf-link { color: var(--accent); }
     body.light .pnf-link:hover { color: var(--accent2); }
@@ -428,27 +427,32 @@
 
 
   <script>
-    function toggleTheme() {
-      const isLight = document.body.classList.toggle('light');
-      localStorage.setItem('khl-theme', isLight ? 'light' : 'dark');
-    }
     (function() {
       if (localStorage.getItem('khl-theme') === 'light') document.body.classList.add('light');
     })();
+
+    function toggleTheme() {
+      var isLight = document.body.classList.toggle('light');
+      localStorage.setItem('khl-theme', isLight ? 'light' : 'dark');
+    }
+
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const btn  = document.getElementById('hamburger');
-      const open = menu.classList.toggle('open');
+      var menu = document.getElementById('mobile-menu');
+      var btn  = document.getElementById('hamburger');
+      var open = menu.classList.toggle('open');
       btn.classList.toggle('open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     }
+
     function closeMobileMenu() {
-      document.getElementById('mobile-menu').classList.remove('open');
-      const btn = document.getElementById('hamburger');
-      if (btn) btn.classList.remove('open');
+      var menu = document.getElementById('mobile-menu');
+      var btn  = document.getElementById('hamburger');
+      if (menu) menu.classList.remove('open');
+      if (btn)  btn.classList.remove('open');
       document.body.style.overflow = '';
     }
-    window.addEventListener('resize', () => { if (window.innerWidth > 600) closeMobileMenu(); });
+
+    window.addEventListener('resize', function() { if (window.innerWidth > 600) closeMobileMenu(); });
   </script>
 </body>
 </html>
