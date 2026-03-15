@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gyro Watch Winder — Ki-Hoon Lee</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1520;
+      --surface: #111d2b;
+      --card: #162031;
+      --border: rgba(255,255,255,0.08);
+      --accent: #5b9cf6;
+      --accent2: #93c5fd;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --nav-bg: rgba(13,21,32,0.92);
+      --transition-speed: 0.4s;
+    }
+    body.light {
+      --bg: #f5f9ff;
+      --surface: #edf3fc;
+      --card: #f0f6ff;
+      --border: rgba(37,55,78,0.12);
+      --accent: #2563eb;
+      --accent2: #3b82f6;
+      --text: #25374e;
+      --muted: #64748b;
+      --nav-bg: rgba(245,249,255,0.95);
+    }
+    body, nav, section, footer, .project-card, .section-block, .tag {
+      transition: background var(--transition-speed) ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: var(--nav-bg); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 1.5rem; letter-spacing: 0.01em; color: var(--accent); text-decoration: none; }
+    .nav-back { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--accent2); }
+
+    .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(91,156,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(91,156,246,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .project-hero-glow { position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(91,156,246,0.05) 0%, transparent 65%); pointer-events: none; }
+    .project-category { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--accent2); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .project-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--accent2); }
+    .project-hero h1 { font-family: 'Libre Franklin', sans-serif; font-weight: 800; font-size: clamp(2.2rem, 5.5vw, 4.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .meta-val { font-size: 0.9rem; color: var(--text); }
+
+    .project-content { max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .section-block { margin-bottom: 5rem; }
+    .block-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--accent2); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .block-label::before { content: '// '; color: var(--border); }
+    h2 { font-family: 'Libre Franklin', sans-serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.2; }
+    p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1rem; }
+    p span { color: var(--text); }
+
+    /* Image grids */
+    .image-grid-1 { margin: 2rem 0; border: 1px solid var(--border); }
+    .image-full { width: 100%; display: block; }
+    .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .image-grid-2 img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
+    .image-caption { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); padding: 0.6rem 0; text-align: center; }
+
+    /* Video */
+    .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin: 2rem 0; }
+    .video-single { margin: 2rem 0; border: 1px solid var(--border); }
+    .video-wrapper { background: var(--card); }
+    video { width: 100%; display: block; max-height: 460px; object-fit: cover; }
+    .video-caption { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); padding: 0.6rem 1rem; background: var(--card); border-top: 1px solid var(--border); }
+
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { padding: 0.3rem 0.8rem; background: rgba(91,156,246,0.06); border: 1px solid rgba(91,156,246,0.18); font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(91,156,246,0.7); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    .project-nav-footer { border-top: 1px solid var(--border); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .pnf-link { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .pnf-link:hover { color: var(--accent2); }
+    .pnf-center { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
+
+    .nav-mobile-right { display: none; align-items: center; }
+    @media (max-width: 767px) { .nav-mobile-right { display: flex; } }
+
+    @media (max-width: 959px) {
+      nav { padding: 1rem 1.8rem; }
+      .project-hero { padding: 7rem 1.8rem 3rem; }
+      .project-content { padding: 3.5rem 1.8rem; }
+      .video-grid, .image-grid-2 { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 2rem 1.8rem; }
+      .project-meta { gap: 1.5rem; flex-wrap: wrap; }
+    }
+    @media (max-width: 479px) {
+      nav { padding: 0.9rem 1.1rem; }
+      .nav-logo { font-size: 1.1rem; }
+      .project-hero { padding: 6rem 1.1rem 2rem; min-height: auto; }
+      .project-hero h1 { font-size: clamp(1.8rem, 11vw, 2.8rem); margin-bottom: 1rem; }
+      .project-content { padding: 2.5rem 1.1rem; }
+      h2 { font-size: 1.3rem; }
+      p { font-size: 0.85rem; }
+      .project-nav-footer { padding: 1.4rem 1.1rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .pnf-center { display: none; }
+    }
+    body.light .tag { background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: rgba(37,99,235,0.75); }
+    body.light .pnf-link { color: var(--accent); }
+    body.light .pnf-link:hover { color: var(--accent2); }
+
+    /* Theme toggle */
+    .theme-toggle { display: flex; align-items: center; width: 52px; height: 26px; border-radius: 13px; border: 1px solid var(--border); background: var(--card); cursor: pointer; position: relative; padding: 0; transition: background 0.35s, border-color 0.35s; flex-shrink: 0; }
+    .theme-toggle:hover { border-color: var(--accent); }
+    .toggle-icon { position: absolute; font-size: 10px; line-height: 1; transition: opacity 0.3s; pointer-events: none; }
+    .toggle-icon-moon { left: 7px; opacity: 1; }
+    .toggle-icon-sun  { right: 7px; opacity: 0.35; }
+    body.light .toggle-icon-moon { opacity: 0.35; }
+    body.light .toggle-icon-sun  { opacity: 1; }
+    .theme-toggle-knob { position: absolute; top: 4px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--muted); transition: left 0.32s cubic-bezier(.4,0,.2,1), background 0.32s; }
+    body.light .theme-toggle-knob { top: 4px; left: 29px; background: var(--accent); }
+    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Ki-Hoon</a>
+    <a class="nav-back" href="index.html#projects">← Back to Projects</a>
+    <div class="nav-mobile-right">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+        <span class="theme-toggle-knob"></span>
+        <span class="toggle-icon toggle-icon-moon">🌙</span>
+        <span class="toggle-icon toggle-icon-sun">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-glow"></div>
+    <div class="project-category">Personal · Electronics · 3D Printing</div>
+    <h1>Gyro Watch Winder<br><span style="font-size:0.5em; font-weight:400; color:var(--muted); letter-spacing:0.02em;">"First World Problems"</span></h1>
+    <div class="project-meta">
+      <div class="meta-item"><span class="meta-key">Year</span><span class="meta-val">2025</span></div>
+      <div class="meta-item"><span class="meta-key">Type</span><span class="meta-val">Personal Build</span></div>
+      <div class="meta-item"><span class="meta-key">Stack</span><span class="meta-val">Arduino · Stepper Motor · 3D Print</span></div>
+    </div>
+  </div>
+
+  <div class="project-content">
+
+    <!-- OVERVIEW -->
+    <div class="section-block">
+      <div class="block-label">Overview</div>
+      <h2>A Hobby That Needed Its Own Solution</h2>
+      <p>I collect and assemble automatic watches. Unlike quartz watches, automatics are wound by the natural motion of the wearer's wrist — a beautiful piece of mechanical engineering that needs no battery. The problem: when you own more watches than you can wear, any watch left sitting for a few days winds down completely. Every time you go back to it, you have to <span>manually reset the time before wearing it</span>.</p>
+      <p>A watch winder solves this by keeping the watch rotating while stored, mimicking wrist movement and keeping the mainspring tensioned. Commercial winders can cost hundreds. This one cost a fraction of that and was considerably more satisfying to build — hence the name.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- THE WATCHES -->
+    <div class="section-block">
+      <div class="block-label">The Collection</div>
+      <h2>What's Being Wound</h2>
+      <p>The collection is a mix of <span>skeleton-dial Nautilus-style automatics</span> and sport GMT pieces. The open-heart skeletons expose the rotor and gear train directly through the dial, making it oddly satisfying to watch the winder do its job. All of them have mechanical movements that stop within days of being left unworn.</p>
+
+      <div class="image-grid-2">
+        <img src="gyro-watches.jpg" alt="Automatic watch collection">
+        <img src="gyro-internals2.jpg" alt="Watch winder electronics — top-down view">
+      </div>
+      <div class="image-caption">Left: the collection. Right: internals — stepper motor, ULN2003 driver, and Arduino wiring inside the 3D-printed base.</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- BUILD -->
+    <div class="section-block">
+      <div class="block-label">Design & Build</div>
+      <h2>How It's Built</h2>
+      <p>The enclosure, lid, and watch cradle were all <span>custom designed and 3D printed</span> in matte black PLA. The circular puck form factor sits neatly on a shelf — the hinged lid opens to access the watch cradle above and the electronics below. A <span>28BYJ-48 stepper motor</span> sits in the lid and drives the cradle directly, controlled by an Arduino Nano running a simple rotation loop via a ULN2003 driver board.</p>
+      <p>Different automatic movements have different winding requirements — some need clockwise only, others bidirectional — so the Arduino code is written to be <span>easily configurable</span> for whichever watch is mounted.</p>
+
+      <div class="image-grid-1">
+        <img src="gyro-internals1.jpg" alt="Watch winder open — showing stepper motor mounted in lid and electronics in base" class="image-full">
+      </div>
+      <div class="image-caption">Open enclosure — stepper motor mounted in the lid, electronics routed in the base.</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- VIDEOS -->
+    <div class="section-block">
+      <div class="block-label">In Action</div>
+      <h2>Build & Operation</h2>
+
+      <div class="video-grid">
+        <div class="video-wrapper">
+          <video controls playsinline muted loop>
+            <source src="gyro-winder1.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Early motor and cradle rotation test</div>
+        </div>
+        <div class="video-wrapper">
+          <video controls playsinline muted loop>
+            <source src="gyro-winder2.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Electronics assembly inside the printed base</div>
+        </div>
+      </div>
+
+      <div class="video-single">
+        <div class="video-wrapper">
+          <video controls playsinline muted loop>
+            <source src="gyro-winder3.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Completed winder running — watch mounted and rotating</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TOOLS -->
+    <div class="section-block">
+      <div class="block-label">Tools & Methods</div>
+      <h2>Skills Applied</h2>
+      <div class="tags-row">
+        <span class="tag">CAD / 3D Modelling</span>
+        <span class="tag">FDM 3D Printing</span>
+        <span class="tag">Arduino (C++)</span>
+        <span class="tag">Stepper Motor Control</span>
+        <span class="tag">Electronics Assembly</span>
+        <span class="tag">ULN2003 Driver</span>
+        <span class="tag">Mechanical Design</span>
+        <span class="tag">Consumer Product Design</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="project-nav-footer">
+    <a href="index.html#projects" class="pnf-link">← All Projects</a>
+    <span class="pnf-center">Ki-Hoon Lee · 2025</span>
+    <a href="index.html#projects" class="pnf-link">All Projects →</a>
+  </div>
+
+  <script>
+    (function() {
+      if (localStorage.getItem('khl-theme') === 'light') document.body.classList.add('light');
+    })();
+    function toggleTheme() {
+      var isLight = document.body.classList.toggle('light');
+      localStorage.setItem('khl-theme', isLight ? 'light' : 'dark');
+    }
+    function toggleMobileMenu() {
+      var menu = document.getElementById('mobile-menu');
+      var btn = document.getElementById('hamburger');
+      var open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function closeMobileMenu() {
+      var menu = document.getElementById('mobile-menu');
+      var btn = document.getElementById('hamburger');
+      if (menu) menu.classList.remove('open');
+      if (btn) btn.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    window.addEventListener('resize', function() { if (window.innerWidth > 600) closeMobileMenu(); });
+  </script>
+</body>
+</html>
