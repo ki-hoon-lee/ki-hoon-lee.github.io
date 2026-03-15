@@ -6,7 +6,7 @@
   <title>Ki-Hoon Lee — Mechanical Engineer</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0d1520;
@@ -81,10 +81,10 @@
       transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
     }
     .nav-logo {
-      font-family: 'Jua', sans-serif;
-      font-weight: 400;
-      font-size: 2rem;
-      letter-spacing: 0.06em;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.01em;
       color: var(--accent);
       text-decoration: none;
     }
@@ -263,13 +263,10 @@
     .exp-item { display: grid; grid-template-columns: 130px 1fr; gap: 2rem; padding: 2.2rem 0; border-top: 1px solid var(--border); align-items: start; }
     .exp-item:last-child { border-bottom: 1px solid var(--border); }
     .exp-left { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; }
-    .exp-logo { width: 60px; height: 60px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Libre Franklin', sans-serif; font-weight: 800; font-size: 0.68rem; letter-spacing: 0.03em; text-align: center; line-height: 1.2; flex-shrink: 0; }
-    .exp-logo-zonexus  { background: #1e3a5f; color: #93c5fd; }
-    .exp-logo-bluegoji { background: #1a3a2a; color: #6ee7b7; }
-    .exp-logo-kimm     { background: #2d1a4a; color: #c4b5fd; font-size: 0.58rem; }
-    .exp-logo-ksic     { background: #1a2a3a; color: #7dd3fc; font-size: 0.58rem; }
-    .exp-logo-roka     { background: #1a2e1a; color: #86efac; font-size: 0.58rem; }
-    .exp-logo-ku       { background: #3a1a1a; color: #fca5a5; }
+    .exp-logo { width: 60px; height: 60px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; background: var(--card); border: 1px solid var(--border); }
+    .exp-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+    .exp-logo-ksic { background: #1a2a3a; color: #7dd3fc; font-family: 'Libre Franklin', sans-serif; font-weight: 800; font-size: 0.58rem; letter-spacing: 0.03em; }
+    body.light .exp-logo-ksic { background: #e0f2fe; color: #0369a1; }
     .exp-date { font-family: 'Space Grotesk', sans-serif; font-size: 0.67rem; color: var(--muted); letter-spacing: 0.02em; line-height: 1.6; text-align: center; }
     .exp-right h3 { font-family: 'Libre Franklin', sans-serif; font-weight: 600; font-size: 1.05rem; margin-bottom: 0.2rem; }
     .exp-company { font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 0.7rem; }
@@ -339,77 +336,108 @@
     .reveal.hidden.visible { opacity: 1; transform: none; }
 
     /* RESPONSIVE — TABLET */
-    @media (max-width: 960px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      section { padding: 4rem 1.5rem; }
-      #hero { padding: 0 1.5rem 4rem; }
-      .hero-photo-wrap { display: none; }
+    .nav-mobile-right { display: none; align-items: center; gap: 0.6rem; }
+    @media (max-width: 767px) {
+      .nav-mobile-right { display: flex; }
+      .mobile-menu-footer .theme-toggle { display: none; }
+    }
+    @media (min-width: 1400px) {
+      section { padding: 6rem 8rem; }
+      #hero { padding: 0 8rem 5rem; }
+      nav { padding: 1.2rem 8rem; }
+      .projects-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ── LARGE TABLET / SMALL LAPTOP — 960–1199px ── */
+    @media (max-width: 1199px) {
+      nav { padding: 1.1rem 2.5rem; }
+      section { padding: 5rem 2.5rem; }
+      #hero { padding: 0 2.5rem 4rem; }
+      .about-grid { gap: 4rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── TABLET — 768–959px ── */
+    @media (max-width: 959px) {
+      nav { padding: 1rem 1.8rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.7rem; }
+      section { padding: 4.5rem 2rem; }
+      #hero { padding: 0 2rem 4rem; min-height: auto; padding-top: 7rem; }
+      .hero-photo-wrap { width: 260px; height: 260px; }
+      h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); }
+      .hero-sub { max-width: 100%; font-size: 0.9rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .projects-grid { grid-template-columns: repeat(2, 1fr); }
       .skills-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-      .edu-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr 1fr; }
       .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
       .exp-left { flex-direction: row; justify-content: flex-start; gap: 1rem; align-items: center; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
 
-    /* RESPONSIVE — MOBILE */
-    @media (max-width: 600px) {
-      /* Nav */
-      nav { padding: 1rem 1.2rem; }
-      .nav-links { display: none; } /* hide desktop links entirely */
+    /* ── LARGE PHONE — 480–767px ── */
+    @media (max-width: 767px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
       .hamburger { display: flex !important; }
       .mobile-menu { display: block !important; }
-
-      /* Hero — add top padding so content clears both nav + browser bar */
-      #hero { padding: 8rem 1.2rem 3.5rem; min-height: 100svh; }
-      h1 { font-size: clamp(2.8rem, 13vw, 4rem); }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 3.5rem; min-height: 100svh; }
+      .hero-photo-wrap { display: none; }
+      h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
       .hero-sub { font-size: 0.88rem; margin-bottom: 2rem; }
-      .hero-cta { flex-direction: column; gap: 0.7rem; }
-      .hero-cta a { width: 100%; text-align: center; justify-content: center; padding: 0.9rem 1.5rem; }
-
-      /* Sections */
-      section { padding: 3.5rem 1.2rem; }
-      h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 2rem; }
-
-      /* About */
+      .hero-cta { flex-wrap: wrap; gap: 0.7rem; }
+      .hero-cta a { flex: 1 1 140px; text-align: center; justify-content: center; }
+      h2 { font-size: clamp(1.7rem, 5vw, 2.4rem); margin-bottom: 2rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .detail-key { min-width: 80px; font-size: 0.62rem; }
-      .detail-val { font-size: 0.85rem; }
-
-      /* Experience */
-      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; padding: 1.8rem 0; }
-      .exp-left { flex-direction: row; justify-content: flex-start; gap: 0.8rem; align-items: center; }
-      .exp-date { text-align: left; }
-      .exp-right h3 { font-size: 1rem; }
-      .exp-right p { font-size: 0.83rem; }
-
-      /* Projects */
-      .projects-grid { grid-template-columns: 1fr; gap: 1px; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
       .card-thumb { height: 160px; }
-      .card-body { padding: 1.4rem 1.2rem 1.6rem; }
-      .project-card h3 { font-size: 1rem; }
-      .project-card p { font-size: 0.82rem; }
-
-      /* Skills */
-      .skills-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .skill-bar { width: 80px; }
-
-      /* Education */
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       .edu-grid { grid-template-columns: 1fr; }
-      .edu-card { padding: 1.8rem 1.4rem; }
-
-      /* Contact */
-      .contact-links { flex-direction: column; align-items: center; gap: 0.7rem; }
-      .contact-pill { width: 100%; max-width: 320px; justify-content: center; }
-      #contact .btn-primary { width: 100%; max-width: 320px; justify-content: center; }
-
-      /* Footer */
-      footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; padding: 1.8rem 0; }
+      .exp-left { flex-direction: row; gap: 0.8rem; align-items: center; }
+      .contact-links { flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
+      footer { padding: 1.5rem 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
     }
 
-    /* ── Expand button ── */
+    /* ── MOBILE — up to 479px ── */
+    @media (max-width: 479px) {
+      nav { padding: 0.9rem 1.1rem; }
+      section { padding: 3rem 1.1rem; }
+      #hero { padding: 6.5rem 1.1rem 3rem; }
+      h1 { font-size: clamp(2.4rem, 13vw, 3.2rem); line-height: 1.05; }
+      .hero-sub { font-size: 0.84rem; }
+      .hero-cta { flex-direction: column; gap: 0.6rem; }
+      .hero-cta a { width: 100%; text-align: center; justify-content: center; padding: 0.85rem 1.2rem; }
+      h2 { font-size: clamp(1.5rem, 7vw, 2rem); margin-bottom: 1.6rem; }
+      .section-label { font-size: 0.6rem; }
+      .about-grid { gap: 1.8rem; }
+      .detail-key { min-width: 75px; font-size: 0.6rem; }
+      .detail-val { font-size: 0.82rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .card-thumb { height: 180px; }
+      .card-body { padding: 1.2rem 1rem 1.4rem; }
+      .project-card h3 { font-size: 0.95rem; }
+      .project-card p { font-size: 0.8rem; }
+      .ptag { font-size: 0.58rem; padding: 0.2rem 0.5rem; }
+      .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .skill-bar { width: 70px; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .edu-card { border-radius: 6px; }
+      .exp-item { padding: 1.5rem 0; }
+      .exp-logo { width: 48px; height: 48px; }
+      .exp-right h3 { font-size: 0.95rem; }
+      .exp-right p { font-size: 0.82rem; }
+      .exp-tags { gap: 0.3rem; }
+      .exp-tag { font-size: 0.58rem; padding: 0.15rem 0.5rem; }
+      .contact-links { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+      .contact-pill { width: 100%; justify-content: center; }
+      #contact .btn-primary { width: 100%; justify-content: center; }
+      footer { padding: 1.2rem 1.1rem; font-size: 0.7rem; }
+    }
+
+        /* ── Expand button ── */
     .projects-expand-wrap {
       display: flex;
       justify-content: center;
@@ -592,12 +620,7 @@
     body.light .nav-cv:hover { background: var(--accent2) !important; color: #f5f9ff !important; }
     body.light .ptag { background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: rgba(10,61,57,0.75); }
     body.light .exp-tag { border-color: rgba(37,99,235,0.18); color: var(--muted); }
-    body.light .exp-logo-zonexus  { background: #dbeafe; color: #1d4ed8; }
-    body.light .exp-logo-bluegoji { background: #d1fae5; color: #065f46; }
-    body.light .exp-logo-kimm     { background: #ede9fe; color: #5b21b6; }
-    body.light .exp-logo-ksic     { background: #e0f2fe; color: #0369a1; }
-    body.light .exp-logo-roka     { background: #dcfce7; color: #166534; }
-    body.light .exp-logo-ku       { background: #fee2e2; color: #991b1b; }
+
     body.light .projects-expand-btn { border-color: rgba(37,99,235,0.25); color: var(--accent); }
     body.light .projects-expand-btn:hover { background: rgba(37,99,235,0.07); border-color: var(--accent); }
     body.light .contact-pill { border-color: rgba(37,99,235,0.2); color: var(--muted); }
@@ -630,7 +653,7 @@
   </div>
 
   <nav>
-    <a class="nav-logo" href="#hero">이기훈</a>
+    <a class="nav-logo" href="#hero">Ki-Hoon</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -646,9 +669,16 @@
       </li>
       <li><a href="Ki-Hoon_Lee_Resume.pdf" target="_blank" rel="noopener" class="nav-cv">↓ Resume</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-mobile-right">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
+        <span class="theme-toggle-knob"></span>
+        <span class="toggle-icon toggle-icon-moon">🌙</span>
+        <span class="toggle-icon toggle-icon-sun">☀️</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <section id="hero">
@@ -664,7 +694,7 @@
 
     <div class="hero-label">Mechanical Engineer · San Francisco Bay Area</div>
     <h1>KI-HOON<br><span class="line2">LEE</span></h1>
-    <p class="hero-sub">MEng graduate from UC Berkeley specialising in electromechanical design, precision hardware, and embedded systems — from vacuum-compatible instruments to omnidirectional treadmills.</p>
+    <p class="hero-sub">MEng graduate from UC Berkeley specialising in electromechanical design, precision hardware, and embedded systems — from electron microscopy instruments to omnidirectional treadmills.</p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">View Projects ↓</a>
       <a href="Ki-Hoon_Lee_Resume.pdf" target="_blank" rel="noopener" class="btn-tiffany">View Resume ↗</a>
@@ -680,7 +710,7 @@
     <div class="about-grid reveal">
       <div class="about-text">
         <p>I'm a mechanical engineer with an MEng from <span>UC Berkeley</span> and a BEng from the <span>University of Bath</span>, currently working at <span>ZoNexus LLC</span> on ultra-high precision electromechanical systems in collaboration with <em>Lawrence Berkeley National Lab</em>.</p>
-        <p>My work spans the full product lifecycle — from first concept sketches to vacuum-compatible prototypes, tight-tolerance CNC components (&lt;0.0002"), and custom PCB-driven control systems. I thrive at the intersection of <span>mechanical design and embedded electronics</span>.</p>
+        <p>My work spans the full product lifecycle — from first concept sketches to electron microscopy-compatible hardware, precision CNC components, and custom PCB-driven control systems. I thrive at the intersection of <span>mechanical design and embedded electronics</span>.</p>
         <p>Raised across continents, shaped by military service on the Korean DMZ, and driven by a family legacy of humanitarian impact — I bring a global perspective and relentless work ethic to every engineering challenge I take on.</p>
       </div>
       <div class="about-details">
@@ -689,7 +719,7 @@
         <div class="detail-row"><span class="detail-key">Education</span><span class="detail-val">MEng UC Berkeley · BEng University of Bath</span></div>
         <div class="detail-row"><span class="detail-key">Specialisms</span><span class="detail-val">Electromechanical Design · FEA · Precision Fabrication · Embedded Systems</span></div>
         <div class="detail-row"><span class="detail-key">Languages</span><span class="detail-val">English · Korean (Fluent) · French (B2) · Chinese (HSK1)</span></div>
-        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="mailto:kihoon_lee@berkeley.edu?subject=Hey Ki-Hoon — Let's connect"><span class="__cf_email__" data-cfemail="95fefcfdfafafbcaf9f0f0d5f7f0e7fef0f9f0ecbbf0f1e0">kihoon_lee@berkeley.edu</span></a></span></div>
+        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val"><a href="#" data-mailto="1"><span class="email-text"></span></span></a></span></div>
         <div class="detail-row"><span class="detail-key">Resume</span><span class="detail-val"><a href="Ki-Hoon_Lee_Resume.pdf" target="_blank" rel="noopener">Download PDF ↓</a></span></div>
       </div>
     </div>
@@ -715,7 +745,7 @@
       </a>
 
       <a href="project-treadmill.html" class="project-card" data-num="02">
-        <div class="card-thumb"><img src="treadmill-1.jpg" alt="Omnidirectional Treadmill" /></div>
+        <div class="card-thumb"><img src="treadmill-team.jpg" alt="Omnidirectional Treadmill" /></div>
         <div class="card-body">
           <div class="project-num">02 / CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
           <h3>Omnidirectional Resistive Treadmill</h3>
@@ -725,7 +755,7 @@
       </a>
 
       <a href="project-gecko.html" class="project-card" data-num="03">
-        <div class="card-thumb"><img src="gecko-1.png" alt="Gecko Adhesion" /></div>
+        <div class="card-thumb" style="background:#ffffff;"><img src="gecko-1.png" alt="Gecko Adhesion" style="object-fit:contain; padding:1rem;" /></div>
         <div class="card-body">
           <div class="project-num">03 / NANOTECHNOLOGY · UC BERKELEY · ME218N</div>
           <h3>Gecko-Inspired Dry Adhesion via Magnetic CNT Alignment</h3>
@@ -780,7 +810,7 @@
       </a>
 
       <a href="project-tbh.html" class="project-card" data-num="08">
-        <div class="card-thumb"><img src="tbh-1.png" alt="Team Bath Heart" /></div>
+        <div class="card-thumb"><img src="tbh-2.png" alt="Team Bath Heart" /></div>
         <div class="card-body">
           <div class="project-num">08 / BIOMEDICAL · UNIVERSITY OF BATH</div>
           <h3>Team Bath Heart (TBH)</h3>
@@ -800,7 +830,7 @@
       </a>
 
       <a href="project-fea.html" class="project-card" data-num="10">
-        <div class="card-thumb"><img src="fea-1.png" alt="Finite Element Analysis" /></div>
+        <div class="card-thumb"><img src="fea-1.jpg" alt="Finite Element Analysis" /></div>
         <div class="card-body">
           <div class="project-num">10 / ACADEMIC · UNIVERSITY OF BATH</div>
           <h3>Finite Element Analysis</h3>
@@ -840,20 +870,20 @@
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-logo exp-logo-zonexus">ZNX</div>
+          <div class="exp-logo exp-logo-zonexus"><img src="logo-zonexus.jpg" alt="ZoNexus" /></div>
           <div class="exp-date">Jul 2025 – Present<br>Richmond, CA</div>
         </div>
         <div class="exp-right">
           <h3>Mechanical Design Engineer</h3>
           <div class="exp-company">ZONEXUS LLC</div>
-          <p>Full product lifecycle for precision vacuum-compatible subsystems. Integrated stepper motors, sensor arrays and custom PCBs; achieved tolerances &lt;0.0002" with GD&T-compliant drawings. Collaborated with Lawrence Berkeley National Lab.</p>
+          <p>Full product lifecycle for TEM and SEM sample holders and stages. Integrated stepper motors, Peltier cooling, and custom PCBs; produced GD&T-compliant drawings for precision electromechanical components. Collaborated with Lawrence Berkeley National Lab.</p>
           <div class="exp-tags"><span class="exp-tag">Electromechanical</span><span class="exp-tag">GD&T</span><span class="exp-tag">PCB Integration</span><span class="exp-tag">Vacuum Systems</span></div>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-logo exp-logo-bluegoji">BG</div>
+          <div class="exp-logo exp-logo-bluegoji"><img src="logo-bluegoji.jpg" alt="Blue Goji" /></div>
           <div class="exp-date">Sep 2024 – May 2025<br>Berkeley, CA</div>
         </div>
         <div class="exp-right">
@@ -866,7 +896,7 @@
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-logo exp-logo-kimm">KIMM</div>
+          <div class="exp-logo exp-logo-kimm"><img src="logo-kimm.jpg" alt="KIMM" /></div>
           <div class="exp-date">Aug – Nov 2020<br>Daejeon, Korea</div>
         </div>
         <div class="exp-right">
@@ -893,7 +923,7 @@
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-logo exp-logo-roka">ROK<br>Army</div>
+          <div class="exp-logo exp-logo-roka"><img src="logo-roka.jpg" alt="ROK Army" /></div>
           <div class="exp-date">Jan 2021 – Jun 2022<br>DMZ, Korea</div>
         </div>
         <div class="exp-right">
@@ -906,7 +936,7 @@
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-logo exp-logo-ku">KU</div>
+          <div class="exp-logo exp-logo-ku"><img src="logo-korea-uni.jpg" alt="Korea University" /></div>
           <div class="exp-date">Jul – Sep 2019<br>Seoul, Korea</div>
         </div>
         <div class="exp-right">
@@ -934,31 +964,31 @@
     <div class="skills-grid reveal">
       <div class="skill-group">
         <h4>Mechanical & Design</h4>
-        <div class="skill-item"><span class="skill-name">SolidWorks</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Autodesk Fusion / AutoCAD</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">GD&T / DFM / DFA / DOE</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">CNC Machining</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">3D Printing & Prototyping</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SolidWorks</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Autodesk Fusion / AutoCAD</span><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">GD&T / DFM / DFA / DOE</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">CNC Design for Manufacture</span><div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">3D Printing & Prototyping</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
       </div>
       <div class="skill-group">
         <h4>Simulation & Analysis</h4>
-        <div class="skill-item"><span class="skill-name">FEA (Nastran / ANSYS)</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Thermal Analysis</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">MATLAB / Simulink</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">LabVIEW</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">PID Control</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">FEA (Nastran / ANSYS)</span><div class="skill-bar"><div class="skill-fill" style="width:45%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Thermal Analysis</span><div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div></div>
+        
+        <div class="skill-item"><span class="skill-name">LabVIEW</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">PID Control</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
       </div>
       <div class="skill-group">
         <h4>Electrical & Hardware</h4>
-        <div class="skill-item"><span class="skill-name">PCB Design (KiCAD / EasyEDA)</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Embedded Systems (ESP32 / Arduino)</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Sensors & Actuators</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Vacuum / Cryogenic Systems</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Soldering & HW Assembly</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        
+        <div class="skill-item"><span class="skill-name">Embedded Systems (ESP32 / Arduino)</span><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Sensors & Actuators</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Vacuum / Cryogenic Systems</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Soldering & HW Assembly</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
       </div>
       <div class="skill-group">
         <h4>Software & Data</h4>
-        <div class="skill-item"><span class="skill-name">Python (TensorFlow / PyTorch / Pandas)</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Python (TensorFlow / PyTorch / Pandas)</span><div class="skill-bar"><div class="skill-fill" style="width:58%"></div></div></div>
         <div class="skill-item"><span class="skill-name">C++ (Arduino / ESP32)</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
         <div class="skill-item"><span class="skill-name">Machine Learning</span><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
         <div class="skill-item"><span class="skill-name">QGIS / Geospatial</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
@@ -991,12 +1021,12 @@
       </div>
 
       <div class="edu-card">
-        <div class="edu-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/4/44/University_of_Bath_logo.svg/320px-University_of_Bath_logo.svg.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #231f20;"></div>
+        <div class="edu-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/University_of_Bath_logo.svg/320px-University_of_Bath_logo.svg.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #231f20;"></div>
         <div class="edu-card-body">
           <div class="edu-year">Sep 2019 – Jun 2024 · Bath, UK</div>
           <h3>University of Bath</h3>
           <div class="edu-degree">BEng — Mechanical Engineering</div>
-          <div class="edu-gpa">GPA 4.0 / 4.0</div>
+          <div class="edu-gpa">2:1 Honours · 3.7/4.0 GPA equiv.</div>
           <div class="edu-tags">
             <span class="exp-tag">Solar UAV</span>
             <span class="exp-tag">FEA</span>
@@ -1015,7 +1045,7 @@
       <h2>Let's Build<br>Something Great</h2>
       <p>Open to collaborations, full-time roles, and interesting engineering challenges. Feel free to reach out.</p>
       <div class="contact-links">
-        <a href="mailto:kihoon_lee@berkeley.edu?subject=Hey Ki-Hoon — Let's connect" class="contact-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg><span class="__cf_email__" data-cfemail="3f54565750505160535a5a7f5d5a4d545a535a46115a5b4a">kihoon_lee@berkeley.edu</span></a>
+        <a href="#" data-mailto="1" class="contact-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg><span class="email-text"></span></span></a>
         <a href="https://www.linkedin.com/in/ki-hoon-lee/" target="_blank" class="contact-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           linkedin.com/in/ki-hoon-lee
@@ -1029,7 +1059,7 @@
           Download Resume
         </a>
       </div>
-      <a href="mailto:kihoon_lee@berkeley.edu?subject=Hey Ki-Hoon — Let's connect" class="btn-primary">Send a Message →</a>
+      <a href="#" data-mailto="1" class="btn-primary">Send a Message →</a>
     </div>
   </section>
 
@@ -1039,7 +1069,19 @@
   </footer>
 
   <script>
-    // ── THEME: run immediately to prevent flash ──
+    // Build email links — avoids Cloudflare obfuscation
+    document.addEventListener('DOMContentLoaded', function() {
+      var p = ['kihoon','_lee'], q = ['berke','ley','.edu'];
+      var u = p.join(''), d = q.join('');
+      var href = 'mail' + 'to:' + u + '@' + d;
+      document.querySelectorAll('[data-mailto]').forEach(function(el) {
+        el.href = href;
+        var t = el.querySelector('.email-text');
+        if (t) t.textContent = u + '@' + d;
+      });
+    });
+
+    // Apply saved theme before paint
     (function() {
       if (localStorage.getItem('khl-theme') === 'light') document.body.classList.add('light');
     })();
@@ -1051,7 +1093,7 @@
 
     function toggleMobileMenu() {
       var menu = document.getElementById('mobile-menu');
-      var btn  = document.getElementById('hamburger');
+      var btn = document.getElementById('hamburger');
       var open = menu.classList.toggle('open');
       btn.classList.toggle('open', open);
       document.body.style.overflow = open ? 'hidden' : '';
@@ -1059,9 +1101,9 @@
 
     function closeMobileMenu() {
       var menu = document.getElementById('mobile-menu');
-      var btn  = document.getElementById('hamburger');
+      var btn = document.getElementById('hamburger');
       if (menu) menu.classList.remove('open');
-      if (btn)  btn.classList.remove('open');
+      if (btn) btn.classList.remove('open');
       document.body.style.overflow = '';
     }
 
@@ -1095,10 +1137,11 @@
       arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
     }
 
-    window.addEventListener('resize', function() { if (window.innerWidth > 600) closeMobileMenu(); });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 600) closeMobileMenu();
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Scroll reveal
       var reveals = document.querySelectorAll('.reveal');
       reveals.forEach(function(el) { el.classList.add('hidden'); });
       var observer = new IntersectionObserver(function(entries) {
@@ -1111,7 +1154,6 @@
       }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
       reveals.forEach(function(el) { observer.observe(el); });
 
-      // Active nav highlight
       var sections = document.querySelectorAll('section[id]');
       var navLinks = document.querySelectorAll('.nav-links a');
       window.addEventListener('scroll', function() {

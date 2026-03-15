@@ -6,7 +6,7 @@
   <title>ZoNexus — Ki-Hoon Lee</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0d1520;
@@ -39,7 +39,14 @@
     h1, h2, h3, h4 { font-family: 'Libre Franklin', sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: var(--nav-bg); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: 'Jua', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.01em;
+      color: var(--accent);
+      text-decoration: none;
+    }
     .nav-right { display: flex; align-items: center; gap: 1.5rem; }
     .nav-back { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--accent2); }
@@ -58,7 +65,7 @@
         background: var(--muted);
         transition: left 0.32s cubic-bezier(.4,0,.2,1), background 0.32s;
       }
-    body.light    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
+    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
 
     /* Hero */
     .project-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
@@ -140,31 +147,85 @@
     body.light .my-contribution { background: rgba(37,99,235,0.04); }
     body.light .pnf-link { color: var(--accent); }
 
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .project-hero { padding: 7rem 1.5rem 3rem; }
-      .project-content { padding: 3rem 1.5rem; }
-      .product-grid { grid-template-columns: 1fr; }
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .image-grid-2 { grid-template-columns: 1fr; }
-      .project-nav-footer { padding: 2rem 1.5rem; }
-      .project-meta { gap: 1.5rem; }
+    .nav-mobile-right { display: none; align-items: center; }
+    @media (max-width: 767px) { .nav-mobile-right { display: flex; } }
+    /* ── RESPONSIVE ── */
+    @media (min-width: 1400px) {
+      .project-content { padding: 5rem 8rem; }
+      nav { padding: 1.2rem 8rem; }
     }
-    @media (max-width: 480px) {
-      .project-hero { padding: 6rem 1.2rem 2.5rem; }
-      .project-hero h1 { font-size: clamp(2rem, 10vw, 3rem); }
-      .project-content { padding: 2.5rem 1.2rem; }
+    @media (max-width: 1199px) {
+      nav { padding: 1.1rem 2.5rem; }
+      .project-hero { padding: 8rem 2.5rem 4rem; }
+      .project-content { padding: 4rem 2.5rem; }
+    }
+    @media (max-width: 959px) {
+      nav { padding: 1rem 1.8rem; }
+      .project-hero { padding: 7rem 1.8rem 3rem; }
+      .project-content { padding: 3.5rem 1.8rem; }
       .stats-row { grid-template-columns: 1fr 1fr; }
-      .stat-num { font-size: 1.5rem; }
-      .project-nav-footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 2rem 1.8rem; }
+      .project-meta { gap: 1.5rem; flex-wrap: wrap; }
+      .partner-bar { flex-wrap: wrap; gap: 0.8rem; }
+      .pdf-embed-wrap iframe { height: 420px; }
+    }
+    @media (max-width: 767px) {
+      .nav-back { font-size: 0.68rem; }
+      .project-hero { padding: 6.5rem 1.5rem 2.5rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .project-hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+      .project-meta { gap: 1rem; }
+      .meta-key { font-size: 0.6rem; }
+      .meta-val { font-size: 0.85rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 1.6rem; }
+      .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .compare-grid, .brake-grid { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 1.8rem 1.5rem; }
+      .pdf-embed-wrap iframe { height: 380px; }
+      .tags-row { gap: 0.4rem; }
+    }
+    @media (max-width: 479px) {
+      nav { padding: 0.9rem 1.1rem; }
+      .nav-logo { font-size: 1.1rem; }
+      .nav-back { font-size: 0.62rem; letter-spacing: 0.04em; }
+      .project-hero { padding: 6rem 1.1rem 2rem; min-height: auto; }
+      .project-hero h1 { font-size: clamp(1.8rem, 11vw, 2.8rem); margin-bottom: 1rem; }
+      .project-category { font-size: 0.6rem; letter-spacing: 0.1em; }
+      .project-meta { gap: 0.8rem; }
+      .meta-key { font-size: 0.56rem; }
+      .meta-val { font-size: 0.8rem; }
+      .project-content { padding: 2.5rem 1.1rem; }
+      h2 { font-size: 1.3rem; }
+      h3 { font-size: 1rem; }
+      p { font-size: 0.85rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 1.4rem; }
+      .stat-label { font-size: 0.58rem; }
+      .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .compare-grid, .brake-grid { grid-template-columns: 1fr; }
+      .spec-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+      .partner-bar { flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 1rem 1.2rem; }
+      .pdf-embed-wrap iframe { height: 300px; }
+      .project-nav-footer { padding: 1.4rem 1.1rem; flex-direction: column; gap: 1rem; text-align: center; }
       .pnf-center { display: none; }
+      .tag { font-size: 0.58rem; padding: 0.2rem 0.5rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex !important; }
+      .mobile-menu { display: block !important; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-logo" href="index.html">이기훈</a>
+    <a class="nav-logo" href="index.html">Ki-Hoon</a>
     <div class="nav-right">
       <a class="nav-back" href="index.html#projects">← Back to Projects</a>
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
@@ -198,7 +259,7 @@
         <div class="company-logo">ZoNexus</div>
         <div class="company-info">
           <div class="company-info-name">ZoNexus LLC · Richmond, California</div>
-          <div class="company-info-desc">Precision TEM/SEM instrumentation — sample holders, cryogenic stages, and vacuum-compatible transfer systems for electron microscopy research</div>
+          <div class="company-info-desc">Precision TEM/SEM instrumentation — sample holders, cryogenic stages, and air-free transfer systems for electron microscopy research</div>
         </div>
         <a class="company-link" href="https://www.zonexus.com" target="_blank" rel="noopener">zonexus.com ↗</a>
       </div>
@@ -256,7 +317,7 @@
       <h2>High Throughput Air-Free Transfer Holder</h2>
 
       <div class="image-full-wrap">
-        <img src="https://www.zonexus.com/Resources/airfreest.jpeg" alt="ZoNexus high throughput air-free transfer holder">
+        <img src="https://www.zonexus.com/Resources/aftsemredsize.jpeg" alt="ZoNexus high throughput air-free transfer holder">
         <div class="img-cap">ZoNexus high throughput air-free TEM holder — 3-sample capacity with clamshell loading design</div>
       </div>
 
@@ -264,7 +325,7 @@
 
       <div class="my-contribution">
         <div class="my-contribution-label">My Contribution</div>
-        <p>I designed and implemented a <strong>stepper motor-controlled positioning system</strong> for the sample stage, allowing the user to precisely select and position individual samples programmatically — enabling automated, reproducible sample switching without breaking the vacuum seal or exposing to air. The system supports both manual and motor-driven control modes.</p>
+        <p>I designed and implemented a <strong>stepper motor-controlled positioning system</strong> for the sample stage, allowing the user to precisely select and position individual samples programmatically — enabling automated, reproducible sample switching The system supports both manual and motor-driven control modes.</p>
       </div>
     </div>
 
@@ -296,7 +357,7 @@
       <h2>Air-Free Transfer Module for SEM/FIB</h2>
 
       <div class="image-full-wrap">
-        <img src="https://www.zonexus.com/Resources/airfreest.jpeg" alt="ZoNexus air-free transfer SEM/FIB module">
+        <img src="https://www.zonexus.com/Resources/aftsemredsize.jpeg" alt="ZoNexus air-free transfer SEM/FIB module">
         <div class="img-cap">ZoNexus air-free transfer module — US Patent US2021/03571A1</div>
       </div>
 
@@ -344,6 +405,19 @@
   </div>
 
   <script>
+
+    // Build email links dynamically to prevent Cloudflare obfuscation
+    document.addEventListener('DOMContentLoaded', function() {
+            var p = ['kihoon','_lee'], q = ['berke','ley','.edu'];
+      var u = p.join(''), d = q.join('');
+      var href = 'mail' + 'to:' + u + '@' + d;
+      document.querySelectorAll('[data-mailto]').forEach(function(el) {
+        el.href = href;
+        var t = el.querySelector('.email-text');
+        if (t) t.textContent = u + '@' + d;
+      });
+    });
+
     (function() {
       if (localStorage.getItem('khl-theme') === 'light') document.body.classList.add('light');
     })();

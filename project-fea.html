@@ -54,7 +54,14 @@
       background: var(--nav-bg); backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
-    .nav-logo { font-size: 1.15rem; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.01em;
+      color: var(--accent);
+      text-decoration: none;
+    }
     .nav-back { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--accent2); }
 
@@ -111,88 +118,74 @@
     .pnf-link:hover { color: var(--accent2); }
     .pnf-center { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: var(--border); letter-spacing: 0.1em; }
 
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .project-hero { padding: 7rem 1.5rem 3rem; }
-      .project-content { padding: 3rem 1.5rem; }
+    .nav-mobile-right { display: none; align-items: center; }
+    @media (max-width: 767px) { .nav-mobile-right { display: flex; } }
+    /* ── RESPONSIVE ── */
+    @media (min-width: 1400px) {
+      .project-content { padding: 5rem 8rem; }
+      nav { padding: 1.2rem 8rem; }
+    }
+    @media (max-width: 1199px) {
+      nav { padding: 1.1rem 2.5rem; }
+      .project-hero { padding: 8rem 2.5rem 4rem; }
+      .project-content { padding: 4rem 2.5rem; }
+    }
+    @media (max-width: 959px) {
+      nav { padding: 1rem 1.8rem; }
+      .project-hero { padding: 7rem 1.8rem 3rem; }
+      .project-content { padding: 3.5rem 1.8rem; }
       .stats-row { grid-template-columns: 1fr 1fr; }
-      .season-grid, .method-grid, .image-grid-3 { grid-template-columns: 1fr 1fr; }
-      .specs-grid, .image-grid-2 { grid-template-columns: 1fr; }
-      .project-nav-footer { padding: 2rem 1.5rem; }
+      .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 2rem 1.8rem; }
       .project-meta { gap: 1.5rem; flex-wrap: wrap; }
       .partner-bar { flex-wrap: wrap; gap: 0.8rem; }
-      .partner-link { margin-left: 0; }
       .pdf-embed-wrap iframe { height: 420px; }
-      .video-grid { grid-template-columns: 1fr !important; }
     }
-
-    @media (max-width: 480px) {
-      nav { padding: 0.9rem 1.2rem; }
-      .nav-logo { font-size: 1.15rem !important; font-size: 0.95rem; }
-      .nav-back { font-size: 0.65rem; letter-spacing: 0.04em; }
-      .project-hero { padding: 6rem 1.2rem 2.5rem; min-height: auto; }
-      .project-hero h1 { font-size: clamp(2rem, 10vw, 3rem); margin-bottom: 1.2rem; }
-      .project-category { font-size: 0.62rem; letter-spacing: 0.12em; }
-      .project-meta { gap: 1rem; flex-wrap: wrap; }
-      .meta-key { font-size: 0.58rem; }
-      .meta-val { font-size: 0.82rem; }
-      .project-content { padding: 2.5rem 1.2rem; }
-      h2 { font-size: 1.4rem; }
-      h3 { font-size: 1rem; }
-      p { font-size: 0.88rem; }
+    @media (max-width: 767px) {
+      .nav-back { font-size: 0.68rem; }
+      .project-hero { padding: 6.5rem 1.5rem 2.5rem; }
+      .project-content { padding: 3rem 1.5rem; }
+      .project-hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+      .project-meta { gap: 1rem; }
+      .meta-key { font-size: 0.6rem; }
+      .meta-val { font-size: 0.85rem; }
       .stats-row { grid-template-columns: 1fr 1fr; }
-      .stat-num { font-size: 1.5rem; }
-      .season-grid, .method-grid, .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
-      .specs-grid { grid-template-columns: 1fr; }
-      .spec-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; padding: 0.9rem 1.2rem; }
-      .partner-bar { flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 1rem 1.2rem; }
-      .partner-name { font-size: 1.1rem; }
-      .partner-link { margin-left: 0; }
-      .pdf-embed-wrap iframe { height: 340px; }
-      .project-nav-footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 1rem; text-align: center; }
-      .pnf-center { display: none; }
+      .stat-num { font-size: 1.6rem; }
+      .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .compare-grid, .brake-grid { grid-template-columns: 1fr; }
+      .project-nav-footer { padding: 1.8rem 1.5rem; }
+      .pdf-embed-wrap iframe { height: 380px; }
       .tags-row { gap: 0.4rem; }
-      .tag { font-size: 0.6rem; padding: 0.25rem 0.6rem; }
-      .video-grid { grid-template-columns: 1fr !important; }
     }
-
-    /* ── THEME TOGGLE ── */
-    .theme-toggle {
-      display: flex; align-items: center;
-      width: 52px; height: 26px; border-radius: 13px;
-      border: 1px solid var(--border); background: var(--card);
-      cursor: pointer; position: relative; padding: 0;
-      transition: background 0.35s, border-color 0.35s; flex-shrink: 0;
+    @media (max-width: 479px) {
+      nav { padding: 0.9rem 1.1rem; }
+      .nav-logo { font-size: 1.1rem; }
+      .nav-back { font-size: 0.62rem; letter-spacing: 0.04em; }
+      .project-hero { padding: 6rem 1.1rem 2rem; min-height: auto; }
+      .project-hero h1 { font-size: clamp(1.8rem, 11vw, 2.8rem); margin-bottom: 1rem; }
+      .project-category { font-size: 0.6rem; letter-spacing: 0.1em; }
+      .project-meta { gap: 0.8rem; }
+      .meta-key { font-size: 0.56rem; }
+      .meta-val { font-size: 0.8rem; }
+      .project-content { padding: 2.5rem 1.1rem; }
+      h2 { font-size: 1.3rem; }
+      h3 { font-size: 1rem; }
+      p { font-size: 0.85rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 1.4rem; }
+      .stat-label { font-size: 0.58rem; }
+      .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .compare-grid, .brake-grid { grid-template-columns: 1fr; }
+      .spec-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+      .partner-bar { flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 1rem 1.2rem; }
+      .pdf-embed-wrap iframe { height: 300px; }
+      .project-nav-footer { padding: 1.4rem 1.1rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .pnf-center { display: none; }
+      .tag { font-size: 0.58rem; padding: 0.2rem 0.5rem; }
     }
-    .theme-toggle:hover { border-color: var(--accent); }
-    .toggle-icon { position: absolute; font-size: 10px; line-height: 1; transition: opacity 0.3s; pointer-events: none; }
-    .toggle-icon-moon { left: 7px; opacity: 1; }
-    .toggle-icon-sun  { right: 7px; opacity: 0.35; }
-    body.light .toggle-icon-moon { opacity: 0.35; }
-    body.light .toggle-icon-sun  { opacity: 1; }
-          .theme-toggle-knob {
-        position: absolute; top: 4px; left: 3px;
-        width: 18px; height: 18px; border-radius: 50%;
-        background: var(--muted);
-        transition: left 0.32s cubic-bezier(.4,0,.2,1), background 0.32s;
-      }
-    body.light    body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
-    body.light .tag { background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: rgba(10,61,57,0.75); }
-    body.light .pnf-link { color: var(--accent); }
-    body.light .pnf-link:hover { color: var(--accent2); }
-    /* Hamburger for project pages */
-    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
-    .hamburger span { display: block; width: 100%; height: 1.5px; background: var(--muted); transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
-    .hamburger:hover span { background: var(--accent); }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 99; background: var(--surface); border-bottom: 1px solid var(--border); transform: translateY(-100%); transition: transform 0.35s cubic-bezier(.4,0,.2,1), background 0.35s; }
-    .mobile-menu.open { transform: translateY(0); }
-    .mobile-menu-inner { padding: 5rem 1.5rem 1.5rem; }
-    .mobile-menu-inner a { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.9rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu-inner a:hover { color: var(--accent); }
-    .mobile-menu-footer { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0 0; }
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .hamburger { display: flex !important; }
@@ -203,8 +196,15 @@
 <body>
 
   <nav>
-    <a class="nav-logo" href="index.html">이기훈</a>
+    <a class="nav-logo" href="index.html">Ki-Hoon</a>
     <a class="nav-back" href="index.html#projects">← Back to Projects</a>
+    <div class="nav-mobile-right">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+        <span class="theme-toggle-knob"></span>
+        <span class="toggle-icon toggle-icon-moon">🌙</span>
+        <span class="toggle-icon toggle-icon-sun">☀️</span>
+      </button>
+    </div>
   </nav>
 
   <div class="project-hero">
@@ -246,7 +246,7 @@
       <p>Three views were produced — full geometry, upper hook region, and lower curved section — allowing stress gradients to be examined at multiple scales for a thorough structural assessment.</p>
 
       <div class="image-grid-1">
-        <img src="fea-1.png" alt="Von Mises stress analysis of coat hanger in Autodesk Nastran" class="image-full">
+        <img src="fea-1.jpg" alt="Von Mises stress analysis of coat hanger in Autodesk Nastran" class="image-full">
       </div>
       <div class="image-caption">Shell Von Mises Stress contour plots — full view, hook detail and lower curve detail · Autodesk Nastran</div>
 
@@ -296,6 +296,19 @@
 
 
   <script>
+
+    // Build email links dynamically to prevent Cloudflare obfuscation
+    document.addEventListener('DOMContentLoaded', function() {
+            var p = ['kihoon','_lee'], q = ['berke','ley','.edu'];
+      var u = p.join(''), d = q.join('');
+      var href = 'mail' + 'to:' + u + '@' + d;
+      document.querySelectorAll('[data-mailto]').forEach(function(el) {
+        el.href = href;
+        var t = el.querySelector('.email-text');
+        if (t) t.textContent = u + '@' + d;
+      });
+    });
+
     (function() {
       if (localStorage.getItem('khl-theme') === 'light') document.body.classList.add('light');
     })();
