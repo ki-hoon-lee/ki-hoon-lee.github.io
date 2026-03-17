@@ -85,7 +85,7 @@
       font-weight: 400;
       font-size: 1.5rem;
       letter-spacing: 0.01em;
-      color: var(--accent);
+      color: #ffffff;
       text-decoration: none;
     }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
@@ -529,6 +529,7 @@
       left: 32px;
       background: var(--accent);
     }
+    body.light .nav-logo { color: #111111; }
     body.light .theme-toggle {
       background: rgba(37,99,235,0.1);
       border-color: rgba(37,99,235,0.3);
@@ -731,128 +732,167 @@
       <h2>Selected Work</h2>
     </div>
 
-    <!-- FEATURED: 3 cards always visible -->
-    <div class="projects-grid reveal">
+    <!-- ALL PROJECTS — hidden by default, shown via button -->
+    <div class="projects-grid reveal" id="all-projects-grid" style="display:none; margin-top:0;">
 
-      <a href="project-zonexus.html" class="project-card" data-num="01">
+      <!-- DESIGN -->
+      <div class="proj-cat-label proj-cat-full" style="grid-column:1/-1;">// Design</div>
+
+      <a href="project-zonexus.html" class="project-card">
         <div class="card-thumb" style="background:#0d1520;display:flex;align-items:center;justify-content:center;"><img src="https://www.zonexus.com/Resources/zonexus1.png" alt="ZoNexus TEM Holder" style="object-fit:contain;max-height:180px;padding:1rem;" /></div>
         <div class="card-body">
-          <div class="project-num">01 / PROFESSIONAL · ZONEXUS LLC · MECHANICAL DESIGN</div>
+          <div class="project-num">PROFESSIONAL · ZONEXUS LLC</div>
           <h3>Precision Instruments for Electron Microscopy</h3>
-          <p>Mechanical Design Engineer at ZoNexus. Designed 4 TEM/SEM product lines — adding MEMS biasing, stepper motor control, PID temperature controller, and biasing stub to precision vacuum instruments.</p>
-          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">GD&T</span><span class="ptag">PID Control</span><span class="ptag">Vacuum Systems</span><span class="ptag">LBNL</span></div>
+          <p>Mechanical Design Engineer at ZoNexus. Designed 4 TEM/SEM product lines — adding MEMS biasing, stepper motor control, PID temperature controller, and biasing stub.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">GD&T</span><span class="ptag">PID Control</span><span class="ptag">Vacuum Systems</span></div>
         </div>
       </a>
 
-      <a href="project-treadmill.html" class="project-card" data-num="02">
+      <a href="project-treadmill.html" class="project-card">
         <div class="card-thumb"><img src="treadmill-team.jpg" alt="Omnidirectional Treadmill" /></div>
         <div class="card-body">
-          <div class="project-num">02 / CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
+          <div class="project-num">CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
           <h3>Omnidirectional Resistive Treadmill</h3>
-          <p>Passive omnidirectional treadmill for rehabilitation and VR in partnership with Blue Goji®. Hybrid braking system reduced BOM by 50%. Validated via FEA and demonstrated at UC Berkeley Demo Day.</p>
+          <p>Passive omnidirectional treadmill for rehabilitation and VR in partnership with Blue Goji®. Hybrid braking system reduced BOM by 50%.</p>
           <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FEA</span><span class="ptag">CNC Machining</span><span class="ptag">Blue Goji®</span></div>
         </div>
       </a>
 
-      <a href="project-uav.html" class="project-card" data-num="03">
-        <div class="card-thumb"><img src="uav-1.jpg" alt="Solar UAV" /></div>
+      <a href="project-gyro-watch.html" class="project-card">
+        <div class="card-thumb"><img src="gyro-watches.jpg" alt="Gyro Watch Winder" /></div>
         <div class="card-body">
-          <div class="project-num">03 / SIMULATION · UNIVERSITY OF BATH · FYP</div>
-          <h3>Solar UAV Flight Strategy Optimisation</h3>
-          <p>Final year BEng project with Limosaero. Built a 2-DOF Python flight simulator using real BBC Weather cloud imagery — achieving +313km range gain.</p>
-          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">NumPy</span><span class="ptag">OpenCV</span><span class="ptag">Trajectory Optimisation</span><span class="ptag">Limosaero</span></div>
+          <div class="project-num">PERSONAL · ELECTRONICS · 3D PRINTING</div>
+          <h3>Gyro Watch Winder</h3>
+          <p>Custom-built automatic watch winder using a stepper motor, Arduino, and 3D-printed enclosure. Keeps mechanical watches wound without wearing them.</p>
+          <div class="project-tags"><span class="ptag">Arduino</span><span class="ptag">Stepper Motor</span><span class="ptag">3D Printing</span><span class="ptag">CAD</span></div>
         </div>
       </a>
 
-    </div>
-
-    <!-- HIDDEN: remaining 8 cards -->
-    <div class="projects-grid projects-extra" id="projects-extra" style="display:none; margin-top:1.5px;">
-
-      <a href="project-gecko.html" class="project-card" data-num="04">
-        <div class="card-thumb"><img src="gecko-1.png" alt="Gecko Adhesion" /></div>
-        <div class="card-body">
-          <div class="project-num">04 / NANOTECHNOLOGY · UC BERKELEY · ME218N</div>
-          <h3>Gecko-Inspired Dry Adhesion via Magnetic CNT Alignment</h3>
-          <p>Magnetically aligned Fe₃O₄-embedded MWCNTs achieving 471,000 N/m² theoretical pull-off force — 2.3× improvement over random CNTs.</p>
-          <div class="project-tags"><span class="ptag">Nanotechnology</span><span class="ptag">Carbon Nanotubes</span><span class="ptag">JKR Theory</span><span class="ptag">Python</span></div>
-        </div>
-      </a>
-
-      <a href="project-goale.html" class="project-card" data-num="05">
-        <div class="card-thumb"><img src="goale-gui.jpg" alt="GoalE System" /></div>
-        <div class="card-body">
-          <div class="project-num">05 / EMBEDDED SYSTEMS · UC BERKELEY · ME235</div>
-          <h3>GoalE: Autonomous Ball Tracking System</h3>
-          <p>Real-time robotic goalkeeper using 4 ultrasonic sensors, least-squares triangulation and a servo actuator on an ESP32 with four parallel FreeRTOS tasks.</p>
-          <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">C / FreeRTOS</span><span class="ptag">LabVIEW</span><span class="ptag">Sensor Fusion</span></div>
-        </div>
-      </a>
-
-      <a href="project-ml.html" class="project-card" data-num="06">
-        <div class="card-thumb"><img src="ml-thumb.svg" alt="Machine Learning" /></div>
-        <div class="card-body">
-          <div class="project-num">06 / MACHINE LEARNING · UC BERKELEY · MECHENG 249</div>
-          <h3>Soccer Player Market Valuation via Neural Networks</h3>
-          <p>Two-programme ML study predicting player market values. Scaled to 5,000+ FIFA24 players with PCA dimensionality reduction — final MAE of $784,237.</p>
-          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Keras / TensorFlow</span><span class="ptag">PCA</span><span class="ptag">Neural Networks</span></div>
-        </div>
-      </a>
-
-      <a href="project-photovoltaic.html" class="project-card" data-num="07">
-        <div class="card-thumb"><img src="pv-thumb.svg" alt="Photovoltaic Farm" /></div>
-        <div class="card-body">
-          <div class="project-num">07 / RENEWABLE ENERGY · UC BERKELEY · ME GRADUATE</div>
-          <h3>Solar PV Farm Optimisation: TEGs, Cooling &amp; Wind</h3>
-          <p>Two-part Python simulation comparing TEG heat harvesting vs active cooling. Head-to-head solar vs wind across Bath, Seoul and Berkeley using real TMY data.</p>
-          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">pvlib</span><span class="ptag">TEG Modelling</span><span class="ptag">Renewable Energy</span></div>
-        </div>
-      </a>
-
-      <a href="project-tbh.html" class="project-card" data-num="08">
+      <a href="project-tbh.html" class="project-card">
         <div class="card-thumb"><img src="tbh-2.png" alt="Team Bath Heart" /></div>
         <div class="card-body">
-          <div class="project-num">08 / BIOMEDICAL · UNIVERSITY OF BATH</div>
+          <div class="project-num">BIOMEDICAL · UNIVERSITY OF BATH</div>
           <h3>Team Bath Heart (TBH)</h3>
           <p>CAD lead on a mechanical heart prototype for real patient implantation. Achieved 35N pumping force across 4 prototype iterations.</p>
           <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Biomedical</span><span class="ptag">ISO 13485</span><span class="ptag">GD&T</span></div>
         </div>
       </a>
 
-      <a href="project-machine-design.html" class="project-card" data-num="09">
-        <div class="card-thumb"><img src="machine-1.png" alt="Carbon Fibre Machine" /></div>
-        <div class="card-body">
-          <div class="project-num">09 / ACADEMIC · UNIVERSITY OF BATH</div>
-          <h3>Carbon Fibre Eco-Brick Machine</h3>
-          <p>Supply chain design for recycling shredded carbon fibre into eco-bricks. Full lifecycle including FMECA reliability analysis and gravity-driven production line.</p>
-          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FMECA</span><span class="ptag">UML</span><span class="ptag">Reliability Eng.</span></div>
-        </div>
-      </a>
-
-      <a href="project-fea.html" class="project-card" data-num="10">
-        <div class="card-thumb"><img src="fea-1.jpg" alt="Finite Element Analysis" /></div>
-        <div class="card-body">
-          <div class="project-num">10 / ACADEMIC · UNIVERSITY OF BATH</div>
-          <h3>Finite Element Analysis</h3>
-          <p>Structural stress analysis of a door coat hanger using Autodesk Nastran. Identified peak stress of 245.1 MPa and max deformation of 3.71 mm.</p>
-          <div class="project-tags"><span class="ptag">Autodesk Nastran</span><span class="ptag">Von Mises</span><span class="ptag">Shell Elements</span></div>
-        </div>
-      </a>
-
-      <a href="project-jar-opener.html" class="project-card" data-num="11">
+      <a href="project-jar-opener.html" class="project-card">
         <div class="card-thumb"><img src="jar-1.jpg" alt="Jar Opening Device" /></div>
         <div class="card-body">
-          <div class="project-num">11 / ACADEMIC · UNIVERSITY OF BATH</div>
+          <div class="project-num">ACADEMIC · UNIVERSITY OF BATH</div>
           <h3>Jar Opening Device</h3>
           <p>Mechanical jar opener designed to minimise torque input for individuals with arthritis. Full design lifecycle from Pugh's Matrix through CAD and eco audit.</p>
           <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">Pugh's Matrix</span><span class="ptag">DFM</span><span class="ptag">Eco Audit</span></div>
         </div>
       </a>
 
-      <a href="project-gyro-watch.html" class="project-card" data-num="12">
+      <!-- SIMULATION & SOFTWARE -->
+      <div class="proj-cat-label proj-cat-full" style="grid-column:1/-1; margin-top:2rem;">// Simulation & Software</div>
+
+      <a href="project-uav.html" class="project-card">
+        <div class="card-thumb"><img src="uav-1.jpg" alt="Solar UAV" /></div>
+        <div class="card-body">
+          <div class="project-num">SIMULATION · UNIVERSITY OF BATH · FYP</div>
+          <h3>Solar UAV Flight Strategy Optimisation</h3>
+          <p>Final year BEng project with Limosaero. Built a 2-DOF Python flight simulator using real BBC Weather cloud imagery — achieving +313km range gain.</p>
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">NumPy</span><span class="ptag">OpenCV</span><span class="ptag">Limosaero</span></div>
+        </div>
+      </a>
+
+      <a href="project-photovoltaic.html" class="project-card">
+        <div class="card-thumb"><img src="pv-thumb.svg" alt="Photovoltaic Farm" /></div>
+        <div class="card-body">
+          <div class="project-num">RENEWABLE ENERGY · UC BERKELEY</div>
+          <h3>Solar PV Farm Optimisation: TEGs, Cooling & Wind</h3>
+          <p>Two-part Python simulation comparing TEG heat harvesting vs active cooling across Bath, Seoul and Berkeley using real TMY data.</p>
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">pvlib</span><span class="ptag">TEG Modelling</span><span class="ptag">Renewable Energy</span></div>
+        </div>
+      </a>
+
+      <a href="project-ml.html" class="project-card">
+        <div class="card-thumb"><img src="ml-thumb.svg" alt="Machine Learning" /></div>
+        <div class="card-body">
+          <div class="project-num">MACHINE LEARNING · UC BERKELEY</div>
+          <h3>Soccer Player Market Valuation via Neural Networks</h3>
+          <p>Two-programme ML study predicting player market values — final MAE of $784,237 across 5,000+ FIFA24 players.</p>
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Keras / TensorFlow</span><span class="ptag">PCA</span><span class="ptag">Neural Networks</span></div>
+        </div>
+      </a>
+
+      <a href="project-goale.html" class="project-card">
+        <div class="card-thumb"><img src="goale-gui.jpg" alt="GoalE System" /></div>
+        <div class="card-body">
+          <div class="project-num">EMBEDDED SYSTEMS · UC BERKELEY</div>
+          <h3>GoalE: Autonomous Ball Tracking System</h3>
+          <p>Real-time robotic goalkeeper using 4 ultrasonic sensors, least-squares triangulation and a servo actuator on an ESP32 with four parallel FreeRTOS tasks.</p>
+          <div class="project-tags"><span class="ptag">ESP32</span><span class="ptag">C / FreeRTOS</span><span class="ptag">LabVIEW</span><span class="ptag">Sensor Fusion</span></div>
+        </div>
+      </a>
+
+      <a href="project-fea.html" class="project-card">
+        <div class="card-thumb"><img src="fea-1.jpg" alt="Finite Element Analysis" /></div>
+        <div class="card-body">
+          <div class="project-num">ACADEMIC · UNIVERSITY OF BATH</div>
+          <h3>Finite Element Analysis</h3>
+          <p>Structural stress analysis of a door coat hanger using Autodesk Nastran. Peak stress of 245.1 MPa and max deformation of 3.71 mm.</p>
+          <div class="project-tags"><span class="ptag">Autodesk Nastran</span><span class="ptag">Von Mises</span><span class="ptag">Shell Elements</span></div>
+        </div>
+      </a>
+
+      <!-- RESEARCH -->
+      <div class="proj-cat-label proj-cat-full" style="grid-column:1/-1; margin-top:2rem;">// Research</div>
+
+      <a href="project-gecko.html" class="project-card">
+        <div class="card-thumb"><img src="gecko-1.png" alt="Gecko Adhesion" /></div>
+        <div class="card-body">
+          <div class="project-num">NANOTECHNOLOGY · UC BERKELEY</div>
+          <h3>Gecko-Inspired Dry Adhesion via Magnetic CNT Alignment</h3>
+          <p>Magnetically aligned Fe₃O₄-embedded MWCNTs achieving 471,000 N/m² theoretical pull-off force — 2.3× improvement over random CNTs.</p>
+          <div class="project-tags"><span class="ptag">Nanotechnology</span><span class="ptag">Carbon Nanotubes</span><span class="ptag">JKR Theory</span><span class="ptag">Python</span></div>
+        </div>
+      </a>
+
+      <a href="project-machine-design.html" class="project-card">
+        <div class="card-thumb"><img src="machine-1.png" alt="Carbon Fibre Machine" /></div>
+        <div class="card-body">
+          <div class="project-num">ACADEMIC · UNIVERSITY OF BATH</div>
+          <h3>Carbon Fibre Eco-Brick Machine</h3>
+          <p>Supply chain design for recycling shredded carbon fibre into eco-bricks. Full lifecycle including FMECA reliability analysis.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FMECA</span><span class="ptag">UML</span><span class="ptag">Reliability Eng.</span></div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- FEATURED 3 — always visible -->
+    <div class="projects-grid reveal" id="featured-projects-grid">
+
+      <a href="project-zonexus.html" class="project-card">
+        <div class="card-thumb" style="background:#0d1520;display:flex;align-items:center;justify-content:center;"><img src="https://www.zonexus.com/Resources/zonexus1.png" alt="ZoNexus TEM Holder" style="object-fit:contain;max-height:180px;padding:1rem;" /></div>
+        <div class="card-body">
+          <div class="project-num">01 / PROFESSIONAL · ZONEXUS LLC</div>
+          <h3>Precision Instruments for Electron Microscopy</h3>
+          <p>Mechanical Design Engineer at ZoNexus. Designed 4 TEM/SEM product lines — adding MEMS biasing, stepper motor control, PID temperature controller, and biasing stub.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">GD&T</span><span class="ptag">PID Control</span><span class="ptag">Vacuum Systems</span></div>
+        </div>
+      </a>
+
+      <a href="project-treadmill.html" class="project-card">
+        <div class="card-thumb"><img src="treadmill-team.jpg" alt="Omnidirectional Treadmill" /></div>
+        <div class="card-body">
+          <div class="project-num">02 / CAPSTONE · BLUE GOJI® · UC BERKELEY MENG</div>
+          <h3>Omnidirectional Resistive Treadmill</h3>
+          <p>Passive omnidirectional treadmill for rehabilitation and VR in partnership with Blue Goji®. Hybrid braking system reduced BOM by 50%.</p>
+          <div class="project-tags"><span class="ptag">SolidWorks</span><span class="ptag">FEA</span><span class="ptag">CNC Machining</span><span class="ptag">Blue Goji®</span></div>
+        </div>
+      </a>
+
+      <a href="project-gyro-watch.html" class="project-card">
         <div class="card-thumb"><img src="gyro-watches.jpg" alt="Gyro Watch Winder" /></div>
         <div class="card-body">
-          <div class="project-num">12 / PERSONAL · ELECTRONICS · 3D PRINTING</div>
+          <div class="project-num">03 / PERSONAL · ELECTRONICS · 3D PRINTING</div>
           <h3>Gyro Watch Winder</h3>
           <p>Custom-built automatic watch winder using a stepper motor, Arduino, and 3D-printed enclosure. Keeps mechanical watches wound without wearing them.</p>
           <div class="project-tags"><span class="ptag">Arduino</span><span class="ptag">Stepper Motor</span><span class="ptag">3D Printing</span><span class="ptag">CAD</span></div>
@@ -861,14 +901,16 @@
 
     </div>
 
-        <!-- EXPAND BUTTON -->
+    <!-- VIEW ALL BUTTON -->
     <div class="projects-expand-wrap reveal">
-      <button class="projects-expand-btn" id="projects-toggle" onclick="toggleProjects()">
+      <button class="projects-expand-btn" id="projects-toggle" onclick="toggleAllProjects(this)">
         <span id="toggle-label">View All Projects</span>
-        <span id="toggle-count" style="opacity:0.5;margin-left:0.5rem;font-size:0.85em">(+7 more)</span>
-        <span id="toggle-arrow">↓</span>
+        <span id="toggle-count" style="opacity:0.5;margin-left:0.5rem;font-size:0.85em">(+9 more)</span>
+        <span id="toggle-arrow" style="display:inline-block;transition:transform 0.3s;font-size:1rem;">↓</span>
       </button>
     </div>
+
+
   </section>
 
   <section id="experience">
@@ -1135,6 +1177,38 @@
         arrow.classList.remove('open');
         document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    }
+
+    function toggleAllProjects(btn) {
+      var all = document.getElementById('all-projects-grid');
+      var featured = document.getElementById('featured-projects-grid');
+      var label = document.getElementById('toggle-label');
+      var count = document.getElementById('toggle-count');
+      var arrow = document.getElementById('toggle-arrow');
+      var isHidden = all.style.display === 'none';
+      if (isHidden) {
+        all.style.display = 'grid';
+        featured.style.display = 'none';
+        label.textContent = 'Show Less';
+        count.style.display = 'none';
+        arrow.style.transform = 'rotate(180deg)';
+      } else {
+        all.style.display = 'none';
+        featured.style.display = 'grid';
+        label.textContent = 'View All Projects';
+        count.style.display = 'inline';
+        arrow.style.transform = '';
+      }
+    }
+
+    function toggleCat(id, btn) {
+      var extra = document.getElementById(id);
+      var label = btn.querySelector('.cat-btn-label');
+      var arrow = btn.querySelector('.cat-arrow');
+      var isHidden = extra.style.display === 'none';
+      extra.style.display = isHidden ? 'grid' : 'none';
+      label.textContent = isHidden ? 'Show Less' : 'Show More Design';
+      arrow.style.transform = isHidden ? 'rotate(180deg)' : '';
     }
 
     function toggleExp(btn) {

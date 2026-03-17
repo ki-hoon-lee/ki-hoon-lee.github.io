@@ -39,7 +39,7 @@
     body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: var(--nav-bg); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 1.5rem; letter-spacing: 0.01em; color: var(--accent); text-decoration: none; }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 1.5rem; letter-spacing: 0.01em; color: #ffffff; text-decoration: none; }
     .nav-back { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--accent2); }
 
@@ -121,6 +121,7 @@
     body.light .toggle-icon-sun  { opacity: 1; }
     .theme-toggle-knob { position: absolute; top: 4px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--muted); transition: left 0.32s cubic-bezier(.4,0,.2,1), background 0.32s; }
     body.light .theme-toggle-knob { top: 4px; left: 29px; background: var(--accent); }
+    body.light .nav-logo { color: #111111; }
     body.light .theme-toggle { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); }
   </style>
 </head>
@@ -197,27 +198,27 @@
       <div class="block-label">In Action</div>
       <h2>Build & Operation</h2>
 
-      <div class="video-grid">
-        <div class="video-wrapper">
-          <video controls playsinline muted loop>
-            <source src="gyro-winder1.mp4" type="video/mp4">
-          </video>
-          <div class="video-caption">Early motor and cradle rotation test</div>
-        </div>
-        <div class="video-wrapper">
-          <video controls playsinline muted loop>
-            <source src="gyro-winder2.mp4" type="video/mp4">
-          </video>
-          <div class="video-caption">Electronics assembly inside the printed base</div>
-        </div>
-      </div>
-
       <div class="video-single">
         <div class="video-wrapper">
           <video controls playsinline muted loop>
             <source src="gyro-winder3.mp4" type="video/mp4">
           </video>
           <div class="video-caption">Completed winder running — watch mounted and rotating</div>
+        </div>
+      </div>
+
+      <div class="video-grid" style="margin-top:1.5rem; max-width:60%; margin-left:auto; margin-right:auto;">
+        <div class="video-wrapper">
+          <video controls playsinline muted loop>
+            <source src="gyro-winder1.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Watches assembled from the collection</div>
+        </div>
+        <div class="video-wrapper">
+          <video controls playsinline muted loop>
+            <source src="gyro-winder2.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">More watches from the collection</div>
         </div>
       </div>
     </div>
