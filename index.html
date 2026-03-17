@@ -284,6 +284,8 @@
     /* PROJECTS */
     #projects { background: var(--surface); border-top: 1px solid var(--border); }
     .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
+    #projects-extra .projects-grid { background: var(--surface); }
+    #featured-grid { background: var(--surface); }
     .project-card { background: var(--card); position: relative; overflow: hidden; transition: background 0.3s; text-decoration: none; color: inherit; display: block; }
     .project-card:hover { background: #1c1c1c; }
     .project-card:hover::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
@@ -793,7 +795,7 @@
     <div id="projects-extra" style="display:none;">
 
       <div class="cat-section-label">Simulation & Software</div>
-      <div class="projects-grid">
+      <div class="projects-grid" style="margin-top:0; background:var(--surface);">
 
         <a href="project-uav.html" class="project-card">
           <div class="card-thumb"><img src="uav-1.jpg" alt="Solar UAV" /></div>
@@ -848,7 +850,7 @@
       </div>
 
       <div class="cat-section-label">Research</div>
-      <div class="projects-grid">
+      <div class="projects-grid" style="margin-top:0; background:var(--surface);">
 
         <a href="project-gecko.html" class="project-card">
           <div class="card-thumb"><img src="gecko-1.png" alt="Gecko Adhesion" /></div>
